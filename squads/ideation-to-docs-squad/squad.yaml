@@ -1,0 +1,70 @@
+name: ideation-to-docs-squad
+version: 1.0.0
+description: >
+  Transforma transcrições de brainstorm/ideias em artefatos organizados:
+  ideation.json (dados), mapa mental (Mermaid), documento estruturado e outline
+  de apresentação. Foco em CLI-first e outputs reutilizáveis.
+author: leonardogazola
+license: MIT
+slashPrefix: ideation
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: ideation-orchestrator
+    name: Muse
+    file: agents/ideation-orchestrator.md
+    role: Ideation Organizer & Document Synthesizer
+    icon: "🧠"
+
+components:
+  tasks:
+    - ingest-transcript.md
+    - extract-ideas.md
+    - generate-mindmap.md
+    - export-visual.md
+    - push-visual.md
+    - draft-document.md
+    - prepare-presentation.md
+    - review-output.md
+  agents:
+    - ideation-orchestrator.md
+  workflows:
+    - ideation-to-docs-workflow.md
+  checklists:
+    - ideation-output-checklist.md
+  templates:
+    - mindmap-mermaid-tmpl.md
+    - ideation-json-tmpl.json
+    - doc-outline-tmpl.md
+    - slides-outline-tmpl.md
+  tools: []
+  scripts:
+    - export-visual.js
+    - run-full-pipeline.js
+    - push-figma-direct.js
+    - push-figma.js
+    - push-miro.js
+    - push-webhook.js
+
+config:
+  extends: extend
+  coding-standards: config/standards.md
+  tech-stack: config/tech-stack.md
+  source-tree: config/source-tree.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - ideation
+  - brainstorming
+  - mindmap
+  - mermaid
+  - documentation
+  - presentation
+

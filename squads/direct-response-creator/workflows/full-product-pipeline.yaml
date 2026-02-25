@@ -1,0 +1,143 @@
+name: full-product-pipeline
+version: 1.0.0
+description: >
+  Pipeline completo de criação de produto Direct Response.
+  Recebe texto de entrada e produz: análise de mercado, avatar profundo, oferta,
+  USP, upsell, TSL, headlines, scripts de vídeo (on-demand), emails (on-demand) e FAQs.
+squad: direct-response-creator
+
+phases:
+  - id: core
+    name: "Núcleo (obrigatório)"
+    description: "Análise e estruturação do produto — deve rodar sempre, em ordem"
+    steps:
+      - id: step-1
+        name: "Intake"
+        agent: rex
+        task: intake.md
+        input: "Texto de entrada fornecido pelo usuário"
+        output: "outputs/{slug}.md criado com Seção 1 preenchida"
+        checkpoint: false
+
+      - id: step-2
+        name: "Análise Parasita"
+        agent: rex
+        task: run-parasita.md
+        input: "outputs/{slug}.md Seção 1"
+        output: "outputs/{slug}.md Seção 2 preenchida"
+        depends_on: step-1
+        checkpoint: false
+
+      - id: step-3
+        name: "Extração de Avatar"
+        agent: psyche
+        task: extract-avatar.md
+        input: "outputs/{slug}.md Seção 2"
+        output: "outputs/{slug}.md Seção 3 preenchida"
+        depends_on: step-2
+        checkpoint: true
+        checkpoint_details: "Checkpoint 1 — Judge valida avatar antes de prosseguir"
+
+      - id: step-4
+        name: "Construção da Oferta"
+        agent: vera
+        task: build-offer.md
+        input: "outputs/{slug}.md Seções 2-3"
+        output: "outputs/{slug}.md Seção 4 preenchida"
+        depends_on: step-3
+        checkpoint: false
+
+      - id: step-5
+        name: "USP + Unique Mechanism"
+        agent: vera
+        task: create-usp.md
+        input: "outputs/{slug}.md Seções 2-4"
+        output: "outputs/{slug}.md Seção 5 preenchida"
+        depends_on: step-4
+        checkpoint: false
+
+      - id: step-6
+        name: "Stack de Upsell"
+        agent: vera
+        task: create-upsell.md
+        input: "outputs/{slug}.md Seções 4-5"
+        output: "outputs/{slug}.md Seção 6 preenchida"
+        depends_on: step-5
+        checkpoint: false
+
+  - id: production
+    name: "Produção (on-demand)"
+    description: "Módulos de produção de copy — ativados pelo usuário"
+    depends_on_phase: core
+    steps:
+      - id: step-7
+        name: "Carta de Vendas (TSL)"
+        agent: quill
+        task: create-tsl.md
+        input: "outputs/{slug}.md Seções 2-6"
+        output: "outputs/{slug}.md Seção 7 preenchida"
+        on_demand: false
+        recommended: true
+
+      - id: step-8
+        name: "20 Headlines"
+        agent: quill
+        task: create-headlines.md
+        input: "outputs/{slug}.md Seções 2-7"
+        output: "outputs/{slug}.md Seção 8 preenchida"
+        depends_on: step-7
+        on_demand: false
+        recommended: true
+
+      - id: step-9
+        name: "Scripts de Vídeo"
+        agent: reel
+        task: create-video-script.md
+        input: "outputs/{slug}.md Seções 2-6"
+        output: "outputs/{slug}.md Seção 9 — script adicionado"
+        on_demand: true
+        repeatable: true
+        note: "Pode ser executado múltiplas vezes — um por ângulo escolhido"
+
+      - id: step-10
+        name: "Emails Direct Response"
+        agent: spark
+        task: create-email.md
+        input: "outputs/{slug}.md Seções 2-6"
+        output: "outputs/{slug}.md Seção 10 — email adicionado"
+        on_demand: true
+        repeatable: true
+        note: "Pode ser executado múltiplas vezes — um por template escolhido"
+
+      - id: step-11
+        name: "FAQ"
+        agent: sage
+        task: create-faq.md
+        input: "outputs/{slug}.md Seções 2-7"
+        output: "outputs/{slug}.md Seção 11 preenchida"
+        on_demand: true
+
+  - id: quality
+    name: "Qualidade (checkpoints)"
+    description: "Revisão Judge — executada nos dois checkpoints"
+    steps:
+      - id: checkpoint-1
+        name: "Checkpoint 1 — Revisão de Avatar"
+        agent: judge
+        task: qa-review.md
+        scope: "Seção 3 — Avatar"
+        trigger: "Após step-3 (recomendado antes de step-4)"
+
+      - id: checkpoint-2
+        name: "Checkpoint 2 — Revisão Final"
+        agent: judge
+        task: qa-review.md
+        scope: "Todas as seções preenchidas"
+        trigger: "Após produção completa (recomendado antes de usar)"
+
+activation_shortcuts:
+  full: "@rex *intake → *analyze → @psyche *extract → @vera *build-offer → *create-usp → *create-upsell → @quill *write-tsl → *write-headlines"
+  core_only: "@rex *intake → *analyze → @psyche *extract → @vera *build-offer → *create-usp → *create-upsell"
+  video_only: "@reel *list-angles → *write-script {ângulo}"
+  email_only: "@spark *list-templates → *write-email {template}"
+  review_only: "@judge *review-all"

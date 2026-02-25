@@ -1,0 +1,81 @@
+name: pitch-investimento-squad
+version: 1.0.0
+description: >
+  Squad dedicado ao processo de captação de investimento da Innovatech Canhotos IA.
+  Meta: R$ 1.000.000 por 20% de equity. Cobre preparação de pitch, simulação de reuniões,
+  quebra de objeções, organização da due diligence e pesquisa de investidores-alvo.
+author: leonardogazola
+license: MIT
+slashPrefix: pitch
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: pitch-coach
+    name: Mentor
+    file: agents/pitch-coach.md
+    role: Treinador de Pitch para Investidores
+    icon: "🎯"
+
+  - id: objection-handler
+    name: Escudo
+    file: agents/objection-handler.md
+    role: Quebrador de Objeções de Investidores
+    icon: "🛡️"
+
+  - id: due-diligence-guardian
+    name: Arquivo
+    file: agents/due-diligence-guardian.md
+    role: Guardião da Due Diligence
+    icon: "🗄️"
+
+  - id: investor-researcher
+    name: Scout
+    file: agents/investor-researcher.md
+    role: Pesquisador de Investidores-Alvo
+    icon: "🔍"
+
+components:
+  tasks:
+    - pre-meeting-prep.md
+    - objection-drill.md
+    - document-status.md
+    - pitch-simulation.md
+  agents:
+    - pitch-coach.md
+    - objection-handler.md
+    - due-diligence-guardian.md
+    - investor-researcher.md
+  workflows:
+    - fundraising-workflow.md
+  checklists:
+    - due-diligence-checklist.md
+    - pitch-readiness-checklist.md
+  templates:
+    - investor-briefing-tmpl.md
+    - objection-response-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - innovatech-context.md
+    - investor-objections-db.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - investimento
+  - pitch
+  - fundraising
+  - saas
+  - b2b
+  - due-diligence
+  - objeções
+  - startup

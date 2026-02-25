@@ -1,0 +1,99 @@
+name: knowledge-refinery-squad
+version: 1.0.0
+description: >
+  Second Brain Manager: captura, organiza e reativa insights pessoais.
+  Sistema temporário que alimenta notas permanentes no Obsidian.
+
+  Funcionalidades:
+  - Captura rápida de bilhetes (ideias, reflexões, tarefas)
+  - Armazenamento temporário organizado por timeframe
+  - Reativação proativa (lembrar de coisas dormentes)
+  - Sugestões contextuais (conectar ideias relacionadas)
+  - Integração automática com Obsidian
+
+author: leonardogazola
+license: MIT
+slashPrefix: kb
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: archimedes
+    name: Archimedes
+    file: agents/archimedes.md
+    role: Second Brain Manager & Insight Curator
+    icon: "🧠"
+
+components:
+  agents:
+    - archimedes.md
+  tasks:
+    - capture-note.md
+    - review-inbox.md
+    - reactivate-insights.md
+    - archive-to-obsidian.md
+  templates:
+    - note-metadata-tmpl.md
+    - inbox-tmpl.md
+  scripts:
+    - sync-obsidian.js
+  data: []
+
+config:
+  obsidian:
+    vault_path: /Users/leonardogazola/Library/Mobile Documents/iCloud~md~obsidian/Documents/Leonardo Gazola
+    archive_root: Archive
+    capture_folder: 0-CAPTURE
+    inbox_3d_folder: 1-INBOX-3D
+    inbox_7d_folder: 2-INBOX-7D
+    archive_folder: 3-ARCHIVE
+    index_file: .archimedes-index.json
+    config_file: .archimedes-config.yaml
+
+  categories:
+    - Trabalho
+    - Pessoal
+    - Lazer
+    - Estudos
+    - Livros
+    - Aulas
+    # Aberto para novas categorias
+
+  timeframes:
+    - "1d"    # Últimas 24h
+    - "3d"    # Últimos 3 dias
+    - "7d"    # Últimos 7 dias
+    - "30d"   # Últimos 30 dias
+    - "all"   # Tudo
+
+  monitoring:
+    enabled: true
+    check_interval_ms: 60000  # 1 minuto
+    auto_sync_enabled: true
+    reactivation_threshold_days: 10  # Sugerir depois de 10 dias sem review
+
+pipeline_order:
+  core:
+    - capture → archimedes
+    - review → archimedes
+    - reactivate → archimedes
+    - archive → archimedes
+
+context_file: null
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+autoClaude:
+  version: "3.0"
+  defaultMode: collaborative
+  yoloMode: available_on_request
+  maxAutonomousSteps: 20
+  checkpointOn:
+    - note_captured
+    - inbox_reviewed
+    - insights_reactivated
+    - note_archived

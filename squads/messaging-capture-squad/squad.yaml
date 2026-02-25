@@ -1,0 +1,106 @@
+name: messaging-capture-squad
+version: 1.0.0
+description: >
+  Bot Telegram 24/7 para captura de mensagens e áudios com
+  transcrição gratuita (Groq Whisper) e sincronização automática
+  com o Obsidian via Archimedes (knowledge-refinery-squad).
+
+  Funcionalidades:
+  - Recebe texto e áudio pelo Telegram 24/7 (Railway)
+  - Transcreve áudios automaticamente via Groq Whisper (grátis)
+  - Roteia por #tags para categorias do Obsidian
+  - Fila persistente via canal privado Telegram
+  - Daemon local (launchd) sincroniza quando Mac está ligado
+
+author: leonardogazola
+license: MIT
+slashPrefix: mc
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: hermes
+    name: Hermes
+    file: agents/hermes.md
+    role: Messaging Capture & Routing Agent
+    icon: "📨"
+
+components:
+  agents:
+    - hermes.md
+  scripts:
+    - telegram-bot.js       # Bot principal (Railway)
+    - audio-transcriber.js  # Groq Whisper
+    - message-router.js     # Roteamento por #tags
+    - dispatcher.js         # Chama squad destino
+    - mac-sync-daemon.js    # Daemon local Mac
+  config:
+    - routes.yaml           # Mapa #tag → squad/categoria
+  deploy:
+    - railway.json          # Config Railway
+    - com.aios.messaging-sync.plist  # launchd Mac
+
+dependencies:
+  squads:
+    - knowledge-refinery-squad  # Destino padrão (Archimedes)
+  external:
+    - Telegram Bot API (gratuito)
+    - Groq API (gratuito, transcrição áudio)
+    - Railway (hospedagem, free tier)
+  node:
+    - dotenv
+
+config:
+  bot:
+    platform: telegram
+    hosting: railway
+    health_port: 3000
+    poll_interval_ms: 1500
+
+  transcription:
+    provider: groq
+    model: whisper-large-v3-turbo
+    language: pt
+    max_file_size_mb: 25
+
+  sync:
+    interval_minutes: 5
+    queue: telegram_channel
+    state_file: .sync-state.json
+
+  security:
+    restrict_to_owner: true   # Só o dono (MY_USER_ID) pode usar
+
+routing:
+  default:
+    squad: knowledge-refinery-squad
+    category: Estudos
+  tags:
+    "#nota": { squad: knowledge-refinery-squad, category: Estudos }
+    "#trabalho": { squad: knowledge-refinery-squad, category: Trabalho }
+    "#pessoal": { squad: knowledge-refinery-squad, category: Pessoal }
+    "#ideia": { squad: knowledge-refinery-squad, category: Estudos }
+    "#livro": { squad: knowledge-refinery-squad, category: Livros }
+    "#aula": { squad: knowledge-refinery-squad, category: Aulas }
+    "#lazer": { squad: knowledge-refinery-squad, category: Lazer }
+    "#reuniao": { squad: knowledge-refinery-squad, category: Trabalho }
+
+setup:
+  required_credentials:
+    - TELEGRAM_BOT_TOKEN      # @BotFather no Telegram
+    - TELEGRAM_MY_USER_ID     # @userinfobot no Telegram
+    - TELEGRAM_QUEUE_CHANNEL_ID  # Canal privado Telegram
+    - GROQ_API_KEY            # console.groq.com
+  required_accounts:
+    - Railway (railway.app — free tier)
+  optional:
+    - ffmpeg (brew install ffmpeg — melhora compatibilidade de áudio)
+
+docs:
+  setup_guide: Archive/3-ARCHIVE/Estudos/AIOS-Telegram-Setup.md  # Obsidian
+
+autoClaude:
+  version: "3.0"
+  defaultMode: autonomous

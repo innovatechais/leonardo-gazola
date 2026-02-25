@@ -1,0 +1,73 @@
+name: operacoes-canhotos-squad
+version: 1.0.0
+description: >
+  Squad de operações do produto Innovatech Canhotos IA. Garante que onboarding,
+  saúde dos clientes e documentação técnica funcionem sem Leonardo como ponto central.
+  Clientes atuais: Jaloto, Metaltintas, TareTar.
+author: leonardogazola
+license: MIT
+slashPrefix: ops
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: onboarding-guide
+    name: Guia
+    file: agents/onboarding-guide.md
+    role: Guia de Onboarding de Clientes
+    icon: "🚀"
+
+  - id: tech-architect
+    name: Arquiteto
+    file: agents/tech-architect.md
+    role: Arquiteto Técnico do Produto
+    icon: "⚙️"
+
+  - id: client-health-monitor
+    name: Sentinela
+    file: agents/client-health-monitor.md
+    role: Monitor de Saúde dos Clientes
+    icon: "💚"
+
+components:
+  tasks:
+    - onboarding-checklist.md
+    - generate-tech-doc.md
+    - client-health-report.md
+  agents:
+    - onboarding-guide.md
+    - tech-architect.md
+    - client-health-monitor.md
+  workflows:
+    - client-onboarding-workflow.md
+  checklists:
+    - onboarding-checklist.md
+    - erp-integration-checklist.md
+  templates:
+    - onboarding-plan-tmpl.md
+    - tech-doc-tmpl.md
+    - health-report-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - erp-integrations.md
+    - clients-profile.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - operações
+  - onboarding
+  - clientes
+  - canhotos
+  - erp
+  - saas
+  - suporte

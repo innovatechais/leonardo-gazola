@@ -1,0 +1,398 @@
+{
+  "meta": {
+    "session": "inovatec-2026-02-17",
+    "title": "Innovatech — Contexto, Empresa e Produtos",
+    "date": "2026-02-17",
+    "source": "áudio transcrito (colado em chat)",
+    "narrator": "Leonardo (fundador)",
+    "objective": "Gerar documentos base (substratos) da Innovatech para uso em treinamentos, onboarding, contexto para IA e copy do site institucional",
+    "audience": ["funcionários", "vendedores", "clientes", "investidores", "IAs"]
+  },
+
+  "topics": [
+    {
+      "id": "T1",
+      "label": "A empresa: Innovatech",
+      "subtopics": [
+        { "id": "T1.1", "label": "Fundadores e equipe" },
+        { "id": "T1.2", "label": "Localização e data" },
+        { "id": "T1.3", "label": "Missão e objetivo estratégico" },
+        { "id": "T1.4", "label": "Modelo de empresa (startup para venda)" }
+      ]
+    },
+    {
+      "id": "T2",
+      "label": "Jornada e história",
+      "subtopics": [
+        { "id": "T2.1", "label": "Início: anúncios e produtos digitais" },
+        { "id": "T2.2", "label": "Entrada em tecnologia e IA" },
+        { "id": "T2.3", "label": "Fase de hipóteses sem validação" },
+        { "id": "T2.4", "label": "Mentoria Founders Lendários" },
+        { "id": "T2.5", "label": "Conexão com Arilu e validação real" },
+        { "id": "T2.6", "label": "Reunião com Grupo Braveo" },
+        { "id": "T2.7", "label": "Recusa de investimento" },
+        { "id": "T2.8", "label": "Representante comercial e estruturação" }
+      ]
+    },
+    {
+      "id": "T3",
+      "label": "Ecossistema e parcerias",
+      "subtopics": [
+        { "id": "T3.1", "label": "EVOA (Clube)" },
+        { "id": "T3.2", "label": "Arilu" },
+        { "id": "T3.3", "label": "Grupo Braveo / Grupo Pátria" },
+        { "id": "T3.4", "label": "NS Tech" },
+        { "id": "T3.5", "label": "Investidores (grupo ligado à EVOA)" },
+        { "id": "T3.6", "label": "Representante comercial" }
+      ]
+    },
+    {
+      "id": "T4",
+      "label": "Produto: Evidex",
+      "subtopics": [
+        { "id": "T4.1", "label": "Origem e nome" },
+        { "id": "T4.2", "label": "Problema que resolve (dor central)" },
+        { "id": "T4.3", "label": "Como funciona (fluxo atual)" },
+        { "id": "T4.4", "label": "Tecnologia (multiagentes + automações)" },
+        { "id": "T4.5", "label": "Interface web" },
+        { "id": "T4.6", "label": "Modelo de negócio" },
+        { "id": "T4.7", "label": "Clientes-alvo e por quê" },
+        { "id": "T4.8", "label": "Visão de futuro" }
+      ]
+    },
+    {
+      "id": "T5",
+      "label": "Produto: iPro",
+      "subtopics": [
+        { "id": "T5.1", "label": "O que é" },
+        { "id": "T5.2", "label": "Como funciona" },
+        { "id": "T5.3", "label": "Público-alvo" },
+        { "id": "T5.4", "label": "Papel na empresa (geração de caixa)" }
+      ]
+    },
+    {
+      "id": "T6",
+      "label": "Nicho: cadeia de suprimentos / logística",
+      "subtopics": [
+        { "id": "T6.1", "label": "Estrutura do nicho (fabricante → distribuidor → cliente final)" },
+        { "id": "T6.2", "label": "Por que o nicho é perene" },
+        { "id": "T6.3", "label": "Grau de adoção tecnológica (baixo)" },
+        { "id": "T6.4", "label": "Jornada do motorista" },
+        { "id": "T6.5", "label": "O processo atual do canhoto" }
+      ]
+    },
+    {
+      "id": "T7",
+      "label": "Insight estratégico",
+      "subtopics": [
+        { "id": "T7.1", "label": "Dor vs. tecnologia (analogia rádio/TV)" },
+        { "id": "T7.2", "label": "O canhoto não é a dor; a prova de entrega é" }
+      ]
+    },
+    {
+      "id": "T8",
+      "label": "Necessidades e entregáveis",
+      "subtopics": [
+        { "id": "T8.1", "label": "Documentos base (substratos)" },
+        { "id": "T8.2", "label": "Copy do site institucional" },
+        { "id": "T8.3", "label": "Usos futuros dos substratos" }
+      ]
+    }
+  ],
+
+  "ideas": [
+    {
+      "id": "I01",
+      "type": "fato",
+      "topic": "T1.1",
+      "content": "A Innovatech foi fundada pelos irmãos Leonardo e Lorenzo.",
+      "quotes": ["a Innovatech é uma empresa que nasceu da cabeça de dois irmãos, que no caso sou eu, Leonardo, e o meu irmão Lorenzo"]
+    },
+    {
+      "id": "I02",
+      "type": "fato",
+      "topic": "T1.1",
+      "content": "Arthur entrou como terceiro sócio com 30% da empresa.",
+      "quotes": ["oferecemos pra ele 30% da empresa, obviamente, ali, pra ser nosso sócio"]
+    },
+    {
+      "id": "I03",
+      "type": "fato",
+      "topic": "T1.1",
+      "content": "Lorenzo atua na área comercial: vendas e relacionamento.",
+      "quotes": ["o Lorenzo, atualmente, ele trabalha na parte comercial, vendas e relacionamento"]
+    },
+    {
+      "id": "I04",
+      "type": "fato",
+      "topic": "T1.2",
+      "content": "Empresa localizada em Maringá, Paraná, Brasil.",
+      "quotes": ["esse áudio aqui tá sendo gravado numa terça-feira, dia 17 de fevereiro de 2026, em Maringá, no Brasil"]
+    },
+    {
+      "id": "I05",
+      "type": "fato",
+      "topic": "T1.3",
+      "content": "Objetivo estratégico: criar startup escalável, com receita recorrente, organizada com métricas para investidores, e vendável no futuro.",
+      "quotes": ["o nosso intuito, lá no primórdio, sempre foi ter uma startup... que pudesse ser vendável no futuro"]
+    },
+    {
+      "id": "I06",
+      "type": "fato",
+      "topic": "T2.4",
+      "content": "A equipe realizou a mentoria Founders Lendários (Academia Lendária): acompanhamento semanal ao vivo sobre criação de startups.",
+      "quotes": ["a gente comprou o especificamente o curso chamado Founders Lendários, que é uma mentoria, um acompanhamento, com aulas ao vivo semanais, para criação de startups"]
+    },
+    {
+      "id": "I07",
+      "type": "fato",
+      "topic": "T3.1",
+      "content": "A Innovatech é membro do Clube EVOA — hub de inovação e aceleradora de startups em Maringá.",
+      "quotes": ["a gente começou a fazer parte do Clube EVOA. A EVOA é uma aceleradora de startups aqui de Maringá, conceituada"]
+    },
+    {
+      "id": "I08",
+      "type": "fato",
+      "topic": "T3.1",
+      "content": "O Clube EVOA oferece: espaço físico de trabalho, salas de reunião, auditório, eventos (inclusive fora da cidade), networking com maiores empresas de Maringá.",
+      "quotes": ["você pode trabalhar lá, você pode reservar salas de reuniões, você pode reservar auditório pra fazer apresentações... as maiores empresas de Maringá estão na EVOA"]
+    },
+    {
+      "id": "I09",
+      "type": "fato",
+      "topic": "T3.2",
+      "content": "Arilu: grande distribuidora de Maringá. Lorenzo estabeleceu relacionamento com o dono via networking na EVOA.",
+      "quotes": ["ele acessou, através de networking, o dono de uma grande distribuidora, muito grande mesmo, aqui da região"]
+    },
+    {
+      "id": "I10",
+      "type": "fato",
+      "topic": "T3.3",
+      "content": "A Arilu foi adquirida pelo grupo Grupo Braveo (ligado ao Grupo Pátria) por bilhões.",
+      "quotes": ["essa transportadora, ela tinha sido comprada por um grupo extremamente gigantesco do Brasil, chamado Grupo Braveo, que pertence ao Grupo Pátria... eles compraram a Arilu por bilhões"]
+    },
+    {
+      "id": "I11",
+      "type": "fato",
+      "topic": "T3.3",
+      "content": "O Grupo Braveo é uma holding dona de várias transportadoras e distribuidoras (ex.: Unis).",
+      "quotes": ["esse Grupo Braveo... é como se fosse uma holding, que é dona de várias transportadoras e várias outras coisas"]
+    },
+    {
+      "id": "I12",
+      "type": "fato",
+      "topic": "T3.4",
+      "content": "A NS Tech é um conglomerado de soluções tecnológicas para o nicho de transporte/logística no Brasil. Toda a operação do Grupo Braveo roda com soluções da NS Tech.",
+      "quotes": ["a NS Tech, ela se tornou um grande conglomerado sólido de soluções para o nicho de transportadora... praticamente tudo, toda a operação da Grupo Braveo, roda com softwares e soluções da NS Tech"]
+    },
+    {
+      "id": "I13",
+      "type": "fato",
+      "topic": "T3.3",
+      "content": "O Grupo Braveo sinaliza: se o Evidex rodar bem na Arilu, querem para todo o grupo, possivelmente integrado ao ecossistema da NS Tech.",
+      "quotes": ["se rodasse bem na Arilu, eles iam querer pro grupo inteiro... a nossa tecnologia ou a nossa solução trabalhasse integrada na jornada do motorista"]
+    },
+    {
+      "id": "I14",
+      "type": "fato",
+      "topic": "T3.5",
+      "content": "Grupo de investidores (ligados à EVOA) ofereceu R$ 1M por 20% da empresa. A Innovatech recusou.",
+      "quotes": ["a gente chegou na mesa de investidores e conseguimos praticamente validar o investimento... a gente acabou desistindo, porque a gente não queria dar 20% pros caras"]
+    },
+    {
+      "id": "I15",
+      "type": "fato",
+      "topic": "T3.6",
+      "content": "Representante comercial contratado recentemente, com carteira de transportadoras/distribuidoras. Já realizando visitas e trazendo clientes.",
+      "quotes": ["encontramos agora, recentemente, um representante comercial, que já tá fazendo visitas, já tá trazendo clientes pra dentro"]
+    },
+    {
+      "id": "I16",
+      "type": "fato",
+      "topic": "T4.1",
+      "content": "Nome Evidex = Evidências + dex (rapidex em contexto brasileiro / express em inglês). Essência: evidências rápidas e confiáveis.",
+      "quotes": ["a essência do nosso produto é evidências rápidas e confiáveis, seguras... eu escolhi um nome que abarque toda essa essência"]
+    },
+    {
+      "id": "I17",
+      "type": "fato",
+      "topic": "T4.2",
+      "content": "A dor central não é o canhoto em si, mas a necessidade de provas de entrega confiáveis, rápidas e auditáveis.",
+      "quotes": ["o canhoto, ele é só um papel... O que é necessário, de fato, é a prova de entrega"]
+    },
+    {
+      "id": "I18",
+      "type": "fato",
+      "topic": "T4.3",
+      "content": "Fluxo atual do Evidex: motorista tira foto do canhoto → envia via WhatsApp → sistema lê com IA → valida dados (nome, nota, carimbo) → retorna em segundos → armazena tudo (foto + dados + placa + motorista).",
+      "quotes": ["o motorista tira foto desse canhoto no WhatsApp, o nosso sistema lê aquilo ali, devolve quase em poucos segundos... uma mensagem com todos aqueles dados"]
+    },
+    {
+      "id": "I19",
+      "type": "fato",
+      "topic": "T4.4",
+      "content": "Tecnologia: sistema multiagentes de IA + automações sem IA + banco de dados + VPS.",
+      "quotes": ["eu diria que é um sistema multiagentes, uma automação multiagentes de IA... tem mais de um agente atuando... existe automações também, não é só uma IA"]
+    },
+    {
+      "id": "I20",
+      "type": "fato",
+      "topic": "T4.5",
+      "content": "Interface web criada recentemente: visualização de transações, validações, data/hora, motorista, placa, foto do canhoto para auditoria.",
+      "quotes": ["hoje, já ver todas as transações que foram feitas... se quiser ver a foto do canhoto pra fazer uma auditoria, também tem"]
+    },
+    {
+      "id": "I21",
+      "type": "fato",
+      "topic": "T4.6",
+      "content": "Modelo de negócio: cobrança por volume de transações (ex.: R$ 0,50 por canhoto processado).",
+      "quotes": ["nós vamos cobrar, é, cinquenta centavos por canhoto... aí daria uma mensalidade"]
+    },
+    {
+      "id": "I22",
+      "type": "fato",
+      "topic": "T4.7",
+      "content": "Clientes-alvo: grandes distribuidoras/transportadoras com alto volume de entregas. Pequenos fretes não são o foco.",
+      "quotes": ["essas grandes empresas são o nosso cliente... eles têm um alto volume de entregas, logo, eles têm um alto volume de canhotos e de notas"]
+    },
+    {
+      "id": "I23",
+      "type": "fato",
+      "topic": "T4.7",
+      "content": "O Evidex já está rodando na Arilu.",
+      "quotes": ["ele já está rodando na Arilu, ele efetivamente tá rodando na Arilu"]
+    },
+    {
+      "id": "I24",
+      "type": "ideia",
+      "topic": "T4.8",
+      "content": "Visão de futuro: canhoto digital / assinatura eletrônica / plataforma conectando fabricante, distribuidor e cliente final.",
+      "quotes": ["eu tenho uma ideia de substituir... a possibilidade de canhotos digitais ou de uma validação... um software que conectasse todas as pontas ali"]
+    },
+    {
+      "id": "I25",
+      "type": "fato",
+      "topic": "T5.1",
+      "content": "O iPro é um CRM white label (licença comprada de terceiro) integrado ao WhatsApp, vendido sob a marca Innovatech.",
+      "quotes": ["ele é um software white label, que nós pagamos pra pôr a nossa marca... ele é um CRM integrado ao WhatsApp, bem robusto"]
+    },
+    {
+      "id": "I26",
+      "type": "fato",
+      "topic": "T5.2",
+      "content": "iPro faz: gestão de conversas, clientes, carteiras, vendedores, tags, automações, disparo de mensagens, rastreamento de anúncios.",
+      "quotes": ["você faz a gestão das suas conversas, dos seus clientes, das suas carteiras, dos seus vendedores, com tags, com automações, com disparo de mensagens... com trackeamento de anúncio"]
+    },
+    {
+      "id": "I27",
+      "type": "fato",
+      "topic": "T5.3",
+      "content": "O iPro tem clientes fora do nicho de transporte. Público: qualquer empresa com equipe comercial no WhatsApp.",
+      "quotes": ["alguns deles não têm nada a ver com a Evidex, eles nem são transportadoras"]
+    },
+    {
+      "id": "I28",
+      "type": "fato",
+      "topic": "T5.4",
+      "content": "O iPro foi adquirido para gerar caixa enquanto o Evidex maturava.",
+      "quotes": ["a gente comprou ele, em linhas gerais... pra dar saída, pra fazer fluxo, pra dar caixa, fazer caixa, levantar a empresa"]
+    },
+    {
+      "id": "I29",
+      "type": "fato",
+      "topic": "T6.2",
+      "content": "O nicho de cadeia de suprimentos/logística é perene: não morre com crises econômicas, políticas ou tecnológicas.",
+      "quotes": ["o nicho de transportadora, distribuidora, cadeia de suprimento... nunca vai morrer, ele é infinito, porque ele é estável, ele é sólido"]
+    },
+    {
+      "id": "I30",
+      "type": "fato",
+      "topic": "T6.3",
+      "content": "O nicho tem baixo grau de adoção tecnológica comparado a outros setores — grande espaço para inovação.",
+      "quotes": ["eles têm, em linhas gerais, um baixo grau de tecnologia... comparado com outros nichos, ainda, muita coisa pode ser desenvolvida"]
+    },
+    {
+      "id": "I31",
+      "type": "fato",
+      "topic": "T6.5",
+      "content": "Processo atual do canhoto: papel físico assinado/carimbado pelo destinatário, devolvido pelo motorista à sede — sujeito a perda, atraso e lançamento manual.",
+      "quotes": ["o motorista ele vai com a nota e um, uma canhoteira... o cliente final... assina e alguns colocam um carimbo... o motorista traz de volta este comprovante"]
+    },
+    {
+      "id": "I32",
+      "type": "decisão",
+      "topic": "T7.1",
+      "content": "Decisão estratégica: focar na dor (prova de entrega), não na tecnologia (canhoto/WhatsApp/IA), para garantir longevidade da empresa.",
+      "quotes": ["não se apaixone pela sua ferramenta, pela sua tecnologia, se apaixone pela dor que você soluciona"]
+    },
+    {
+      "id": "I33",
+      "type": "decisão",
+      "topic": "T8.2",
+      "content": "O site da Innovatech será apenas copy por seções, sem código. Não é site de venda — é apresentação institucional.",
+      "quotes": ["quando eu digo criar o site, na verdade, eu estou me referindo a criar a copy do site"]
+    },
+    {
+      "id": "I34",
+      "type": "decisão",
+      "topic": "T8.1",
+      "content": "Os documentos base (substratos) devem ser criados um por vez, sob comando explícito do Leonardo.",
+      "quotes": ["quando eu pedir, é pra criar apenas um documento por vez... sempre espere, aguarde os comandos explícitos"]
+    },
+    {
+      "id": "I35",
+      "type": "pergunta",
+      "topic": "T1.1",
+      "content": "Número exato de sócios: 3 ou 4? (mencionado das duas formas na transcrição)",
+      "quotes": ["com três sócios, com quatro sócios, na verdade"]
+    },
+    {
+      "id": "I36",
+      "type": "decisão",
+      "topic": "T3.1",
+      "content": "Grafia oficial padronizada: 'EVOA' — confirmado pelo fundador em 2026-02-17.",
+      "quotes": []
+    },
+    {
+      "id": "I37",
+      "type": "pergunta",
+      "topic": "T3.3",
+      "content": "Qual a relação exata entre Grupo Braveo e NS Tech? (parceria, participação societária, ou outro)",
+      "quotes": ["eu não sei exatamente como funciona, mas eles são um cliente diferente"]
+    },
+    {
+      "id": "I38",
+      "type": "pergunta",
+      "topic": "T3.3",
+      "content": "Qual a relação exata entre Grupo Braveo e Grupo Pátria?",
+      "quotes": ["que pertence ao Grupo Pátria, ou vice-versa, eu agora não me lembro exatamente"]
+    }
+  ],
+
+  "relations": [
+    { "from": "I07", "to": "I14", "type": "origem", "label": "Investidores encontrados via EVOA" },
+    { "from": "I07", "to": "I09", "type": "origem", "label": "Conexão com Arilu via networking na EVOA" },
+    { "from": "I09", "to": "I10", "type": "contexto", "label": "Arilu foi adquirida pelo Grupo Braveo" },
+    { "from": "I10", "to": "I12", "type": "relacionado", "label": "Grupo Braveo associado à NS Tech" },
+    { "from": "I10", "to": "I13", "type": "oportunidade", "label": "Grupo Braveo quer Evidex para todo o grupo" },
+    { "from": "I17", "to": "I16", "type": "fundamenta", "label": "A dor (prova de entrega) fundamenta o nome Evidex" },
+    { "from": "I17", "to": "I32", "type": "fundamenta", "label": "Insight dor vs. tecnologia fundamenta decisão estratégica" },
+    { "from": "I32", "to": "I24", "type": "implica", "label": "Foco na dor abre visão de futuro com tecnologias diferentes" },
+    { "from": "I18", "to": "I20", "type": "complementa", "label": "Interface web complementa o fluxo WhatsApp" },
+    { "from": "I28", "to": "I25", "type": "justifica", "label": "iPro comprado para gerar caixa (justifica existência)" },
+    { "from": "I06", "to": "I05", "type": "habilita", "label": "Mentoria habilitou clareza sobre modelo de startup" }
+  ],
+
+  "assumptions": [
+    "O número de sócios é provavelmente 3 (Leonardo, Lorenzo, Arthur) mais um 4º não nomeado — a confirmar.",
+    "A grafia oficial é 'EVOA' — confirmado pelo fundador em 2026-02-17.",
+    "O iPro não deve ser descrito como white label nos materiais de comunicação externa."
+  ],
+
+  "open_questions": ["I35", "I37", "I38"],
+
+  "next_steps": [
+    "Aguardar comando do Leonardo para criar doc #1: inovatec-identidade.md",
+    "Leonardo enviará documentos antigos da empresa para enriquecer contexto em sessões futuras"
+  ]
+}

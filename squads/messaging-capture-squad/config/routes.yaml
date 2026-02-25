@@ -1,0 +1,55 @@
+# ============================================
+# Roteamento de mensagens por #tag
+# ============================================
+# Formato: tag → squad destino + categoria
+
+default:
+  squad: knowledge-refinery-squad
+  action: capture
+  category: Estudos
+
+routes:
+  "#nota":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Estudos
+
+  "#trabalho":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Trabalho
+
+  "#pessoal":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Pessoal
+
+  "#ideia":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Estudos
+
+  "#livro":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Livros
+
+  "#aula":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Aulas
+
+  "#lazer":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Lazer
+
+  "#reuniao":
+    squad: knowledge-refinery-squad
+    action: capture
+    category: Trabalho
+
+# Para adicionar novas squads no futuro:
+# "#pm":
+#   squad: pm-squad
+#   action: capture-requirement

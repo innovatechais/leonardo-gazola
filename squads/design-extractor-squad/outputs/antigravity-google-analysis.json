@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "source": "https://antigravity.google/",
+    "captured_at": "2026-02-24T00:00:00.000Z",
+    "analyzer": "Lens",
+    "squad": "design-extractor-squad",
+    "name": "antigravity-google",
+    "notes": [
+      "Página é uma SPA (React/JS-rendered) — HTML inicial não contém elementos visuais",
+      "Análise complementada via CSS compilado do repositório de referência e web research",
+      "Fontes: variáveis de fonte via @font-face (Google Sans Flex, Google Sans Code, Google Symbols)",
+      "Design language: Material Design 3 / Google brand system"
+    ]
+  },
+  "colors": {
+    "brand": {
+      "google-blue": { "value": "#4285f4", "usage": "Primary CTA, links, interactive elements" },
+      "google-blue-dark": { "value": "#1967d2", "usage": "Hover/active state of primary blue" },
+      "google-green": { "value": "#34a853", "usage": "Success states, secondary actions" },
+      "google-yellow": { "value": "#fbbc04", "usage": "Warning, accent highlights" },
+      "google-red": { "value": "#ea4335", "usage": "Error states, destructive actions" }
+    },
+    "text": {
+      "primary": { "value": "#202124", "usage": "Headings, body text" },
+      "secondary": { "value": "#5f6368", "usage": "Subtext, descriptions" },
+      "tertiary": { "value": "#80868b", "usage": "Placeholders, disabled" }
+    },
+    "background": {
+      "primary": { "value": "#ffffff", "usage": "Main background" },
+      "surface": { "value": "#f8f9fa", "usage": "Cards, secondary sections" },
+      "dark": { "value": "#202124", "usage": "Dark mode background, footer" }
+    },
+    "semantic": {
+      "success": { "value": "#34a853" },
+      "warning": { "value": "#fbbc04" },
+      "error": { "value": "#ea4335" },
+      "info": { "value": "#4285f4" }
+    }
+  },
+  "typography": {
+    "families": {
+      "sans": {
+        "name": "Google Sans Flex",
+        "fallback": "Roboto, system-ui, -apple-system, sans-serif",
+        "variable": true,
+        "axes": { "weight": "400-500", "stretch": "25%-150%", "italic": "0-10deg" },
+        "source": "Google Fonts / gstatic.com (WOFF2)"
+      },
+      "code": {
+        "name": "Google Sans Code",
+        "fallback": "monospace",
+        "weights": [400],
+        "styles": ["normal", "italic"]
+      },
+      "icons": {
+        "name": "Google Symbols",
+        "weight": 300,
+        "size_base": "24px",
+        "class": ".google-symbols"
+      }
+    },
+    "scale": {
+      "xs":   { "size": "0.75rem",  "px": "12px" },
+      "sm":   { "size": "0.875rem", "px": "14px" },
+      "base": { "size": "1rem",     "px": "16px" },
+      "lg":   { "size": "1.125rem", "px": "18px" },
+      "xl":   { "size": "1.25rem",  "px": "20px" },
+      "2xl":  { "size": "1.5rem",   "px": "24px" },
+      "3xl":  { "size": "1.875rem", "px": "30px" },
+      "4xl":  { "size": "2.25rem",  "px": "36px" },
+      "5xl":  { "size": "3rem",     "px": "48px" }
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "line_heights": {
+      "tight": 1.25,
+      "snug": 1.375,
+      "normal": 1.5,
+      "relaxed": 1.625,
+      "loose": 2
+    }
+  },
+  "spacing": {
+    "base": "0.25rem",
+    "note": "4px grid system",
+    "scale": {
+      "xs":  { "value": "0.5rem",  "px": "8px" },
+      "sm":  { "value": "0.75rem", "px": "12px" },
+      "md":  { "value": "1rem",    "px": "16px" },
+      "lg":  { "value": "1.5rem",  "px": "24px" },
+      "xl":  { "value": "2rem",    "px": "32px" },
+      "2xl": { "value": "3rem",    "px": "48px" },
+      "3xl": { "value": "4rem",    "px": "64px" },
+      "4xl": { "value": "6rem",    "px": "96px" }
+    },
+    "containers": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    }
+  },
+  "borders": {
+    "radius": {
+      "none": "0",
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "2xl": "24px",
+      "full": "9999px"
+    },
+    "widths": {
+      "thin": "1px",
+      "base": "2px",
+      "thick": "4px"
+    },
+    "colors": {
+      "default": "#e8eaed",
+      "subtle": "#f1f3f4",
+      "strong": "#bdc1c6"
+    }
+  },
+  "effects": {
+    "shadows": {
+      "sm":  { "value": "0 1px 2px rgba(60,64,67,0.3), 0 1px 3px rgba(60,64,67,0.15)" },
+      "md":  { "value": "0 2px 6px rgba(60,64,67,0.3), 0 1px 4px rgba(60,64,67,0.15)" },
+      "lg":  { "value": "0 4px 12px rgba(60,64,67,0.3), 0 2px 6px rgba(60,64,67,0.15)" },
+      "xl":  { "value": "0 8px 24px rgba(60,64,67,0.3), 0 4px 12px rgba(60,64,67,0.15)" }
+    },
+    "transitions": {
+      "fast":   { "value": "150ms ease" },
+      "base":   { "value": "250ms ease" },
+      "slow":   { "value": "350ms ease" },
+      "spring": { "value": "350ms cubic-bezier(0.34, 1.56, 0.64, 1)" }
+    },
+    "animations": {
+      "scroll_driven": true,
+      "scroll_snap": true,
+      "hover_lift": true,
+      "particle_effects": true
+    }
+  },
+  "components": [
+    {
+      "name": "Button - Primary",
+      "description": "CTA principal com fundo azul Google",
+      "tokens": ["color-bg-primary", "color-text-on-primary", "radius-full", "shadow-sm"]
+    },
+    {
+      "name": "Button - Secondary",
+      "description": "Botão outline/ghost",
+      "tokens": ["color-border-default", "color-text-primary", "radius-full"]
+    },
+    {
+      "name": "Card",
+      "description": "Container de conteúdo com sombra leve e lift no hover",
+      "tokens": ["color-bg-surface", "radius-xl", "shadow-md", "transition-base"]
+    },
+    {
+      "name": "Badge / Chip",
+      "description": "Rótulo de categoria ou estado",
+      "tokens": ["color-bg-surface", "radius-full", "spacing-xs", "font-size-sm"]
+    },
+    {
+      "name": "Input",
+      "description": "Campo de formulário",
+      "tokens": ["color-bg-primary", "radius-md", "border-default", "color-text-primary"]
+    },
+    {
+      "name": "Hero Section",
+      "description": "Seção principal com gradiente e scroll-driven animation",
+      "tokens": ["color-bg-primary", "font-size-5xl", "spacing-4xl"]
+    },
+    {
+      "name": "Icon (Google Symbols)",
+      "description": "Ícone do sistema de ícones Google",
+      "tokens": ["font-family-icons", "color-text-secondary"]
+    }
+  ],
+  "tokens_draft": {
+    "color-bg-primary": "#ffffff",
+    "color-bg-surface": "#f8f9fa",
+    "color-bg-dark": "#202124",
+    "color-text-primary": "#202124",
+    "color-text-secondary": "#5f6368",
+    "color-text-tertiary": "#80868b",
+    "color-accent-blue": "#4285f4",
+    "color-accent-blue-dark": "#1967d2",
+    "color-accent-green": "#34a853",
+    "color-accent-yellow": "#fbbc04",
+    "color-accent-red": "#ea4335",
+    "color-state-success": "#34a853",
+    "color-state-warning": "#fbbc04",
+    "color-state-error": "#ea4335",
+    "color-state-info": "#4285f4",
+    "color-border-default": "#e8eaed",
+    "font-family-base": "Google Sans Flex, Roboto, system-ui, sans-serif",
+    "font-family-mono": "Google Sans Code, monospace",
+    "font-family-icons": "Google Symbols",
+    "radius-sm": "4px",
+    "radius-md": "8px",
+    "radius-lg": "12px",
+    "radius-xl": "16px",
+    "radius-full": "9999px",
+    "shadow-sm": "0 1px 2px rgba(60,64,67,0.3)",
+    "shadow-md": "0 2px 6px rgba(60,64,67,0.3)",
+    "shadow-lg": "0 4px 12px rgba(60,64,67,0.3)",
+    "transition-fast": "150ms ease",
+    "transition-base": "250ms ease",
+    "transition-slow": "350ms ease"
+  }
+}

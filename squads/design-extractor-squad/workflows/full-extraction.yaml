@@ -1,0 +1,43 @@
+name: full-extraction
+version: 1.0.0
+description: Pipeline completo de extração de design system — da amostra ao output deployável
+
+trigger: "*full-pipeline {input}"
+
+phases:
+  - id: capture
+    agent: lens
+    task: capture-visual-sample.md
+    description: Captura e primeira leitura da amostra
+
+  - id: analyze
+    agent: lens
+    task: analyze-colors.md
+    parallel:
+      - analyze-typography.md
+      - analyze-components.md
+    description: Análise multi-camada em paralelo
+
+  - id: tokenize
+    agent: forge
+    task: generate-tokens.md
+    depends_on: analyze
+    description: Geração dos tokens CSS e JSON
+
+  - id: build
+    agent: forge
+    task: build-design-system-page.md
+    depends_on: tokenize
+    description: Construção da página de design system
+
+  - id: report
+    agent: lens
+    task: full-extraction-pipeline.md
+    depends_on: build
+    description: Relatório final e handoff
+
+outputs:
+  - "{name}-design-system.html"
+  - "{name}-tokens.css"
+  - "{name}-tokens.json"
+  - "{name}-extraction-report.md"

@@ -1,0 +1,79 @@
+name: ceo-support-squad
+version: 1.0.0
+description: >
+  Sistema operacional cognitivo de Leonardo Gazola. Elimina a paralisia por sobrecarga
+  cognitiva garantindo clareza diária, separação de contextos, ritual semanal de
+  retrospectiva e registro de decisões. Pré-requisito para todos os outros squads.
+author: leonardogazola
+license: MIT
+slashPrefix: ceo
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: daily-clarity
+    name: Bússola
+    file: agents/daily-clarity.md
+    role: Clareza Diária & Priorização
+    icon: "🧭"
+
+  - id: context-switcher
+    name: Triagem
+    file: agents/context-switcher.md
+    role: Separador de Contextos
+    icon: "🗂️"
+
+  - id: weekly-retrospective
+    name: Ritual
+    file: agents/weekly-retrospective.md
+    role: Ritual Semanal de Retrospectiva
+    icon: "🔄"
+
+  - id: decision-log
+    name: Registro
+    file: agents/decision-log.md
+    role: Registro e Memória de Decisões
+    icon: "📋"
+
+components:
+  tasks:
+    - daily-briefing.md
+    - context-sort.md
+    - weekly-review.md
+    - capture-decision.md
+  agents:
+    - daily-clarity.md
+    - context-switcher.md
+    - weekly-retrospective.md
+    - decision-log.md
+  workflows:
+    - ceo-daily-workflow.md
+  checklists:
+    - briefing-quality-checklist.md
+  templates:
+    - daily-briefing-tmpl.md
+    - weekly-review-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - contextos-innovatech.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - ceo
+  - produtividade
+  - clareza
+  - planejamento
+  - anti-paralisia
+  - priorização
+  - retrospectiva
+  - decisões

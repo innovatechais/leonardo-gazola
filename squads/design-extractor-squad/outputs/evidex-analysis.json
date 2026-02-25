@@ -1,0 +1,307 @@
+{
+  "meta": {
+    "source": "https://www.evidex.com.br/",
+    "source_files": [
+      "EVIDEX MODELO/src/DESIGN_SYSTEM_EVIDEX.md",
+      "EVIDEX MODELO/src/index.css",
+      "EVIDEX MODELO/src/assets/dashboard-screenshot.png"
+    ],
+    "captured_at": "2026-02-24T00:00:00.000Z",
+    "analyzer": "Lens",
+    "squad": "design-extractor-squad",
+    "name": "evidex",
+    "platform": "Figma Sites (Make) + React + Tailwind CSS v4.1.3",
+    "notes": [
+      "Design system extraído diretamente do DESIGN_SYSTEM_EVIDEX.md (fonte oficial)",
+      "CSS validado contra index.css (Tailwind v4.1.3 compilado, 72KB)",
+      "Screenshot do dashboard confirma identidade visual: dark navy + neon yellow",
+      "Logo Evidex: ícone raio elétrico amarelo + texto em azul marinho"
+    ]
+  },
+  "colors": {
+    "brand": {
+      "neon-yellow": {
+        "value": "#D4FF00",
+        "usage": "CTAs primários, badges de destaque, tarjas de título, hover de bordas, glow de texto"
+      },
+      "navy-blue": {
+        "value": "#0A2540",
+        "usage": "Texto principal sobre fundos claros, fundos de seções escuras, texto em botões amarelos, ícones estruturais"
+      },
+      "navy-blue-dark": {
+        "value": "#01203f",
+        "usage": "Fundos com gradiente junto com #0A2540, cards em fundos escuros, stats e métricas"
+      }
+    },
+    "neutral": {
+      "white":       { "value": "#FFFFFF", "usage": "Texto sobre fundo escuro, fundo principal de seções claras" },
+      "gray-light":  { "value": "#F5F5F0", "usage": "Fundo de seções secundárias, backgrounds sutis" },
+      "gray-medium": { "value": "#9B9B9B", "usage": "Texto terciário, placeholders, labels desabilitados" },
+      "black":       { "value": "#1A1A1A", "usage": "Texto de maior contraste, elementos sobre fundo branco" }
+    },
+    "text_hierarchy": {
+      "on_light": {
+        "title":     "#0A2540",
+        "body":      "#374151",
+        "secondary": "#4B5563",
+        "tertiary":  "#6B7280"
+      },
+      "on_dark": {
+        "title":     "#FFFFFF",
+        "highlight": "#D4FF00",
+        "body":      "rgba(255,255,255,0.80)",
+        "secondary": "rgba(255,255,255,0.70)"
+      },
+      "on_yellow": {
+        "all": "#0A2540",
+        "secondary": "rgba(10,37,64,0.70)"
+      }
+    },
+    "semantic": {
+      "success":  "#22C55E",
+      "error":    "#EF4444",
+      "warning":  "#F59E0B",
+      "info":     "#3B82F6"
+    },
+    "gradient_recipes": {
+      "dark_section": "linear-gradient(135deg, #0A2540 0%, #01203f 50%, #0A2540 100%)",
+      "light_section": "linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%)",
+      "neon_glow":     "radial-gradient(circle, #D4FF00 1px, transparent 1px) — 50px grid, opacity 5%"
+    }
+  },
+  "typography": {
+    "families": {
+      "sans": {
+        "name": "ui-sans-serif",
+        "stack": "ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji",
+        "source": "Tailwind v4 default (--font-sans)"
+      },
+      "mono": {
+        "name": "ui-monospace",
+        "stack": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
+        "source": "Tailwind v4 default (--font-mono)"
+      }
+    },
+    "scale": {
+      "8xl":  { "size": "6rem",    "px": "96px",  "usage": "H1 — Headlines principais" },
+      "6xl":  { "size": "3.75rem", "px": "60px",  "usage": "H2 — Subtítulos de seção" },
+      "4xl":  { "size": "2.25rem", "px": "36px",  "usage": "H3 — Texto grande" },
+      "3xl":  { "size": "1.875rem","px": "30px",  "usage": "Parágrafos principais" },
+      "2xl":  { "size": "1.5rem",  "px": "24px",  "usage": "Texto de destaque" },
+      "xl":   { "size": "1.25rem", "px": "20px",  "usage": "Parágrafos secundários" },
+      "lg":   { "size": "1.125rem","px": "18px",  "usage": "Texto normal — corpo" },
+      "base": { "size": "1rem",    "px": "16px",  "usage": "Texto padrão" },
+      "sm":   { "size": "0.875rem","px": "14px",  "usage": "Labels, captions" },
+      "xs":   { "size": "0.75rem", "px": "12px",  "usage": "Texto mínimo, tags" }
+    },
+    "weights": {
+      "normal":  400,
+      "medium":  500,
+      "bold":    700
+    },
+    "line_heights": {
+      "tight":   1.1,
+      "normal":  1.5,
+      "relaxed": 1.625
+    },
+    "tracking": {
+      "tight": "-0.025em"
+    },
+    "usage_rules": {
+      "heading_lh": "leading-[1.1] — apertado e impactante",
+      "body_lh": "leading-relaxed — espaçamento confortável"
+    }
+  },
+  "spacing": {
+    "base": "0.25rem (4px grid — Tailwind spacing scale)",
+    "section_vertical": {
+      "standard": "py-32 (128px)",
+      "top_only":  "pt-32 (128px)",
+      "bottom":    "pb-24 (96px)"
+    },
+    "component_padding": {
+      "small":  "p-6  (24px)",
+      "medium": "p-8  (32px)",
+      "large":  "p-10 (40px)",
+      "xlarge": "p-12 (48px)"
+    },
+    "horizontal_padding": {
+      "container": "px-8 (32px)"
+    },
+    "gaps": {
+      "small":  "gap-4  (16px)",
+      "medium": "gap-6  (24px) or gap-8 (32px)",
+      "large":  "gap-12 (48px)"
+    },
+    "margins_bottom": {
+      "small":  "mb-8  (32px)",
+      "medium": "mb-16 (64px)",
+      "large":  "mb-20 (80px) or mb-24 (96px)"
+    },
+    "containers": {
+      "text":    "max-w-4xl (896px)",
+      "content": "max-w-6xl (1152px)",
+      "full":    "max-w-7xl (1280px)"
+    }
+  },
+  "borders": {
+    "radius": {
+      "xl":   { "value": "12px",   "usage": "Nav links, small elements" },
+      "2xl":  { "value": "16px",   "usage": "Cards padrão, badges, stat cards, header nav" },
+      "3xl":  { "value": "24px",   "usage": "Cards grandes, seções com gradiente" },
+      "full": { "value": "9999px", "usage": "Botões, badges de status, pills" }
+    },
+    "widths": {
+      "base":  "border   (1px)",
+      "2x":    "border-2 (2px)",
+      "4x":    "border-4 (4px)"
+    },
+    "colors": {
+      "default":      "#E5E7EB (gray-200)",
+      "hover_accent": "#D4FF00 — borda muda para amarelo no hover",
+      "glass":        "rgba(255,255,255,0.20)"
+    }
+  },
+  "effects": {
+    "shadows": {
+      "subtle":  "shadow-sm  (0 1px 2px rgba(0,0,0,0.05))",
+      "default": "shadow-lg  (0 10px 15px rgba(0,0,0,0.1))",
+      "intense": "shadow-2xl (0 25px 50px rgba(0,0,0,0.25))",
+      "black5":  "shadow-black/5 (sutilíssima)",
+      "glow_yellow": "textShadow: 0 0 20px rgba(212, 255, 0, 0.3)"
+    },
+    "glassmorphism": {
+      "light": "backdrop-blur-2xl bg-white/70 border border-white/20",
+      "medium": "backdrop-blur-md bg-white/10 border-2 border-white/20",
+      "subtle": "backdrop-blur-sm bg-white/5"
+    },
+    "transitions": {
+      "default": "transition-all duration-300",
+      "colors":  "transition-colors duration-300",
+      "transform": "transition-transform duration-300"
+    },
+    "hover_effects": {
+      "lift":         "hover:-translate-y-2",
+      "scale":        "hover:scale-105",
+      "icon_move":    "group-hover:translate-x-1",
+      "border_accent":"hover:border-[#D4FF00]",
+      "shadow_up":    "shadow-lg hover:shadow-2xl"
+    },
+    "animations": {
+      "pulse": "animate-pulse (2s cubic-bezier(.4,0,.6,1) infinite)",
+      "rotate_badge": "rotate-12"
+    },
+    "blur": {
+      "sm":   "8px",
+      "md":   "12px",
+      "2xl":  "40px"
+    },
+    "dot_pattern": {
+      "recipe": "radial-gradient(circle, #D4FF00 1px, transparent 1px), size: 50px 50px, opacity: 0.05",
+      "usage": "Background pattern em seções escuras"
+    }
+  },
+  "components": [
+    {
+      "name": "Botão Primário (CTA)",
+      "description": "rounded-full, fundo amarelo neon, texto azul marinho, ícone com animate no hover",
+      "classes": "group inline-flex items-center gap-3 px-12 py-5 rounded-full bg-[#D4FF00] text-[#0A2540] hover:scale-105 transition-all text-xl shadow-lg font-medium"
+    },
+    {
+      "name": "Botão Secundário (Outline)",
+      "description": "rounded-full, outline azul, inverte no hover",
+      "classes": "group inline-flex items-center gap-3 px-12 py-5 rounded-full border-2 border-[#0A2540] text-[#0A2540] hover:bg-[#0A2540] hover:text-white transition-all text-xl"
+    },
+    {
+      "name": "Tarja de Título (Title Badge)",
+      "description": "Badge amarelo para título de seção",
+      "classes": "bg-[#D4FF00] text-[#0A2540] px-6 py-3 inline-block rounded-2xl shadow-lg"
+    },
+    {
+      "name": "Card Padrão (Light)",
+      "description": "Gradiente cinza → branco, borda muda para amarelo no hover",
+      "classes": "bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-lg border-2 border-gray-100 hover:border-[#D4FF00] hover:-translate-y-2 transition-all duration-300"
+    },
+    {
+      "name": "Card Glassmorphism (Dark)",
+      "description": "Efeito vidro sobre fundo escuro",
+      "classes": "bg-white/10 backdrop-blur-md rounded-3xl p-10 border-2 border-white/20 shadow-2xl"
+    },
+    {
+      "name": "Card Destaque (Yellow)",
+      "description": "Card com fundo amarelo gradiente",
+      "classes": "bg-gradient-to-br from-[#D4FF00] to-[#D4FF00]/80 rounded-3xl p-10 border-4 border-white shadow-2xl"
+    },
+    {
+      "name": "Badge de Status",
+      "description": "Badge pill escuro com texto amarelo",
+      "classes": "inline-flex items-center gap-2 bg-[#0A2540] text-[#D4FF00] px-5 py-2 rounded-full text-base font-bold shadow-lg"
+    },
+    {
+      "name": "Stat Card (Dark)",
+      "description": "Número grande com glow amarelo sobre fundo dark",
+      "classes": "bg-[#01203f] rounded-2xl p-6 shadow-lg border border-gray-100"
+    },
+    {
+      "name": "Header Glassmorphism",
+      "description": "Navegação fixa flutuante com blur",
+      "classes": "fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 — nav: rounded-2xl backdrop-blur-2xl bg-white/70 border border-white/20 shadow-2xl shadow-black/5"
+    },
+    {
+      "name": "Ícone Container",
+      "description": "Container quadrado arredondado com gradiente colorido",
+      "classes": "w-20 h-20 rounded-2xl bg-gradient-to-br from-{color}-500 to-{color}-600 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform"
+    },
+    {
+      "name": "Seção Escura",
+      "description": "Seção com gradiente dark navy + dot pattern",
+      "classes": "relative py-32 bg-gradient-to-br from-[#0A2540] via-[#01203f] to-[#0A2540] overflow-hidden"
+    }
+  ],
+  "icon_gradient_variants": {
+    "green":  { "from": "green-500", "to": "emerald-600" },
+    "blue":   { "from": "blue-500",  "to": "indigo-600" },
+    "purple": { "from": "purple-500","to": "violet-600" },
+    "orange": { "from": "amber-500", "to": "orange-600" },
+    "red":    { "from": "red-500",   "to": "rose-600" },
+    "cyan":   { "from": "cyan-500",  "to": "teal-600" }
+  },
+  "design_principles": [
+    "Contraste forte: amarelo neon (#D4FF00) vs azul marinho (#0A2540)",
+    "Tarjas amarelas para destacar títulos principais",
+    "Espaçamento generoso — padding e margin grandes",
+    "Transições suaves: transition-all 300ms",
+    "Glassmorphism em fundos escuros",
+    "Bordas generosamente arredondadas (rounded-2xl ou rounded-3xl)",
+    "Sombras shadow-lg ou shadow-2xl em elementos importantes",
+    "Alternar fundos claros e escuros entre seções",
+    "Glow amarelo com moderação (textShadow)"
+  ],
+  "tokens_draft": {
+    "color-brand-yellow":     "#D4FF00",
+    "color-brand-navy":       "#0A2540",
+    "color-brand-navy-dark":  "#01203f",
+    "color-bg-primary":       "#FFFFFF",
+    "color-bg-surface":       "#F5F5F0",
+    "color-bg-dark":          "#0A2540",
+    "color-bg-dark-deeper":   "#01203f",
+    "color-text-primary":     "#0A2540",
+    "color-text-body":        "#374151",
+    "color-text-secondary":   "#4B5563",
+    "color-text-tertiary":    "#9B9B9B",
+    "color-text-on-dark":     "#FFFFFF",
+    "color-text-highlight":   "#D4FF00",
+    "color-border-default":   "#E5E7EB",
+    "color-border-accent":    "#D4FF00",
+    "radius-xl":              "12px",
+    "radius-2xl":             "16px",
+    "radius-3xl":             "24px",
+    "radius-full":            "9999px",
+    "shadow-default":         "0 10px 15px -3px rgba(0,0,0,0.1)",
+    "shadow-intense":         "0 25px 50px -12px rgba(0,0,0,0.25)",
+    "shadow-glow-yellow":     "0 0 20px rgba(212,255,0,0.3)",
+    "transition-default":     "all 300ms cubic-bezier(0.4,0,0.2,1)",
+    "blur-glass":             "12px",
+    "blur-glass-strong":      "40px"
+  }
+}

@@ -1,0 +1,80 @@
+name: clickbank-ads-squad
+version: 1.0.0
+description: >
+  Squad especializado em afiliados ClickBank + Google Ads Rede de Pesquisa.
+  Cobre o ciclo completo: mineração de ofertas, criação de funil (presell, landing, email)
+  e análise/otimização de métricas. Bilíngue PT/EN. Modo colaborativo com opção YOLO.
+author: leonardogazola
+license: MIT
+slashPrefix: cbads
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: offer-research-analyst
+    name: Rex
+    file: agents/offer-research-analyst.md
+    role: Research & Offer Analyst
+    icon: "🔎"
+
+  - id: funnel-copywriter
+    name: Nova
+    file: agents/funnel-copywriter.md
+    role: Funnel Copywriter
+    icon: "✍️"
+
+  - id: metrics-optimization-analyst
+    name: Flux
+    file: agents/metrics-optimization-analyst.md
+    role: Metrics & Optimization Analyst
+    icon: "📊"
+
+components:
+  tasks:
+    - mine-clickbank-offers.md
+    - score-offer-fit.md
+    - write-presell-page.md
+    - write-ad-copy.md
+    - build-email-sequence.md
+    - analyze-campaign-metrics.md
+    - optimize-funnel.md
+  agents:
+    - offer-research-analyst.md
+    - funnel-copywriter.md
+    - metrics-optimization-analyst.md
+  workflows:
+    - full-funnel-workflow.md
+  checklists:
+    - offer-validation-checklist.md
+    - presell-quality-checklist.md
+  templates:
+    - presell-page-tmpl.md
+    - ad-copy-tmpl.md
+    - email-sequence-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - clickbank-gravity-guide.md
+    - google-ads-policy-guide.md
+
+config:
+  extends: extend
+  coding-standards: config/standards.md
+  tech-stack: config/tech-stack.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - copywriting
+  - affiliate-marketing
+  - clickbank
+  - google-ads
+  - performance-marketing
+  - presell
+  - funnel
+  - bilingual

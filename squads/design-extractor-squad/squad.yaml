@@ -1,0 +1,124 @@
+name: design-extractor-squad
+version: 1.0.0
+description: >
+  Squad especializado em extrair design systems completos a partir de amostras visuais:
+  URLs de sites, screenshots, imagens ou referências de UI. Analisa visualmente cores,
+  tipografia, espaçamento, componentes e efeitos — gerando tokens CSS, documentação
+  e um arquivo HTML de design system pronto para uso.
+author: leonardogazola
+license: MIT
+slashPrefix: design-extractor
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: lens
+    name: Lens
+    file: agents/lens.md
+    role: Visual Analyzer & Design Scanner
+    icon: "🔍"
+    description: >
+      Captura e analisa amostras visuais (URLs, screenshots, imagens).
+      Extrai paleta de cores, tipografia, espaçamentos, bordas e efeitos.
+
+  - id: forge
+    name: Forge
+    file: agents/forge.md
+    role: Token Builder & System Generator
+    icon: "⚗️"
+    description: >
+      Recebe análise do Lens e gera os tokens CSS, componentes HTML
+      e o arquivo de design system completo e deployável.
+
+components:
+  tasks:
+    - capture-visual-sample.md
+    - analyze-colors.md
+    - analyze-typography.md
+    - analyze-components.md
+    - generate-tokens.md
+    - build-design-system-page.md
+    - full-extraction-pipeline.md
+  workflows:
+    - extract-from-url.yaml
+    - extract-from-image.yaml
+    - full-extraction.yaml
+  checklists:
+    - extraction-quality-checklist.md
+  templates:
+    - design-system-output-tmpl.html
+    - tokens-tmpl.css
+  data:
+    - common-design-patterns.md
+
+tools:
+  - playwright   # Captura de screenshot via MCP
+  - web-fetch    # Leitura de CSS/HTML de URLs
+  - vision       # Análise de imagens (via Claude multimodal)
+
+inputs:
+  - type: url
+    description: URL de um site para capturar e analisar
+    example: "https://stripe.com"
+  - type: image
+    description: Screenshot ou imagem de uma interface
+    example: "design-reference.png"
+  - type: html
+    description: Arquivo HTML/CSS para extração de tokens
+    example: "index.html"
+
+outputs:
+  - type: html
+    description: Página de design system completa e deployável
+    path: "outputs/{name}-design-system.html"
+  - type: css
+    description: Arquivo de tokens CSS (variáveis)
+    path: "outputs/{name}-tokens.css"
+  - type: json
+    description: Design tokens em formato W3C DTCG
+    path: "outputs/{name}-tokens.json"
+  - type: md
+    description: Relatório de extração com análise
+    path: "outputs/{name}-extraction-report.md"
+
+commands:
+  - name: extract-url
+    description: Extrai design system de uma URL
+    usage: "*extract-url {url}"
+    example: "*extract-url https://stripe.com"
+    agent: lens
+
+  - name: extract-image
+    description: Extrai design system de uma imagem ou screenshot
+    usage: "*extract-image {path-or-description}"
+    example: "*extract-image minha-referencia.png"
+    agent: lens
+
+  - name: extract-html
+    description: Extrai tokens de um arquivo HTML/CSS local
+    usage: "*extract-html {path}"
+    example: "*extract-html site/index.html"
+    agent: lens
+
+  - name: build-ds
+    description: Gera o arquivo de design system a partir de uma análise existente
+    usage: "*build-ds {analysis-file}"
+    agent: forge
+
+  - name: full-pipeline
+    description: Pipeline completo — da amostra ao design system deployado
+    usage: "*full-pipeline {url|image|html}"
+    workflow: full-extraction.yaml
+
+  - name: tokens-only
+    description: Gera apenas os tokens CSS/JSON sem a página de componentes
+    usage: "*tokens-only {input}"
+    agent: forge
+
+  - name: help
+    description: Mostra todos os comandos disponíveis
+
+  - name: exit
+    description: Sai do squad

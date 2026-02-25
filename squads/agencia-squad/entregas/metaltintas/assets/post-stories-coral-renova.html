@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>MetalTintas — Coral Renova Stories</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Bebas+Neue&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1920px;
+    position: relative;
+    background: linear-gradient(175deg, #1A7AB5 0%, #0D4F7A 45%, #082e50 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ambient glow */
+  .canvas::before {
+    content: '';
+    position: absolute;
+    top: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%);
+    z-index: 1;
+  }
+
+  /* ======= SAFE ZONE TOP (250px) ======= */
+  .safe-top {
+    height: 250px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+
+  .coral-brand {
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(8px);
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 2px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .coral-brand .coral-logo {
+    color: #FFFFFF;
+    font-weight: 900;
+  }
+
+  /* Badge Frete */
+  .badge-frete {
+    position: absolute;
+    top: 264px;
+    right: 70px;
+    z-index: 20;
+    background: #2ECC71;
+    color: #FFFFFF;
+    font-size: 26px;
+    font-weight: 800;
+    padding: 16px 34px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 20px rgba(46,204,113,0.45);
+  }
+
+  .badge-frete::before {
+    content: '\01F69A  ';
+    font-size: 24px;
+  }
+
+  /* ======= MAIN CONTENT ======= */
+  .content {
+    flex: 1;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 70px 0;
+  }
+
+  /* Accent line */
+  .accent-line {
+    width: 70px;
+    height: 5px;
+    background: #E63946;
+    border-radius: 3px;
+    margin-bottom: 24px;
+  }
+
+  /* Headline - BIGGER for stories */
+  .headline {
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    color: #FFFFFF;
+    line-height: 1.02;
+    letter-spacing: 3px;
+    text-align: center;
+    text-shadow: 0 3px 15px rgba(0,0,0,0.35);
+    margin-bottom: 8px;
+  }
+
+  .headline-sub {
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    text-align: center;
+  }
+
+  /* Product placeholder - centered */
+  .product-placeholder {
+    width: 400px;
+    height: 380px;
+    border: 3px dashed rgba(255,255,255,0.2);
+    border-radius: 24px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 35px;
+    flex-shrink: 0;
+  }
+
+  .product-placeholder-icon {
+    font-size: 60px;
+    margin-bottom: 14px;
+    opacity: 0.35;
+  }
+
+  .product-placeholder-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.3);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Specs 2x2 grid */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 28px;
+    margin-bottom: 35px;
+    width: 100%;
+    max-width: 780px;
+  }
+
+  .spec-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 14px 22px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+
+  .check-dot {
+    width: 30px;
+    height: 30px;
+    background: rgba(46,204,113,0.25);
+    border: 2px solid #2ECC71;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    color: #2ECC71;
+  }
+
+  /* Divider */
+  .divider {
+    width: 500px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+    margin-bottom: 30px;
+  }
+
+  /* Price - BIGGER for stories */
+  .price-section {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .price-main {
+    font-size: 92px;
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1;
+    text-shadow: 0 3px 18px rgba(0,0,0,0.35);
+  }
+
+  .price-main .currency {
+    font-size: 50px;
+    font-weight: 700;
+    vertical-align: top;
+    position: relative;
+    top: 16px;
+    margin-right: 4px;
+  }
+
+  .price-installment {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    margin-top: 10px;
+  }
+
+  .price-nojuros {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #2ECC71;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 8px;
+    background: rgba(46,204,113,0.12);
+    padding: 6px 18px;
+    border-radius: 6px;
+  }
+
+  /* ======= SAFE ZONE BOTTOM (250px) ======= */
+  .safe-bottom {
+    height: 280px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding-bottom: 120px;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-block;
+    background: #E63946;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-weight: 800;
+    text-align: center;
+    padding: 26px 90px;
+    border-radius: 60px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    box-shadow: 0 6px 30px rgba(230,57,70,0.5);
+  }
+
+  /* Swipe up */
+  .swipe-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .swipe-arrow {
+    font-size: 30px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1;
+  }
+
+  .swipe-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Logo footer */
+  .logo-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: #FFFFFF;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -4px 25px rgba(0,0,0,0.15);
+  }
+
+  .logo-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: #1A7AB5;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .logo-text span {
+    color: #0D4F7A;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Frete badge -->
+  <div class="badge-frete">Frete Gratis</div>
+
+  <!-- ===== Safe zone top ===== -->
+  <div class="safe-top">
+    <div class="coral-brand">
+      <span class="coral-logo">Coral</span> &bull; AkzoNobel
+    </div>
+  </div>
+
+  <!-- ===== Main content ===== -->
+  <div class="content">
+    <div class="accent-line"></div>
+
+    <div class="headline">
+      Tinta Renova<br>
+      Tetos, Banheiros<br>
+      &amp; Cozinhas
+    </div>
+
+    <div class="headline-sub">3,6L &bull; Branco Fosco</div>
+
+    <div class="product-placeholder">
+      <div class="product-placeholder-icon">&#128247;</div>
+      <div class="product-placeholder-text">
+        Inserir imagem IA<br>da lata aqui
+      </div>
+    </div>
+
+    <div class="specs-grid">
+      <div class="spec-chip"><span class="check-dot">&#10003;</span> Antifungica</div>
+      <div class="spec-chip"><span class="check-dot">&#10003;</span> Lavavel</div>
+      <div class="spec-chip"><span class="check-dot">&#10003;</span> Resist. a agua</div>
+      <div class="spec-chip"><span class="check-dot">&#10003;</span> Rende 25m&sup2;</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="price-section">
+      <div class="price-main"><span class="currency">R$</span> 167,52</div>
+      <div class="price-installment">Ou 12x de R$ 16,56</div>
+      <div class="price-nojuros">Sem juros</div>
+    </div>
+  </div>
+
+  <!-- ===== Safe zone bottom ===== -->
+  <div class="safe-bottom">
+    <div class="cta-button">Saiba Mais</div>
+    <div class="swipe-up">
+      <div class="swipe-arrow">&#9650;</div>
+      <div class="swipe-text">Arraste para cima</div>
+    </div>
+  </div>
+
+  <!-- Logo bar -->
+  <div class="logo-bar">
+    <div class="logo-text">Metal<span>Tintas</span></div>
+  </div>
+
+</div>
+</body>
+</html>

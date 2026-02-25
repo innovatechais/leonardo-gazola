@@ -1,0 +1,127 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$metadata": {
+    "source": "https://www.evidex.com.br/",
+    "sourceFiles": ["DESIGN_SYSTEM_EVIDEX.md", "index.css"],
+    "extractor": "Lens — design-extractor-squad",
+    "builder": "Forge — design-extractor-squad",
+    "date": "2026-02-24",
+    "version": "1.0.0"
+  },
+  "color": {
+    "$type": "color",
+    "brand": {
+      "yellow":      { "$value": "#D4FF00",  "$description": "Amarelo Neon — CTAs, badges, tarjas de título, destaques" },
+      "navy":        { "$value": "#0A2540",  "$description": "Azul Marinho — texto principal, fundos escuros" },
+      "navy-dark":   { "$value": "#01203f",  "$description": "Azul Marinho Escuro — variação de gradiente e cards" }
+    },
+    "bg": {
+      "primary":      { "$value": "#FFFFFF",  "$description": "Fundo principal" },
+      "surface":      { "$value": "#F5F5F0",  "$description": "Cinza Claro Evidex — seções secundárias" },
+      "surface-light":{ "$value": "#F9FAFB",  "$description": "gray-50 — gradientes claros" },
+      "dark":         { "$value": "#0A2540",  "$description": "Seções escuras" },
+      "dark-deeper":  { "$value": "#01203f",  "$description": "Variação escura para gradiente via" },
+      "glass":        { "$value": "rgba(255,255,255,0.10)", "$description": "Glassmorphism sutil" },
+      "glass-strong": { "$value": "rgba(255,255,255,0.70)", "$description": "Glassmorphism visível (header nav)" }
+    },
+    "text": {
+      "primary":    { "$value": "#0A2540", "$description": "Títulos sobre fundo claro" },
+      "body":       { "$value": "#374151", "$description": "gray-700 — corpo de texto" },
+      "secondary":  { "$value": "#4B5563", "$description": "gray-600 — texto secundário" },
+      "tertiary":   { "$value": "#6B7280", "$description": "gray-500 — texto terciário" },
+      "muted":      { "$value": "#9B9B9B", "$description": "Cinza Médio Evidex — placeholders" },
+      "on-dark":    { "$value": "#FFFFFF", "$description": "Texto sobre fundo escuro" },
+      "highlight":  { "$value": "#D4FF00", "$description": "Destaque amarelo sobre fundo escuro" },
+      "on-yellow":  { "$value": "#0A2540", "$description": "Texto sobre fundo amarelo" }
+    },
+    "border": {
+      "subtle":  { "$value": "#F3F4F6", "$description": "gray-100" },
+      "default": { "$value": "#E5E7EB", "$description": "gray-200 — borda padrão" },
+      "medium":  { "$value": "#D1D5DB", "$description": "gray-300" },
+      "accent":  { "$value": "#D4FF00", "$description": "Amarelo — borda no hover de cards" },
+      "glass":   { "$value": "rgba(255,255,255,0.20)", "$description": "Borda vidro em fundos escuros" }
+    },
+    "state": {
+      "success":    { "$value": "#22C55E" },
+      "success-bg": { "$value": "#F0FDF4" },
+      "warning":    { "$value": "#F59E0B" },
+      "warning-bg": { "$value": "#FFFBEB" },
+      "error":      { "$value": "#EF4444" },
+      "error-bg":   { "$value": "#FEF2F2" },
+      "info":       { "$value": "#3B82F6" },
+      "info-bg":    { "$value": "#EFF6FF" }
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "$type": "fontFamily",
+      "base": { "$value": ["ui-sans-serif", "system-ui", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji"] },
+      "mono": { "$value": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New"] }
+    },
+    "fontSize": {
+      "$type": "dimension",
+      "xs":   { "$value": "0.75rem",  "$description": "12px — texto mínimo, tags" },
+      "sm":   { "$value": "0.875rem", "$description": "14px — labels, captions" },
+      "base": { "$value": "1rem",     "$description": "16px — texto padrão" },
+      "lg":   { "$value": "1.125rem", "$description": "18px — texto normal corpo" },
+      "xl":   { "$value": "1.25rem",  "$description": "20px — parágrafos secundários" },
+      "2xl":  { "$value": "1.5rem",   "$description": "24px — texto de destaque" },
+      "3xl":  { "$value": "1.875rem", "$description": "30px — parágrafos principais" },
+      "4xl":  { "$value": "2.25rem",  "$description": "36px — H3 texto grande" },
+      "5xl":  { "$value": "3rem",     "$description": "48px — títulos médios" },
+      "6xl":  { "$value": "3.75rem",  "$description": "60px — H2 subtítulos de seção" },
+      "8xl":  { "$value": "6rem",     "$description": "96px — H1 headlines principais" }
+    },
+    "fontWeight": {
+      "$type": "fontWeight",
+      "normal": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "bold":   { "$value": 700 }
+    },
+    "lineHeight": {
+      "$type": "number",
+      "heading":  { "$value": 1.1,   "$description": "Títulos — apertado e impactante" },
+      "normal":   { "$value": 1.5 },
+      "relaxed":  { "$value": 1.625, "$description": "Corpo de texto" }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "section-py":  { "$value": "8rem",   "$description": "128px — py-32, padding vertical de seção" },
+    "section-pb":  { "$value": "6rem",   "$description": "96px — pb-24" },
+    "component-sm":{ "$value": "1.5rem", "$description": "24px — p-6 pequeno" },
+    "component-md":{ "$value": "2rem",   "$description": "32px — p-8 médio" },
+    "component-lg":{ "$value": "2.5rem", "$description": "40px — p-10 grande" },
+    "component-xl":{ "$value": "3rem",   "$description": "48px — p-12 extra" },
+    "container-px":{ "$value": "2rem",   "$description": "32px — px-8 horizontal" },
+    "gap-sm":      { "$value": "1rem",   "$description": "16px — gap-4" },
+    "gap-md":      { "$value": "1.5rem", "$description": "24px — gap-6" },
+    "gap-lg":      { "$value": "2rem",   "$description": "32px — gap-8" },
+    "gap-xl":      { "$value": "3rem",   "$description": "48px — gap-12" }
+  },
+  "borderRadius": {
+    "$type": "dimension",
+    "xl":   { "$value": "12px",   "$description": "Nav links, elementos pequenos" },
+    "2xl":  { "$value": "16px",   "$description": "Cards padrão, badges, stats, header" },
+    "3xl":  { "$value": "24px",   "$description": "Cards grandes, seções" },
+    "full": { "$value": "9999px", "$description": "Botões, pills, badges de status" }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "subtle":  { "$value": "0 1px 2px 0 rgba(0,0,0,0.05)" },
+    "default": { "$value": "0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10)" },
+    "intense": { "$value": "0 25px 50px -12px rgba(0,0,0,0.25)" },
+    "glow-yellow": { "$value": "0 0 20px rgba(212,255,0,0.30)", "$description": "Glow em textos amarelos" }
+  },
+  "transition": {
+    "$type": "duration",
+    "base":   { "$value": "300ms", "$description": "all 300ms ease — transição padrão" },
+    "timing": { "$value": "cubic-bezier(0.4, 0, 0.2, 1)" }
+  },
+  "blur": {
+    "$type": "dimension",
+    "glass-sm":     { "$value": "8px",  "$description": "backdrop-blur-sm" },
+    "glass-md":     { "$value": "12px", "$description": "backdrop-blur-md" },
+    "glass-strong": { "$value": "40px", "$description": "backdrop-blur-2xl" }
+  }
+}

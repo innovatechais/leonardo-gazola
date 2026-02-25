@@ -1,0 +1,134 @@
+name: agencia-squad
+version: 2.0.0
+description: >
+  Squad que sistematiza os serviços de automação e conteúdo para clientes externos
+  da Innovatech. Torna a operação de agência completamente independente da presença
+  de Leonardo. Inclui Content Studio para criação de conteúdo visual com IA
+  (carrosseis, imagens, vídeos) sobre base de design system definida por cliente.
+author: leonardogazola
+license: MIT
+slashPrefix: agencia
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  # ── Gestor/Orquestrador ───────────────────────────────────────
+  - id: agency-orchestrator
+    name: Maestro
+    file: agents/agency-orchestrator.md
+    role: Gestor Orquestrador — conversa com você e delega para equipe
+    icon: "🎯"
+
+  # ── Operações (agentes originais) ──────────────────────────────
+  - id: content-processor
+    name: Fluxo
+    file: agents/content-processor.md
+    role: Processador de Conteúdo para Clientes
+    icon: "⚡"
+
+  - id: client-reporter
+    name: Relator
+    file: agents/client-reporter.md
+    role: Relator Semanal de Clientes
+    icon: "📊"
+
+  - id: sop-guardian
+    name: Normas
+    file: agents/sop-guardian.md
+    role: Guardião dos SOPs de Cada Cliente
+    icon: "📖"
+
+  # ── Content Studio (criação visual com IA) ─────────────────────
+  - id: studio-director
+    name: Pixel
+    file: agents/studio-director.md
+    role: Diretor do Estúdio Criativo — orquestra toda produção visual
+    icon: "🎬"
+
+  - id: design-guardian
+    name: Base
+    file: agents/design-guardian.md
+    role: Guardião do Design System — mantém identidade visual por cliente
+    icon: "🎨"
+
+  - id: carousel-creator
+    name: Lâmina
+    file: agents/carousel-creator.md
+    role: Criador de Carrosseis — estrutura, copy e specs visuais slide a slide
+    icon: "📐"
+
+  - id: image-prompter
+    name: Lens
+    file: agents/image-prompter.md
+    role: Gerador de Imagens com IA — prompts Midjourney/DALL-E/Ideogram + copy
+    icon: "🔭"
+
+  - id: video-prompter
+    name: Cena
+    file: agents/video-prompter.md
+    role: Criador de Vídeos e Reels com IA — roteiro + prompts Runway/Kling/Pika
+    icon: "🎞️"
+
+components:
+  tasks:
+    # Operações
+    - process-content-batch.md
+    - generate-client-report.md
+    - validate-sop-compliance.md
+    # Content Studio
+    - create-carousel.md
+    - create-image-prompt.md
+    - create-video-prompt.md
+  agents:
+    # Gestor
+    - agency-orchestrator.md
+    # Operações
+    - content-processor.md
+    - client-reporter.md
+    - sop-guardian.md
+    # Content Studio
+    - studio-director.md
+    - design-guardian.md
+    - carousel-creator.md
+    - image-prompter.md
+    - video-prompter.md
+  workflows:
+    - content-pipeline-workflow.md
+    - creative-studio-workflow.md
+  checklists:
+    - content-qa-checklist.md
+  templates:
+    - client-report-tmpl.md
+    - sop-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - clients-sops.md
+    - design-system.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - agência
+  - conteúdo
+  - automação
+  - trello
+  - zapier
+  - clientes
+  - sop
+  - content-studio
+  - carrossel
+  - imagem-ia
+  - video-ia
+  - design-system
+  - reels
+  - midjourney
+  - runway

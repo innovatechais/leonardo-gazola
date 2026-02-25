@@ -1,0 +1,66 @@
+name: clone-factory-squad
+version: 1.0.0
+description: >
+  Squad especializado em criar clones cognitivos de qualquer pessoa pública ou especialista.
+  O usuário fornece documentos + quem quer clonar + objetivo.
+  O squad extrai o DNA cognitivo (modelos mentais, tom de voz, heurísticas, frameworks,
+  vocabulário, crenças) e gera automaticamente um agente clone pronto para conversar.
+author: leonardogazola
+license: MIT
+slashPrefix: clone
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: dna-extractor
+    name: Mira
+    file: agents/mira.md
+    role: DNA Cognitivo Extractor
+    icon: "🧬"
+
+  - id: clone-architect
+    name: Forge
+    file: agents/forge.md
+    role: Clone Architect & Builder
+    icon: "⚗️"
+
+components:
+  tasks:
+    - intake-and-analyze.md
+    - extract-dna.md
+    - build-clone-agent.md
+    - validate-clone.md
+    - calibrate-clone.md
+  agents:
+    - mira.md
+    - forge.md
+  workflows:
+    - full-clone-workflow.md
+  checklists:
+    - clone-quality-checklist.md
+  templates:
+    - clone-agent-tmpl.md
+    - dna-profile-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - extraction-frameworks.md
+
+config:
+  standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - clone
+  - persona
+  - dna-extraction
+  - cognitive-modeling
+  - agent-generation
+  - knowledge-base
+  - etl

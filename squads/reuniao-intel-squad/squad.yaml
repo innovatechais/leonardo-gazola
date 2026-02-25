@@ -1,0 +1,80 @@
+name: reuniao-intel-squad
+version: 1.0.0
+description: >
+  Squad de inteligência de reunião em tempo real.
+  Bilhete captura anotações avulsas durante a reunião — mini textos, frases soltas,
+  ideias rápidas ou textos longos — classificando e organizando tudo ao vivo.
+  Ao detectar MODO TRANSCRIÇÃO, o controle passa para Nexo, que formata a transcrição
+  bruta corrigindo ortografia e estruturando sem alterar o conteúdo.
+  Faros então analisa a transcrição formatada e fareja o que realmente importa:
+  action items, decisões, insights e substrates para criações futuras.
+author: leonardogazola
+license: MIT
+slashPrefix: ri
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: bilhete
+    name: Bilhete
+    file: agents/bilhete.md
+    role: Captador de Notas em Tempo Real
+    icon: "🎫"
+
+  - id: nexo
+    name: Nexo
+    file: agents/nexo.md
+    role: Formatador de Transcrição
+    icon: "📋"
+
+  - id: faros
+    name: Faros
+    file: agents/faros.md
+    role: Analista de Inteligência de Reunião
+    icon: "🔦"
+
+components:
+  tasks:
+    - capturar-notas.md
+    - formatar-transcricao.md
+    - extrair-insights.md
+  agents:
+    - bilhete.md
+    - nexo.md
+    - faros.md
+  templates:
+    - notas-tmpl.md
+    - transcricao-tmpl.md
+    - insights-tmpl.md
+
+pipeline_order:
+  capture:
+    - capturar-notas → bilhete (real-time, durante toda a reunião)
+  transcription:
+    - formatar-transcricao → nexo (pós MODO TRANSCRIÇÃO, com transcrição bruta)
+  intelligence:
+    - extrair-insights → faros (com transcrição formatada do nexo)
+
+flow:
+  trigger_handoff: "Bilhete detecta 'MODO TRANSCRIÇÃO' → finaliza bloco de notas → handoff para Nexo"
+  pipeline_completo: "Bilhete → [MODO TRANSCRIÇÃO] → Nexo → Faros"
+  uso_independente: "Cada agente pode ser ativado individualmente se necessário"
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - reuniao
+  - notas
+  - transcricao
+  - insights
+  - action-items
+  - inteligencia
+  - produtividade
+  - tempo-real
+  - anotacoes
+  - documentos

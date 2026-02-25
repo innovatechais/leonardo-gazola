@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — antigravity.google</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Mono:wght@400;500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap" rel="stylesheet">
+  <style>
+    /* ════════════════════════════════════════════
+       DESIGN TOKENS — antigravity.google
+       Extracted by Lens · Built by Forge
+       design-extractor-squad v1.0.0
+    ════════════════════════════════════════════ */
+    :root {
+      --color-bg-primary:   #ffffff;
+      --color-bg-surface:   #f8f9fa;
+      --color-bg-elevated:  #ffffff;
+      --color-bg-dark:      #202124;
+
+      --color-text-primary:   #202124;
+      --color-text-secondary: #5f6368;
+      --color-text-tertiary:  #80868b;
+      --color-text-disabled:  #bdc1c6;
+      --color-text-on-dark:   #ffffff;
+      --color-text-on-primary: #ffffff;
+
+      --color-accent-blue:       #4285f4;
+      --color-accent-blue-dark:  #1967d2;
+      --color-accent-blue-light: #d2e3fc;
+      --color-accent-green:      #34a853;
+      --color-accent-yellow:     #fbbc04;
+      --color-accent-red:        #ea4335;
+
+      --color-state-success:    #34a853;
+      --color-state-success-bg: #e6f4ea;
+      --color-state-warning:    #fbbc04;
+      --color-state-warning-bg: #fef7e0;
+      --color-state-error:      #ea4335;
+      --color-state-error-bg:   #fce8e6;
+      --color-state-info:       #4285f4;
+      --color-state-info-bg:    #e8f0fe;
+
+      --color-border-subtle:  #f1f3f4;
+      --color-border-default: #e8eaed;
+      --color-border-strong:  #bdc1c6;
+      --color-border-focus:   #4285f4;
+
+      --font-family-base:  "Google Sans", "Roboto", system-ui, sans-serif;
+      --font-family-mono:  "Google Sans Mono", ui-monospace, monospace;
+      --font-family-icons: "Material Symbols Outlined";
+
+      --font-size-xs:   0.75rem;
+      --font-size-sm:   0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg:   1.125rem;
+      --font-size-xl:   1.25rem;
+      --font-size-2xl:  1.5rem;
+      --font-size-3xl:  1.875rem;
+      --font-size-4xl:  2.25rem;
+      --font-size-5xl:  3rem;
+
+      --font-weight-regular:  400;
+      --font-weight-medium:   500;
+      --font-weight-bold:     700;
+
+      --line-height-tight:  1.25;
+      --line-height-normal: 1.5;
+      --line-height-loose:  2;
+
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-6:  1.5rem;
+      --space-8:  2rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-24: 6rem;
+
+      --radius-none: 0;
+      --radius-sm:   4px;
+      --radius-md:   8px;
+      --radius-lg:   12px;
+      --radius-xl:   16px;
+      --radius-2xl:  24px;
+      --radius-full: 9999px;
+
+      --shadow-sm:  0 1px 2px rgba(60,64,67,.30), 0 1px 3px rgba(60,64,67,.15);
+      --shadow-md:  0 2px 6px rgba(60,64,67,.15), 0 1px 2px rgba(60,64,67,.30);
+      --shadow-lg:  0 4px 8px rgba(60,64,67,.15), 0 1px 3px rgba(60,64,67,.30);
+      --shadow-xl:  0 8px 24px rgba(60,64,67,.15), 0 4px 8px rgba(60,64,67,.20);
+
+      --transition-fast:   150ms ease;
+      --transition-base:   250ms ease;
+      --transition-slow:   350ms ease;
+      --transition-spring: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ════════════════════════════════════════════
+       RESET & BASE
+    ════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-base);
+      color: var(--color-text-primary);
+      background: var(--color-bg-primary);
+      line-height: var(--line-height-normal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════════════════
+       LAYOUT
+    ════════════════════════════════════════════ */
+    .ds-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════════
+       SIDEBAR NAV
+    ════════════════════════════════════════════ */
+    .ds-nav {
+      background: var(--color-bg-surface);
+      border-right: 1px solid var(--color-border-default);
+      padding: var(--space-6);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .ds-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-6);
+      border-bottom: 1px solid var(--color-border-default);
+    }
+
+    .ds-nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--color-accent-blue);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .ds-nav-logo-text { font-size: var(--font-size-sm); }
+    .ds-nav-logo-text strong { display: block; font-weight: 700; color: var(--color-text-primary); }
+    .ds-nav-logo-text span { color: var(--color-text-tertiary); font-size: var(--font-size-xs); }
+
+    .ds-nav-section { margin-bottom: var(--space-6); }
+
+    .ds-nav-section-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-2);
+      padding: 0 var(--space-3);
+    }
+
+    .ds-nav-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: var(--font-size-sm);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .ds-nav-link:hover,
+    .ds-nav-link.active {
+      background: var(--color-accent-blue-light);
+      color: var(--color-accent-blue-dark);
+    }
+
+    /* ════════════════════════════════════════════
+       MAIN CONTENT
+    ════════════════════════════════════════════ */
+    .ds-main { padding: var(--space-12) var(--space-16); max-width: 960px; }
+
+    /* ════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════ */
+    .ds-hero {
+      background: linear-gradient(135deg, #4285f4 0%, #1967d2 50%, #34a853 100%);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-16) var(--space-12);
+      margin-bottom: var(--space-16);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+
+    .ds-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      margin-bottom: var(--space-4);
+    }
+
+    .ds-hero-title {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      margin-bottom: var(--space-4);
+      position: relative;
+    }
+
+    .ds-hero-subtitle {
+      font-size: var(--font-size-lg);
+      opacity: 0.85;
+      max-width: 520px;
+      position: relative;
+    }
+
+    .ds-hero-meta {
+      display: flex;
+      gap: var(--space-6);
+      margin-top: var(--space-8);
+      position: relative;
+    }
+
+    .ds-hero-stat strong { display: block; font-size: var(--font-size-2xl); font-weight: 700; }
+    .ds-hero-stat span { font-size: var(--font-size-xs); opacity: 0.75; }
+
+    /* ════════════════════════════════════════════
+       SECTIONS
+    ════════════════════════════════════════════ */
+    .ds-section {
+      margin-bottom: var(--space-16);
+      scroll-margin-top: var(--space-8);
+    }
+
+    .ds-section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 2px solid var(--color-border-default);
+    }
+
+    .ds-section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .ds-section-title {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .ds-section-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-top: var(--space-1);
+    }
+
+    /* ════════════════════════════════════════════
+       COLOR SWATCHES
+    ════════════════════════════════════════════ */
+    .ds-color-group { margin-bottom: var(--space-8); }
+
+    .ds-color-group-label {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-3);
+    }
+
+    .ds-color-swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-3);
+    }
+
+    .ds-swatch {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-spring), box-shadow var(--transition-base);
+    }
+
+    .ds-swatch:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .ds-swatch-color { height: 80px; }
+
+    .ds-swatch-info {
+      padding: var(--space-3);
+      background: var(--color-bg-surface);
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .ds-swatch-name {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-1);
+    }
+
+    .ds-swatch-hex {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    .ds-swatch-token {
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      color: var(--color-accent-blue);
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════════════
+       TYPOGRAPHY
+    ════════════════════════════════════════════ */
+    .ds-type-sample {
+      display: grid;
+      grid-template-columns: 100px 1fr 80px 80px;
+      align-items: baseline;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .ds-type-label {
+      font-size: var(--font-size-xs);
+      font-family: var(--font-family-mono);
+      color: var(--color-text-tertiary);
+    }
+
+    .ds-type-meta {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      font-family: var(--font-family-mono);
+      text-align: right;
+    }
+
+    .ds-font-preview {
+      background: var(--color-bg-surface);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+    }
+
+    .ds-font-name {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-4);
+    }
+
+    /* ════════════════════════════════════════════
+       SPACING SCALE
+    ════════════════════════════════════════════ */
+    .ds-spacing-item {
+      display: grid;
+      grid-template-columns: 80px 1fr 80px;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-2) 0;
+    }
+
+    .ds-spacing-bar { height: 24px; background: var(--color-accent-blue); border-radius: var(--radius-sm); opacity: 0.7; }
+
+    .ds-spacing-label {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+    }
+
+    .ds-spacing-value {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-align: right;
+    }
+
+    /* ════════════════════════════════════════════
+       BORDER RADIUS
+    ════════════════════════════════════════════ */
+    .ds-radius-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .ds-radius-item {
+      text-align: center;
+      padding: var(--space-4);
+    }
+
+    .ds-radius-box {
+      width: 64px;
+      height: 64px;
+      background: var(--color-accent-blue-light);
+      border: 2px solid var(--color-accent-blue);
+      margin: 0 auto var(--space-3);
+      transition: transform var(--transition-spring);
+    }
+
+    .ds-radius-box:hover { transform: scale(1.1); }
+
+    .ds-radius-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+    }
+
+    .ds-radius-value {
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+    }
+
+    /* ════════════════════════════════════════════
+       SHADOWS
+    ════════════════════════════════════════════ */
+    .ds-shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: var(--space-6);
+    }
+
+    .ds-shadow-item { text-align: center; }
+
+    .ds-shadow-box {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: var(--radius-xl);
+      margin: 0 auto var(--space-4);
+      transition: transform var(--transition-spring);
+    }
+
+    .ds-shadow-box:hover { transform: translateY(-4px); }
+
+    .ds-shadow-name {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ════════════════════════════════════════════
+       COMPONENTS
+    ════════════════════════════════════════════ */
+    .ds-component-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+    }
+
+    .ds-component-title {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ds-component-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+      padding: var(--space-6);
+      background: white;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-4);
+      border: 1px dashed var(--color-border-subtle);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius-full);
+      padding: var(--space-2) var(--space-6);
+      transition: all var(--transition-fast);
+      text-decoration: none;
+      line-height: 1;
+      height: 36px;
+    }
+
+    .btn-primary {
+      background: var(--color-accent-blue);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-blue-dark);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--color-accent-blue);
+      border: 1px solid var(--color-border-default);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-accent-blue-light);
+      border-color: var(--color-accent-blue);
+    }
+
+    .btn-tonal {
+      background: var(--color-accent-blue-light);
+      color: var(--color-accent-blue-dark);
+    }
+
+    .btn-tonal:hover {
+      background: #c4d7fb;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-accent-blue);
+    }
+
+    .btn-ghost:hover {
+      background: var(--color-accent-blue-light);
+    }
+
+    .btn-danger {
+      background: var(--color-accent-red);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c5221f;
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-lg { height: 48px; padding: var(--space-3) var(--space-8); font-size: var(--font-size-base); }
+    .btn-sm { height: 28px; padding: var(--space-1) var(--space-4); font-size: var(--font-size-xs); }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      padding: 2px var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    .badge-blue    { background: var(--color-state-info-bg);    color: var(--color-accent-blue-dark); }
+    .badge-green   { background: var(--color-state-success-bg); color: #137333; }
+    .badge-yellow  { background: var(--color-state-warning-bg); color: #b06000; }
+    .badge-red     { background: var(--color-state-error-bg);   color: #c5221f; }
+    .badge-gray    { background: var(--color-bg-surface);       color: var(--color-text-secondary); border: 1px solid var(--color-border-default); }
+
+    /* Cards */
+    .card {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+      transition: box-shadow var(--transition-base), transform var(--transition-spring);
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .card-title {
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-2);
+    }
+
+    .card-body {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    /* Inputs */
+    .input-field {
+      width: 100%;
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      background: white;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--color-border-focus);
+      box-shadow: 0 0 0 3px rgba(66,133,244,0.2);
+    }
+
+    .input-field::placeholder { color: var(--color-text-tertiary); }
+
+    /* Alert / Banner */
+    .alert {
+      display: flex;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      font-size: var(--font-size-sm);
+    }
+
+    .alert-success { background: var(--color-state-success-bg); color: #137333; }
+    .alert-warning { background: var(--color-state-warning-bg); color: #b06000; }
+    .alert-error   { background: var(--color-state-error-bg);   color: #c5221f; }
+    .alert-info    { background: var(--color-state-info-bg);    color: var(--color-accent-blue-dark); }
+
+    /* Icon */
+    .icon {
+      font-family: var(--font-family-icons);
+      font-size: 20px;
+      font-weight: 300;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ════════════════════════════════════════════
+       CODE BLOCK
+    ════════════════════════════════════════════ */
+    .ds-code {
+      background: var(--color-bg-dark);
+      color: #e8eaed;
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-sm);
+      overflow-x: auto;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .ds-code-label {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-4);
+      font-size: var(--font-size-xs);
+      color: #5f6368;
+    }
+
+    /* ════════════════════════════════════════════
+       GRID CARDS (main section cards)
+    ════════════════════════════════════════════ */
+    .ds-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+    .ds-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-4); }
+
+    /* ════════════════════════════════════════════
+       COPY BUTTON
+    ════════════════════════════════════════════ */
+    .copy-btn {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-4);
+      background: rgba(255,255,255,0.1);
+      color: #9aa0a6;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: var(--space-1) var(--space-3);
+      font-size: var(--font-size-xs);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    /* ════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════ */
+    .ds-footer {
+      margin-top: var(--space-16);
+      padding-top: var(--space-8);
+      border-top: 1px solid var(--color-border-default);
+      color: var(--color-text-tertiary);
+      font-size: var(--font-size-xs);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ════════════════════════════════════════════
+       SCROLLBAR
+    ════════════════════════════════════════════ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--color-border-default); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
+  </style>
+</head>
+<body>
+
+<div class="ds-layout">
+
+  <!-- ═══════════════════════════════════════
+       SIDEBAR NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav class="ds-nav">
+    <div class="ds-nav-logo">
+      <div class="ds-nav-logo-icon">G</div>
+      <div class="ds-nav-logo-text">
+        <strong>antigravity.google</strong>
+        <span>Design System v1.0</span>
+      </div>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Fundações</div>
+      <a class="ds-nav-link active" href="#colors">🎨 Cores</a>
+      <a class="ds-nav-link" href="#typography">✍️ Tipografia</a>
+      <a class="ds-nav-link" href="#spacing">📐 Espaçamento</a>
+      <a class="ds-nav-link" href="#borders">⬜ Bordas & Raios</a>
+      <a class="ds-nav-link" href="#effects">✨ Efeitos</a>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Componentes</div>
+      <a class="ds-nav-link" href="#buttons">🔲 Botões</a>
+      <a class="ds-nav-link" href="#badges">🏷️ Badges</a>
+      <a class="ds-nav-link" href="#cards">🃏 Cards</a>
+      <a class="ds-nav-link" href="#inputs">📝 Inputs</a>
+      <a class="ds-nav-link" href="#alerts">🔔 Alertas</a>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Tokens</div>
+      <a class="ds-nav-link" href="#tokens-css">{ } CSS Tokens</a>
+      <a class="ds-nav-link" href="#tokens-json">⬇️ JSON (W3C)</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       MAIN
+  ═══════════════════════════════════════ -->
+  <main class="ds-main">
+
+    <!-- HERO -->
+    <div class="ds-hero">
+      <div class="ds-hero-badge">
+        🔍 Extraído por Lens · ⚗️ Construído por Forge · design-extractor-squad
+      </div>
+      <h1 class="ds-hero-title">antigravity.google<br>Design System</h1>
+      <p class="ds-hero-subtitle">
+        Design system completo extraído de antigravity.google — tokens, componentes e guia visual pronto para uso.
+      </p>
+      <div class="ds-hero-meta">
+        <div class="ds-hero-stat">
+          <strong>30+</strong>
+          <span>Tokens de Cor</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>10</strong>
+          <span>Tamanhos de Fonte</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>8</strong>
+          <span>Raios de Borda</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>7</strong>
+          <span>Componentes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: COLORS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="colors">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#e8f0fe">🎨</div>
+        <div>
+          <h2 class="ds-section-title">Cores</h2>
+          <p class="ds-section-subtitle">Paleta de cores extraída — Google Brand + estados semânticos</p>
+        </div>
+      </div>
+
+      <!-- Brand Colors -->
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Brand / Accent</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#4285f4"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Blue</div>
+              <div class="ds-swatch-hex">#4285f4</div>
+              <div class="ds-swatch-token">--color-accent-blue</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#1967d2"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Blue Dark</div>
+              <div class="ds-swatch-hex">#1967d2</div>
+              <div class="ds-swatch-token">--color-accent-blue-dark</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#d2e3fc"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Blue Light</div>
+              <div class="ds-swatch-hex">#d2e3fc</div>
+              <div class="ds-swatch-token">--color-accent-blue-light</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#34a853"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Green</div>
+              <div class="ds-swatch-hex">#34a853</div>
+              <div class="ds-swatch-token">--color-accent-green</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#fbbc04"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Yellow</div>
+              <div class="ds-swatch-hex">#fbbc04</div>
+              <div class="ds-swatch-token">--color-accent-yellow</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#ea4335"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Red</div>
+              <div class="ds-swatch-hex">#ea4335</div>
+              <div class="ds-swatch-token">--color-accent-red</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neutral Colors -->
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Texto & Neutros</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#202124"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Text Primary</div>
+              <div class="ds-swatch-hex">#202124</div>
+              <div class="ds-swatch-token">--color-text-primary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#5f6368"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Text Secondary</div>
+              <div class="ds-swatch-hex">#5f6368</div>
+              <div class="ds-swatch-token">--color-text-secondary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#80868b"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Text Tertiary</div>
+              <div class="ds-swatch-hex">#80868b</div>
+              <div class="ds-swatch-token">--color-text-tertiary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#f8f9fa; border:1px solid #e8eaed"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">BG Surface</div>
+              <div class="ds-swatch-hex">#f8f9fa</div>
+              <div class="ds-swatch-token">--color-bg-surface</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#e8eaed"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Border Default</div>
+              <div class="ds-swatch-hex">#e8eaed</div>
+              <div class="ds-swatch-token">--color-border-default</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semantic Colors -->
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Estados Semânticos</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#e6f4ea"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Success BG</div>
+              <div class="ds-swatch-hex">#e6f4ea · #34a853</div>
+              <div class="ds-swatch-token">--color-state-success-bg</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#fef7e0"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Warning BG</div>
+              <div class="ds-swatch-hex">#fef7e0 · #fbbc04</div>
+              <div class="ds-swatch-token">--color-state-warning-bg</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#fce8e6"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Error BG</div>
+              <div class="ds-swatch-hex">#fce8e6 · #ea4335</div>
+              <div class="ds-swatch-token">--color-state-error-bg</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#e8f0fe"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Info BG</div>
+              <div class="ds-swatch-hex">#e8f0fe · #4285f4</div>
+              <div class="ds-swatch-token">--color-state-info-bg</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: TYPOGRAPHY
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="typography">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#f3e8ff">✍️</div>
+        <div>
+          <h2 class="ds-section-title">Tipografia</h2>
+          <p class="ds-section-subtitle">Google Sans Flex (variável) + Google Sans Code + Google Symbols</p>
+        </div>
+      </div>
+
+      <!-- Font Preview -->
+      <div class="ds-font-preview">
+        <div class="ds-font-name">Google Sans Flex — font-family-base</div>
+        <p style="font-size:2.5rem; font-weight:700; line-height:1.2; margin-bottom:0.5rem">The quick brown fox</p>
+        <p style="font-size:1rem; color:var(--color-text-secondary)">abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789</p>
+      </div>
+
+      <!-- Type Scale -->
+      <div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-xs</span>
+          <span style="font-size:0.75rem">Exemplo de texto — Google Sans Flex</span>
+          <span class="ds-type-meta">12px</span>
+          <span class="ds-type-meta">0.75rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-sm</span>
+          <span style="font-size:0.875rem">Exemplo de texto — Google Sans Flex</span>
+          <span class="ds-type-meta">14px</span>
+          <span class="ds-type-meta">0.875rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-base</span>
+          <span style="font-size:1rem">Exemplo de texto — Google Sans Flex</span>
+          <span class="ds-type-meta">16px</span>
+          <span class="ds-type-meta">1rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-lg</span>
+          <span style="font-size:1.125rem">Exemplo de texto — Google Sans Flex</span>
+          <span class="ds-type-meta">18px</span>
+          <span class="ds-type-meta">1.125rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-xl</span>
+          <span style="font-size:1.25rem">Exemplo de texto — Google Sans Flex</span>
+          <span class="ds-type-meta">20px</span>
+          <span class="ds-type-meta">1.25rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-2xl</span>
+          <span style="font-size:1.5rem">Exemplo de texto</span>
+          <span class="ds-type-meta">24px</span>
+          <span class="ds-type-meta">1.5rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-3xl</span>
+          <span style="font-size:1.875rem">Exemplo de texto</span>
+          <span class="ds-type-meta">30px</span>
+          <span class="ds-type-meta">1.875rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-4xl</span>
+          <span style="font-size:2.25rem">Exemplo</span>
+          <span class="ds-type-meta">36px</span>
+          <span class="ds-type-meta">2.25rem</span>
+        </div>
+        <div class="ds-type-sample">
+          <span class="ds-type-label">--font-size-5xl</span>
+          <span style="font-size:3rem">Heading</span>
+          <span class="ds-type-meta">48px</span>
+          <span class="ds-type-meta">3rem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: SPACING
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="spacing">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#fef7e0">📐</div>
+        <div>
+          <h2 class="ds-section-title">Espaçamento</h2>
+          <p class="ds-section-subtitle">Grid base de 4px — escala de 8 passos</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-1</span>
+          <div class="ds-spacing-bar" style="width:4px"></div>
+          <span class="ds-spacing-value">4px / 0.25rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-2</span>
+          <div class="ds-spacing-bar" style="width:8px"></div>
+          <span class="ds-spacing-value">8px / 0.5rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-3</span>
+          <div class="ds-spacing-bar" style="width:12px"></div>
+          <span class="ds-spacing-value">12px / 0.75rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-4</span>
+          <div class="ds-spacing-bar" style="width:16px"></div>
+          <span class="ds-spacing-value">16px / 1rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-6</span>
+          <div class="ds-spacing-bar" style="width:24px"></div>
+          <span class="ds-spacing-value">24px / 1.5rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-8</span>
+          <div class="ds-spacing-bar" style="width:32px"></div>
+          <span class="ds-spacing-value">32px / 2rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-12</span>
+          <div class="ds-spacing-bar" style="width:48px"></div>
+          <span class="ds-spacing-value">48px / 3rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-16</span>
+          <div class="ds-spacing-bar" style="width:64px"></div>
+          <span class="ds-spacing-value">64px / 4rem</span>
+        </div>
+        <div class="ds-spacing-item">
+          <span class="ds-spacing-label">--space-24</span>
+          <div class="ds-spacing-bar" style="width:96px"></div>
+          <span class="ds-spacing-value">96px / 6rem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: BORDERS & RADIUS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="borders">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#fce8e6">⬜</div>
+        <div>
+          <h2 class="ds-section-title">Bordas & Raios</h2>
+          <p class="ds-section-subtitle">De none (0) a full (9999px)</p>
+        </div>
+      </div>
+
+      <div class="ds-radius-grid">
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:0"></div>
+          <div class="ds-radius-name">none</div>
+          <div class="ds-radius-value">0</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:4px"></div>
+          <div class="ds-radius-name">sm</div>
+          <div class="ds-radius-value">4px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:8px"></div>
+          <div class="ds-radius-name">md</div>
+          <div class="ds-radius-value">8px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:12px"></div>
+          <div class="ds-radius-name">lg</div>
+          <div class="ds-radius-value">12px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:16px"></div>
+          <div class="ds-radius-name">xl</div>
+          <div class="ds-radius-value">16px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:24px"></div>
+          <div class="ds-radius-name">2xl</div>
+          <div class="ds-radius-value">24px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:9999px"></div>
+          <div class="ds-radius-name">full</div>
+          <div class="ds-radius-value">9999px</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: EFFECTS / SHADOWS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="effects">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#e6f4ea">✨</div>
+        <div>
+          <h2 class="ds-section-title">Efeitos & Sombras</h2>
+          <p class="ds-section-subtitle">Google-style shadows com dupla camada (z-axis perception)</p>
+        </div>
+      </div>
+
+      <div class="ds-shadow-grid">
+        <div class="ds-shadow-item">
+          <div class="ds-shadow-box" style="box-shadow:none; border:1px solid var(--color-border-default)"></div>
+          <div class="ds-shadow-name">none</div>
+        </div>
+        <div class="ds-shadow-item">
+          <div class="ds-shadow-box" style="box-shadow:var(--shadow-sm)"></div>
+          <div class="ds-shadow-name">sm</div>
+        </div>
+        <div class="ds-shadow-item">
+          <div class="ds-shadow-box" style="box-shadow:var(--shadow-md)"></div>
+          <div class="ds-shadow-name">md</div>
+        </div>
+        <div class="ds-shadow-item">
+          <div class="ds-shadow-box" style="box-shadow:var(--shadow-lg)"></div>
+          <div class="ds-shadow-name">lg</div>
+        </div>
+        <div class="ds-shadow-item">
+          <div class="ds-shadow-box" style="box-shadow:var(--shadow-xl)"></div>
+          <div class="ds-shadow-name">xl</div>
+        </div>
+      </div>
+
+      <!-- Transitions -->
+      <div style="margin-top:var(--space-8)">
+        <h3 style="font-size:var(--font-size-base); font-weight:500; margin-bottom:var(--space-4);">Transições</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:var(--space-4)">
+          <div class="card" style="text-align:center; transition:var(--transition-fast); cursor:default">
+            <div style="font-weight:500; margin-bottom:4px">fast</div>
+            <div style="font-family:var(--font-family-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary)">150ms ease</div>
+          </div>
+          <div class="card" style="text-align:center; transition:var(--transition-base); cursor:default">
+            <div style="font-weight:500; margin-bottom:4px">base</div>
+            <div style="font-family:var(--font-family-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary)">250ms ease</div>
+          </div>
+          <div class="card" style="text-align:center; transition:var(--transition-slow); cursor:default">
+            <div style="font-weight:500; margin-bottom:4px">slow</div>
+            <div style="font-family:var(--font-family-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary)">350ms ease</div>
+          </div>
+          <div class="card" style="text-align:center; transition:var(--transition-spring); cursor:default">
+            <div style="font-weight:500; margin-bottom:4px">spring</div>
+            <div style="font-family:var(--font-family-mono); font-size:var(--font-size-xs); color:var(--color-text-tertiary)">cubic-bezier spring</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: BUTTONS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="buttons">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#e8f0fe">🔲</div>
+        <div>
+          <h2 class="ds-section-title">Botões</h2>
+          <p class="ds-section-subtitle">5 variantes × 3 tamanhos — border-radius full (pill shape)</p>
+        </div>
+      </div>
+
+      <!-- Variantes -->
+      <div class="ds-component-card">
+        <div class="ds-component-title">Variantes</div>
+        <div class="ds-component-preview">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn btn-tonal">Tonal</button>
+          <button class="btn btn-ghost">Ghost</button>
+          <button class="btn btn-danger">Danger</button>
+        </div>
+      </div>
+
+      <!-- Tamanhos -->
+      <div class="ds-component-card">
+        <div class="ds-component-title">Tamanhos</div>
+        <div class="ds-component-preview" style="align-items:center">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Medium</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: BADGES
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="badges">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#fef7e0">🏷️</div>
+        <div>
+          <h2 class="ds-section-title">Badges & Chips</h2>
+          <p class="ds-section-subtitle">Rótulos de estado e categoria</p>
+        </div>
+      </div>
+
+      <div class="ds-component-card">
+        <div class="ds-component-title">Variantes de Estado</div>
+        <div class="ds-component-preview">
+          <span class="badge badge-blue">Info</span>
+          <span class="badge badge-green">Success</span>
+          <span class="badge badge-yellow">Warning</span>
+          <span class="badge badge-red">Error</span>
+          <span class="badge badge-gray">Neutro</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: CARDS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="cards">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#f3e8ff">🃏</div>
+        <div>
+          <h2 class="ds-section-title">Cards</h2>
+          <p class="ds-section-subtitle">Hover com lift — shadow elevation progressiva</p>
+        </div>
+      </div>
+
+      <div class="ds-grid-3">
+        <div class="card">
+          <div class="card-title">Card Default</div>
+          <div class="card-body">Passe o mouse para ver o efeito de lift com sombra progressiva.</div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--color-accent-blue)">
+          <div class="card-title">Card Destacado</div>
+          <div class="card-body">Variante com borda superior colorida para destaque.</div>
+        </div>
+        <div class="card" style="background:var(--color-bg-dark); color:white">
+          <div class="card-title" style="color:white">Card Dark</div>
+          <div class="card-body" style="color:#9aa0a6">Versão dark com fundo Google Dark.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: INPUTS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="inputs">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#fce8e6">📝</div>
+        <div>
+          <h2 class="ds-section-title">Inputs</h2>
+          <p class="ds-section-subtitle">Focus ring azul Google — border-radius md</p>
+        </div>
+      </div>
+
+      <div class="ds-component-card">
+        <div class="ds-component-title">Campos de Formulário</div>
+        <div style="display:grid; gap:var(--space-4); max-width:400px">
+          <input type="text" class="input-field" placeholder="Input padrão...">
+          <input type="email" class="input-field" placeholder="Email address">
+          <input type="search" class="input-field" placeholder="Pesquisar...">
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: ALERTS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="alerts">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#e8f0fe">🔔</div>
+        <div>
+          <h2 class="ds-section-title">Alertas & Banners</h2>
+          <p class="ds-section-subtitle">4 estados semânticos</p>
+        </div>
+      </div>
+
+      <div style="display:grid; gap:var(--space-3)">
+        <div class="alert alert-success">✅ <strong>Sucesso!</strong> Operação realizada com êxito.</div>
+        <div class="alert alert-info">ℹ️ <strong>Info:</strong> Esta é uma mensagem informativa.</div>
+        <div class="alert alert-warning">⚠️ <strong>Atenção:</strong> Verifique os dados antes de continuar.</div>
+        <div class="alert alert-error">❌ <strong>Erro:</strong> Algo deu errado. Tente novamente.</div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: CSS TOKENS
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="tokens-css">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#e8f0fe">{ }</div>
+        <div>
+          <h2 class="ds-section-title">CSS Tokens</h2>
+          <p class="ds-section-subtitle">Copie e cole em qualquer projeto</p>
+        </div>
+      </div>
+
+      <div class="ds-code" style="position:relative">
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').innerText).then(()=>{this.textContent='Copiado!';setTimeout(()=>this.textContent='Copiar',1500)})">Copiar</button>
+        <code id="css-tokens-code">:root {
+  /* Colors */
+  --color-accent-blue: #4285f4;
+  --color-accent-blue-dark: #1967d2;
+  --color-accent-green: #34a853;
+  --color-accent-yellow: #fbbc04;
+  --color-accent-red: #ea4335;
+
+  --color-bg-primary: #ffffff;
+  --color-bg-surface: #f8f9fa;
+  --color-bg-dark: #202124;
+
+  --color-text-primary: #202124;
+  --color-text-secondary: #5f6368;
+  --color-text-tertiary: #80868b;
+
+  --color-border-default: #e8eaed;
+  --color-border-focus: #4285f4;
+
+  /* State Colors */
+  --color-state-success: #34a853;
+  --color-state-warning: #fbbc04;
+  --color-state-error: #ea4335;
+  --color-state-info: #4285f4;
+
+  /* Typography */
+  --font-family-base: "Google Sans Flex", "Roboto", system-ui, sans-serif;
+  --font-family-mono: "Google Sans Code", ui-monospace, monospace;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(60,64,67,.30), 0 1px 3px rgba(60,64,67,.15);
+  --shadow-md: 0 2px 6px rgba(60,64,67,.15), 0 1px 2px rgba(60,64,67,.30);
+  --shadow-lg: 0 4px 8px rgba(60,64,67,.15), 0 1px 3px rgba(60,64,67,.30);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-spring: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}</code>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         SECTION: JSON TOKENS (W3C DTCG)
+    ═══════════════════════════════════════ -->
+    <section class="ds-section" id="tokens-json">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:#fef7e0">⬇️</div>
+        <div>
+          <h2 class="ds-section-title">JSON Tokens (W3C DTCG)</h2>
+          <p class="ds-section-subtitle">Formato W3C Design Token Community Group — compatível com Style Dictionary, Theo, etc.</p>
+        </div>
+      </div>
+
+      <div class="ds-code" style="position:relative">
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').innerText).then(()=>{this.textContent='Copiado!';setTimeout(()=>this.textContent='Copiar',1500)})">Copiar</button>
+        <code>{
+  "color": {
+    "accent": {
+      "blue":   { "$value": "#4285f4", "$type": "color" },
+      "green":  { "$value": "#34a853", "$type": "color" },
+      "yellow": { "$value": "#fbbc04", "$type": "color" },
+      "red":    { "$value": "#ea4335", "$type": "color" }
+    },
+    "text": {
+      "primary":   { "$value": "#202124", "$type": "color" },
+      "secondary": { "$value": "#5f6368", "$type": "color" }
+    },
+    "bg": {
+      "primary": { "$value": "#ffffff", "$type": "color" },
+      "surface": { "$value": "#f8f9fa", "$type": "color" },
+      "dark":    { "$value": "#202124", "$type": "color" }
+    }
+  },
+  "borderRadius": {
+    "sm":   { "$value": "4px",    "$type": "dimension" },
+    "md":   { "$value": "8px",    "$type": "dimension" },
+    "lg":   { "$value": "12px",   "$type": "dimension" },
+    "xl":   { "$value": "16px",   "$type": "dimension" },
+    "full": { "$value": "9999px", "$type": "dimension" }
+  }
+}</code>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="ds-footer">
+      <div>
+        🔍 <strong>Lens</strong> extraiu · ⚗️ <strong>Forge</strong> construiu ·
+        <strong>design-extractor-squad</strong> v1.0.0
+      </div>
+      <div>Fonte: <a href="https://antigravity.google/" style="color:var(--color-accent-blue)">antigravity.google</a> · 2026-02-24</div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Smooth nav active state
+  const sections = document.querySelectorAll('.ds-section');
+  const navLinks = document.querySelectorAll('.ds-nav-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.ds-nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

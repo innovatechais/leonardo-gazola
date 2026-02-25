@@ -1,0 +1,8 @@
+.env
+node_modules/
+.sync-state.json
+*.oga
+*.ogg
+*.mp3
+*.wav
+tmp/

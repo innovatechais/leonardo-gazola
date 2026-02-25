@@ -1,0 +1,75 @@
+name: clone-leonardo-squad
+version: 1.0.0
+description: >
+  Squad estratégico para capturar, estruturar e escalar o modelo mental de Leonardo Gazola.
+  Usa o clone-factory-squad como base técnica e injeta o DNA específico de Leonardo:
+  6+ anos de experiência em transportes brasileiro, heurísticas de decisão comercial,
+  frameworks de análise competitiva e princípios de liderança. Visão futura — iniciar
+  após os squads operacionais estarem rodando.
+author: leonardogazola
+license: MIT
+slashPrefix: clone
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: dna-extractor-leo
+    name: Mira-Leo
+    file: agents/dna-extractor-leo.md
+    role: Extratora de DNA de Leonardo
+    icon: "🧬"
+
+  - id: clone-builder-leo
+    name: Forge-Leo
+    file: agents/clone-builder-leo.md
+    role: Construtor do Clone de Leonardo
+    icon: "🔨"
+
+  - id: knowledge-indexer
+    name: Índice
+    file: agents/knowledge-indexer.md
+    role: Indexador do Conhecimento de Leonardo
+    icon: "🗃️"
+
+components:
+  tasks:
+    - extract-leo-dna.md
+    - build-leo-clone.md
+    - index-leo-knowledge.md
+    - validate-leo-clone.md
+  agents:
+    - dna-extractor-leo.md
+    - clone-builder-leo.md
+    - knowledge-indexer.md
+  workflows:
+    - leo-clone-workflow.md
+  checklists:
+    - clone-validation-checklist.md
+  templates:
+    - leo-dna-profile-tmpl.md
+    - leo-clone-agent-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - leo-knowledge-sources.md
+    - transportes-br-context.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads:
+    - clone-factory-squad
+
+tags:
+  - clone
+  - leonardo
+  - dna
+  - conhecimento
+  - transportes
+  - heurísticas
+  - modelo-mental

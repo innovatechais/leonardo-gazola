@@ -1,0 +1,82 @@
+name: vendas-canhotos-squad
+version: 1.0.0
+description: >
+  Squad de vendas B2B para a Innovatech Canhotos IA. Sistematiza todo o processo
+  comercial: qualificação de ICP, treinamento de representantes, gestão de pipeline
+  e cálculo de ROI ao vivo. Objetivo: escalar de 3 para 30+ clientes com processo
+  replicável sem depender exclusivamente da presença de Leonardo.
+author: leonardogazola
+license: MIT
+slashPrefix: vendas
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: icp-qualifier
+    name: Filtro
+    file: agents/icp-qualifier.md
+    role: Qualificador de ICP
+    icon: "🎯"
+
+  - id: sales-trainer
+    name: Coach
+    file: agents/sales-trainer.md
+    role: Treinador de Representantes
+    icon: "🏋️"
+
+  - id: pipeline-manager
+    name: Radar
+    file: agents/pipeline-manager.md
+    role: Gestor de Pipeline Comercial
+    icon: "📡"
+
+  - id: roi-calculator
+    name: Prova
+    file: agents/roi-calculator.md
+    role: Calculadora de ROI ao Vivo
+    icon: "💰"
+
+components:
+  tasks:
+    - qualify-lead.md
+    - roi-proposal.md
+    - pipeline-review.md
+    - objection-response.md
+  agents:
+    - icp-qualifier.md
+    - sales-trainer.md
+    - pipeline-manager.md
+    - roi-calculator.md
+  workflows:
+    - sales-cycle-workflow.md
+  checklists:
+    - icp-qualification-checklist.md
+    - closing-checklist.md
+  templates:
+    - roi-proposal-tmpl.md
+    - follow-up-tmpl.md
+  tools: []
+  scripts: []
+  data:
+    - icp-canhotos.md
+    - transportes-objections-db.md
+
+config:
+  coding-standards: config/standards.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - vendas
+  - b2b
+  - saas
+  - transportes
+  - icp
+  - pipeline
+  - roi
+  - canhotos

@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Evidex</title>
+  <style>
+    /* ════════════════════════════════════════════
+       DESIGN TOKENS — evidex.com.br
+       Extracted by Lens · Built by Forge
+       Source: DESIGN_SYSTEM_EVIDEX.md + index.css
+    ════════════════════════════════════════════ */
+    :root {
+      --color-brand-yellow:      #D4FF00;
+      --color-brand-yellow-80:   rgba(212,255,0,0.80);
+      --color-brand-yellow-20:   rgba(212,255,0,0.20);
+      --color-brand-navy:        #0A2540;
+      --color-brand-navy-dark:   #01203f;
+
+      --color-bg-primary:        #FFFFFF;
+      --color-bg-surface:        #F5F5F0;
+      --color-bg-surface-light:  #F9FAFB;
+      --color-bg-dark:           #0A2540;
+      --color-bg-dark-deeper:    #01203f;
+      --color-bg-glass:          rgba(255,255,255,0.10);
+      --color-bg-glass-strong:   rgba(255,255,255,0.70);
+
+      --color-text-primary:      #0A2540;
+      --color-text-body:         #374151;
+      --color-text-secondary:    #4B5563;
+      --color-text-tertiary:     #6B7280;
+      --color-text-muted:        #9B9B9B;
+      --color-text-on-dark:      #FFFFFF;
+      --color-text-on-dark-80:   rgba(255,255,255,0.80);
+      --color-text-highlight:    #D4FF00;
+      --color-text-on-yellow:    #0A2540;
+
+      --color-border-subtle:     #F3F4F6;
+      --color-border-default:    #E5E7EB;
+      --color-border-accent:     #D4FF00;
+      --color-border-glass:      rgba(255,255,255,0.20);
+
+      --font-family-base: ui-sans-serif, system-ui, sans-serif;
+      --font-family-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --font-size-xs:   0.75rem;
+      --font-size-sm:   0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg:   1.125rem;
+      --font-size-xl:   1.25rem;
+      --font-size-2xl:  1.5rem;
+      --font-size-3xl:  1.875rem;
+      --font-size-4xl:  2.25rem;
+      --font-size-5xl:  3rem;
+      --font-size-6xl:  3.75rem;
+      --font-size-8xl:  6rem;
+
+      --font-weight-normal:   400;
+      --font-weight-medium:   500;
+      --font-weight-bold:     700;
+
+      --line-height-heading:  1.1;
+      --line-height-normal:   1.5;
+      --line-height-relaxed:  1.625;
+
+      --radius-xl:   12px;
+      --radius-2xl:  16px;
+      --radius-3xl:  24px;
+      --radius-full: 9999px;
+
+      --shadow-subtle:       0 1px 2px rgba(0,0,0,0.05);
+      --shadow-default:      0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10);
+      --shadow-intense:      0 25px 50px -12px rgba(0,0,0,0.25);
+      --shadow-glow-yellow:  0 0 20px rgba(212,255,0,0.30);
+
+      --transition-base:     all 300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ════════════════════════════════════════════
+       RESET
+    ════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-family-base);
+      background: var(--color-bg-primary);
+      color: var(--color-text-body);
+      line-height: var(--line-height-normal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════════════════
+       LAYOUT
+    ════════════════════════════════════════════ */
+    .ds-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════════
+       SIDEBAR
+    ════════════════════════════════════════════ */
+    .ds-nav {
+      background: var(--color-brand-navy);
+      padding: 1.5rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .ds-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .ds-nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--color-brand-yellow);
+      border-radius: var(--radius-2xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--color-brand-navy);
+      flex-shrink: 0;
+    }
+
+    .ds-nav-logo-text strong { display: block; font-size: 1rem; font-weight: 700; color: white; }
+    .ds-nav-logo-text span   { font-size: 0.75rem; color: rgba(255,255,255,0.50); }
+
+    .ds-nav-section { margin-bottom: 1.5rem; }
+
+    .ds-nav-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      padding: 0 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ds-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-xl);
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition-base);
+      cursor: pointer;
+    }
+
+    .ds-nav-link:hover, .ds-nav-link.active {
+      background: rgba(212,255,0,0.15);
+      color: var(--color-brand-yellow);
+    }
+
+    /* ════════════════════════════════════════════
+       MAIN
+    ════════════════════════════════════════════ */
+    .ds-main { padding: 3rem 4rem; max-width: 960px; }
+
+    /* ════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════ */
+    .ds-hero {
+      background: linear-gradient(135deg, #0A2540 0%, #01203f 50%, #0A2540 100%);
+      border-radius: var(--radius-3xl);
+      padding: 4rem 3rem;
+      margin-bottom: 4rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #D4FF00 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.05;
+    }
+
+    .ds-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(212,255,0,0.15);
+      border: 1px solid rgba(212,255,0,0.30);
+      border-radius: var(--radius-full);
+      padding: 0.25rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-brand-yellow);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .ds-hero-title {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-heading);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .ds-hero-title span {
+      color: var(--color-brand-yellow);
+      text-shadow: var(--shadow-glow-yellow);
+    }
+
+    .ds-hero-subtitle {
+      font-size: var(--font-size-lg);
+      color: rgba(255,255,255,0.75);
+      max-width: 480px;
+      position: relative;
+    }
+
+    .ds-hero-meta {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    .ds-hero-stat strong { display: block; font-size: 1.75rem; font-weight: 700; color: var(--color-brand-yellow); text-shadow: var(--shadow-glow-yellow); }
+    .ds-hero-stat span   { font-size: 0.75rem; color: rgba(255,255,255,0.55); }
+
+    /* ════════════════════════════════════════════
+       SECTIONS
+    ════════════════════════════════════════════ */
+    .ds-section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+    .ds-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-border-default);
+    }
+
+    .ds-section-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-2xl);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+
+    .ds-section-title { font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-text-primary); }
+    .ds-section-sub   { font-size: var(--font-size-sm); color: var(--color-text-secondary); margin-top: 2px; }
+
+    /* ════════════════════════════════════════════
+       TITLE BADGE (Tarja)
+    ════════════════════════════════════════════ */
+    .ds-title-badge {
+      background: var(--color-brand-yellow);
+      color: var(--color-brand-navy);
+      padding: 0.75rem 1.5rem;
+      display: inline-block;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-default);
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* ════════════════════════════════════════════
+       COLOR SWATCHES
+    ════════════════════════════════════════════ */
+    .ds-color-group { margin-bottom: 2rem; }
+    .ds-color-group-label { font-size: 0.8rem; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .ds-color-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+
+    .ds-swatch {
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition-base);
+    }
+
+    .ds-swatch:hover { transform: translateY(-4px) scale(1.02); box-shadow: var(--shadow-default); }
+    .ds-swatch-color { height: 80px; }
+    .ds-swatch-info  { padding: 0.75rem; background: var(--color-bg-surface); border-top: 1px solid var(--color-border-subtle); }
+    .ds-swatch-name  { font-size: 0.75rem; font-weight: 600; color: var(--color-text-primary); margin-bottom: 2px; }
+    .ds-swatch-hex   { font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); }
+    .ds-swatch-token { font-family: var(--font-family-mono); font-size: 10px; color: #01203f; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* ════════════════════════════════════════════
+       TYPOGRAPHY
+    ════════════════════════════════════════════ */
+    .ds-type-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 70px 80px;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .ds-type-label { font-size: 0.75rem; font-family: var(--font-family-mono); color: var(--color-text-muted); }
+    .ds-type-meta  { font-size: 0.75rem; font-family: var(--font-family-mono); color: var(--color-text-muted); text-align: right; }
+
+    .ds-font-preview {
+      background: linear-gradient(135deg, #0A2540 0%, #01203f 100%);
+      border-radius: var(--radius-3xl);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-font-preview::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #D4FF00 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.04;
+    }
+
+    /* ════════════════════════════════════════════
+       SPACING BARS
+    ════════════════════════════════════════════ */
+    .ds-spacing-item { display: grid; grid-template-columns: 100px 1fr 100px; align-items: center; gap: 1rem; padding: 0.5rem 0; }
+    .ds-spacing-bar  { height: 24px; background: var(--color-brand-yellow); border-radius: 4px; opacity: 0.85; }
+    .ds-spacing-label{ font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-secondary); }
+    .ds-spacing-val  { font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); text-align: right; }
+
+    /* ════════════════════════════════════════════
+       RADIUS
+    ════════════════════════════════════════════ */
+    .ds-radius-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 1rem; }
+    .ds-radius-item { text-align: center; padding: 1rem; }
+
+    .ds-radius-box {
+      width: 64px; height: 64px;
+      background: var(--color-brand-yellow-20);
+      border: 2px solid var(--color-brand-yellow);
+      margin: 0 auto 0.75rem;
+      transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .ds-radius-box:hover { transform: scale(1.12); }
+    .ds-radius-name { font-size: 0.875rem; font-weight: 600; color: var(--color-text-primary); }
+    .ds-radius-val  { font-family: var(--font-family-mono); font-size: 0.75rem; color: var(--color-text-muted); }
+
+    /* ════════════════════════════════════════════
+       SHADOWS
+    ════════════════════════════════════════════ */
+    .ds-shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.5rem; }
+    .ds-shadow-item { text-align: center; }
+
+    .ds-shadow-box {
+      width: 80px; height: 80px;
+      background: white;
+      border-radius: var(--radius-2xl);
+      margin: 0 auto 1rem;
+      transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .ds-shadow-box:hover { transform: translateY(-6px); }
+    .ds-shadow-name { font-size: 0.875rem; font-weight: 600; color: var(--color-text-primary); }
+
+    /* ════════════════════════════════════════════
+       COMPONENTS CARD WRAPPER
+    ════════════════════════════════════════════ */
+    .ds-comp-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-default);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ds-comp-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .ds-comp-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 1.5rem;
+      background: white;
+      border-radius: var(--radius-2xl);
+      border: 1px dashed var(--color-border-subtle);
+      margin-bottom: 1rem;
+    }
+
+    .ds-comp-preview.dark {
+      background: linear-gradient(135deg, #0A2540 0%, #01203f 100%);
+    }
+
+    /* ════════════════════════════════════════════
+       BUTTONS
+    ════════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-medium);
+      border: none;
+      cursor: pointer;
+      border-radius: var(--radius-full);
+      transition: var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--color-brand-yellow);
+      color: var(--color-brand-navy);
+      padding: 0.875rem 2.5rem;
+      font-size: var(--font-size-xl);
+      box-shadow: var(--shadow-default);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-intense);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-brand-navy);
+      border: 2px solid var(--color-brand-navy);
+      padding: 0.875rem 2.5rem;
+      font-size: var(--font-size-xl);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-brand-navy);
+      color: white;
+    }
+
+    .btn-secondary.on-dark {
+      color: white;
+      border-color: white;
+    }
+
+    .btn-secondary.on-dark:hover {
+      background: white;
+      color: var(--color-brand-navy);
+    }
+
+    .btn-sm  { padding: 0.5rem 1.25rem; font-size: var(--font-size-sm); }
+    .btn-md  { padding: 0.75rem 2rem;   font-size: var(--font-size-base); }
+    .btn-lg  { padding: 1rem 3rem;      font-size: var(--font-size-xl); }
+
+    /* ════════════════════════════════════════════
+       TITLE BADGES (Tarjas)
+    ════════════════════════════════════════════ */
+    .title-badge {
+      background: var(--color-brand-yellow);
+      color: var(--color-brand-navy);
+      padding: 0.75rem 1.5rem;
+      display: inline-block;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-default);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-xl);
+    }
+
+    /* ════════════════════════════════════════════
+       BADGES DE STATUS
+    ════════════════════════════════════════════ */
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.375rem 1.25rem;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .badge-navy   { background: var(--color-brand-navy);     color: var(--color-brand-yellow); }
+    .badge-yellow { background: var(--color-brand-yellow);   color: var(--color-brand-navy); }
+    .badge-success{ background: #22C55E;                     color: white; }
+    .badge-error  { background: #EF4444;                     color: white; }
+    .badge-outline{ background: transparent; border: 2px solid var(--color-border-default); color: var(--color-text-secondary); }
+
+    /* ════════════════════════════════════════════
+       CARDS
+    ════════════════════════════════════════════ */
+    .card {
+      border-radius: var(--radius-3xl);
+      transition: var(--transition-base);
+    }
+
+    .card-light {
+      background: linear-gradient(135deg, #F9FAFB 0%, #FFFFFF 100%);
+      padding: 2rem;
+      box-shadow: var(--shadow-default);
+      border: 2px solid var(--color-border-subtle);
+    }
+
+    .card-light:hover {
+      border-color: var(--color-brand-yellow);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-intense);
+    }
+
+    .card-glass {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 2.5rem;
+      border: 2px solid rgba(255,255,255,0.20);
+      box-shadow: var(--shadow-intense);
+    }
+
+    .card-yellow {
+      background: linear-gradient(135deg, #D4FF00 0%, rgba(212,255,0,0.80) 100%);
+      padding: 2.5rem;
+      border: 4px solid white;
+      box-shadow: var(--shadow-intense);
+    }
+
+    .card-title { font-weight: var(--font-weight-medium); color: var(--color-text-primary); margin-bottom: 0.5rem; }
+    .card-body  { color: var(--color-text-secondary); font-size: var(--font-size-sm); }
+
+    .card-glass .card-title { color: white; }
+    .card-glass .card-body  { color: rgba(255,255,255,0.70); }
+
+    .card-yellow .card-title { color: var(--color-brand-navy); }
+    .card-yellow .card-body  { color: rgba(10,37,64,0.70); }
+
+    /* ════════════════════════════════════════════
+       STAT CARDS
+    ════════════════════════════════════════════ */
+    .stat-card {
+      background: var(--color-brand-navy-dark);
+      border-radius: var(--radius-2xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-default);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-brand-yellow);
+      text-shadow: var(--shadow-glow-yellow);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { color: white; font-size: var(--font-size-base); }
+
+    /* ════════════════════════════════════════════
+       HEADER GLASS
+    ════════════════════════════════════════════ */
+    .header-demo {
+      background: rgba(255,255,255,0.70);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border-radius: var(--radius-2xl);
+      border: 1px solid rgba(255,255,255,0.20);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      padding: 0.875rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo { font-weight: 700; color: var(--color-brand-navy); font-size: 1.125rem; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-logo-dot { width: 24px; height: 24px; background: var(--color-brand-yellow); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--color-brand-navy); font-weight: 900; }
+
+    .nav-links { display: flex; gap: 0.25rem; }
+
+    .nav-link {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-xl);
+      color: #4B5563;
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-base);
+    }
+
+    .nav-link:hover {
+      background: rgba(212,255,0,0.20);
+      color: var(--color-brand-navy);
+    }
+
+    /* ════════════════════════════════════════════
+       ICON CONTAINERS
+    ════════════════════════════════════════════ */
+    .icon-box {
+      width: 64px; height: 64px;
+      border-radius: var(--radius-2xl);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      box-shadow: var(--shadow-default);
+      transition: var(--transition-base);
+      flex-shrink: 0;
+    }
+
+    .icon-box:hover { transform: scale(1.10); }
+
+    .icon-green  { background: linear-gradient(135deg, #22C55E, #10B981); }
+    .icon-blue   { background: linear-gradient(135deg, #3B82F6, #6366F1); }
+    .icon-purple { background: linear-gradient(135deg, #A855F7, #7C3AED); }
+    .icon-orange { background: linear-gradient(135deg, #F59E0B, #F97316); }
+    .icon-red    { background: linear-gradient(135deg, #EF4444, #F43F5E); }
+    .icon-cyan   { background: linear-gradient(135deg, #06B6D4, #0D9488); }
+
+    /* ════════════════════════════════════════════
+       SECTION DEMOS
+    ════════════════════════════════════════════ */
+    .section-dark {
+      background: linear-gradient(135deg, #0A2540 0%, #01203f 50%, #0A2540 100%);
+      border-radius: var(--radius-3xl);
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-dark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, #D4FF00 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.05;
+    }
+
+    /* ════════════════════════════════════════════
+       CODE BLOCK
+    ════════════════════════════════════════════ */
+    .ds-code {
+      background: var(--color-brand-navy);
+      color: #E5E7EB;
+      border-radius: var(--radius-2xl);
+      padding: 1.5rem;
+      font-family: var(--font-family-mono);
+      font-size: var(--font-size-sm);
+      overflow-x: auto;
+      line-height: 1.75;
+      position: relative;
+    }
+
+    .ds-code .token-var   { color: var(--color-brand-yellow); }
+    .ds-code .token-val   { color: #86EFAC; }
+    .ds-code .token-com   { color: rgba(255,255,255,0.35); }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      background: rgba(212,255,0,0.15);
+      color: var(--color-brand-yellow);
+      border: 1px solid rgba(212,255,0,0.30);
+      border-radius: var(--radius-xl);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.7rem;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      transition: var(--transition-base);
+    }
+
+    .copy-btn:hover { background: rgba(212,255,0,0.25); }
+
+    /* ════════════════════════════════════════════
+       GRID HELPERS
+    ════════════════════════════════════════════ */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+
+    /* ════════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════════ */
+    .ds-footer {
+      margin-top: 4rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--color-border-default);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: var(--font-size-xs);
+      color: var(--color-text-muted);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(10,37,64,0.20); border-radius: 999px; }
+
+    .ds-nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
+  </style>
+</head>
+<body>
+
+<div class="ds-layout">
+
+  <!-- ════════════════ SIDEBAR ════════════════ -->
+  <nav class="ds-nav">
+    <div class="ds-nav-logo">
+      <div class="ds-nav-logo-icon">⚡</div>
+      <div>
+        <strong class="ds-nav-logo-text" style="display:block;font-size:1rem;font-weight:700;color:white">Evidex</strong>
+        <span style="font-size:0.7rem;color:rgba(255,255,255,0.45)">Design System v1.0</span>
+      </div>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Fundações</div>
+      <a class="ds-nav-link active" href="#colors">🎨 Cores</a>
+      <a class="ds-nav-link" href="#typography">✍️ Tipografia</a>
+      <a class="ds-nav-link" href="#spacing">📐 Espaçamento</a>
+      <a class="ds-nav-link" href="#borders">⬡ Raios & Bordas</a>
+      <a class="ds-nav-link" href="#effects">✨ Efeitos & Sombras</a>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Componentes</div>
+      <a class="ds-nav-link" href="#buttons">🔲 Botões</a>
+      <a class="ds-nav-link" href="#badges">🏷️ Badges & Tarjas</a>
+      <a class="ds-nav-link" href="#cards">🃏 Cards</a>
+      <a class="ds-nav-link" href="#stats">📊 Stats</a>
+      <a class="ds-nav-link" href="#icons">🎨 Ícones</a>
+      <a class="ds-nav-link" href="#header">🧭 Header</a>
+      <a class="ds-nav-link" href="#sections">📋 Seções</a>
+    </div>
+
+    <div class="ds-nav-section">
+      <div class="ds-nav-section-label">Tokens</div>
+      <a class="ds-nav-link" href="#tokens-css">{ } CSS Tokens</a>
+      <a class="ds-nav-link" href="#tokens-json">⬇️ JSON (W3C)</a>
+    </div>
+  </nav>
+
+  <!-- ════════════════ MAIN ════════════════ -->
+  <main class="ds-main">
+
+    <!-- HERO -->
+    <div class="ds-hero">
+      <div class="ds-hero-badge">🔍 Lens extraiu · ⚗️ Forge construiu · design-extractor-squad</div>
+      <h1 class="ds-hero-title"><span>Evidex</span><br>Design System</h1>
+      <p class="ds-hero-subtitle">Design system completo extraído de evidex.com.br — tokens, componentes e guia visual fiel ao DESIGN_SYSTEM_EVIDEX.md.</p>
+      <div class="ds-hero-meta">
+        <div class="ds-hero-stat">
+          <strong>25+</strong>
+          <span>Tokens de Cor</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>11</strong>
+          <span>Escalas de Fonte</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>4</strong>
+          <span>Raios de Borda</span>
+        </div>
+        <div class="ds-hero-stat">
+          <strong>11</strong>
+          <span>Componentes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ COLORS ════ -->
+    <section class="ds-section" id="colors">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🎨</div>
+        <div>
+          <h2 class="ds-section-title">Cores</h2>
+          <p class="ds-section-sub">Paleta oficial Evidex — Amarelo Neon #D4FF00 + Azul Marinho #0A2540</p>
+        </div>
+      </div>
+
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Brand — Identidade Evidex</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#D4FF00"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Amarelo Neon</div>
+              <div class="ds-swatch-hex">#D4FF00</div>
+              <div class="ds-swatch-token">--color-brand-yellow</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0A2540"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Azul Marinho</div>
+              <div class="ds-swatch-hex">#0A2540</div>
+              <div class="ds-swatch-token">--color-brand-navy</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#01203f"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Azul Marinho Escuro</div>
+              <div class="ds-swatch-hex">#01203f</div>
+              <div class="ds-swatch-token">--color-brand-navy-dark</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Neutros</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#FFFFFF;border:1px solid #E5E7EB"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Branco</div>
+              <div class="ds-swatch-hex">#FFFFFF</div>
+              <div class="ds-swatch-token">--color-bg-primary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#F5F5F0"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Cinza Claro</div>
+              <div class="ds-swatch-hex">#F5F5F0</div>
+              <div class="ds-swatch-token">--color-bg-surface</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#9B9B9B"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Cinza Médio</div>
+              <div class="ds-swatch-hex">#9B9B9B</div>
+              <div class="ds-swatch-token">--color-text-muted</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#1A1A1A"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Preto</div>
+              <div class="ds-swatch-hex">#1A1A1A</div>
+              <div class="ds-swatch-token">--color-text-primary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-color-group">
+        <div class="ds-color-group-label">Texto — Hierarquia</div>
+        <div class="ds-color-swatches">
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#0A2540"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Título</div>
+              <div class="ds-swatch-hex">#0A2540</div>
+              <div class="ds-swatch-token">--color-text-primary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#374151"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Corpo</div>
+              <div class="ds-swatch-hex">#374151</div>
+              <div class="ds-swatch-token">--color-text-body</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#4B5563"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Secundário</div>
+              <div class="ds-swatch-hex">#4B5563</div>
+              <div class="ds-swatch-token">--color-text-secondary</div>
+            </div>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch-color" style="background:#6B7280"></div>
+            <div class="ds-swatch-info">
+              <div class="ds-swatch-name">Terciário</div>
+              <div class="ds-swatch-hex">#6B7280</div>
+              <div class="ds-swatch-token">--color-text-tertiary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ TYPOGRAPHY ════ -->
+    <section class="ds-section" id="typography">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">✍️</div>
+        <div>
+          <h2 class="ds-section-title">Tipografia</h2>
+          <p class="ds-section-sub">System sans-serif (ui-sans-serif) — Tailwind v4 scale</p>
+        </div>
+      </div>
+
+      <div class="ds-font-preview" style="position:relative">
+        <div style="position:relative;z-index:1">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;font-family:monospace">font-family-base</div>
+          <p style="font-size:3rem;font-weight:700;color:#D4FF00;line-height:1.1;text-shadow:0 0 20px rgba(212,255,0,0.3)">Evidex</p>
+          <p style="font-size:1.25rem;color:rgba(255,255,255,0.65);margin-top:0.5rem">ui-sans-serif, system-ui, sans-serif</p>
+          <p style="font-size:0.875rem;color:rgba(255,255,255,0.35);margin-top:0.25rem;font-family:monospace">Aa Bb Cc Dd Ee Ff 0123456789 !@#$%</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">8xl</span>
+          <span style="font-size:4rem;font-weight:700;color:var(--color-text-primary);line-height:1.1">H1 Headline</span>
+          <span class="ds-type-meta">96px</span>
+          <span class="ds-type-meta">6rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">6xl</span>
+          <span style="font-size:3rem;font-weight:700;color:var(--color-text-primary);line-height:1.1">Subtítulo Seção</span>
+          <span class="ds-type-meta">60px</span>
+          <span class="ds-type-meta">3.75rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">4xl</span>
+          <span style="font-size:2.25rem;font-weight:700;color:var(--color-text-primary)">Texto Grande H3</span>
+          <span class="ds-type-meta">36px</span>
+          <span class="ds-type-meta">2.25rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">3xl</span>
+          <span style="font-size:1.875rem;color:var(--color-text-primary)">Parágrafo Principal</span>
+          <span class="ds-type-meta">30px</span>
+          <span class="ds-type-meta">1.875rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">xl</span>
+          <span style="font-size:1.25rem;color:var(--color-text-body)">Parágrafo Secundário</span>
+          <span class="ds-type-meta">20px</span>
+          <span class="ds-type-meta">1.25rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">lg</span>
+          <span style="font-size:1.125rem;color:var(--color-text-body)">Texto normal — corpo de página</span>
+          <span class="ds-type-meta">18px</span>
+          <span class="ds-type-meta">1.125rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">base</span>
+          <span style="font-size:1rem;color:var(--color-text-secondary)">Texto padrão da interface</span>
+          <span class="ds-type-meta">16px</span>
+          <span class="ds-type-meta">1rem</span>
+        </div>
+        <div class="ds-type-row">
+          <span class="ds-type-label">sm</span>
+          <span style="font-size:0.875rem;color:var(--color-text-muted)">Labels, captions e metadata</span>
+          <span class="ds-type-meta">14px</span>
+          <span class="ds-type-meta">0.875rem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ SPACING ════ -->
+    <section class="ds-section" id="spacing">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">📐</div>
+        <div>
+          <h2 class="ds-section-title">Espaçamento</h2>
+          <p class="ds-section-sub">Grid base 4px — espaçamento generoso é princípio do design Evidex</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">component-sm</span><div class="ds-spacing-bar" style="width:24px"></div><span class="ds-spacing-val">24px / p-6</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">component-md</span><div class="ds-spacing-bar" style="width:32px"></div><span class="ds-spacing-val">32px / p-8</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">component-lg</span><div class="ds-spacing-bar" style="width:40px"></div><span class="ds-spacing-val">40px / p-10</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">gap-sm</span>       <div class="ds-spacing-bar" style="width:16px"></div><span class="ds-spacing-val">16px / gap-4</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">gap-md</span>       <div class="ds-spacing-bar" style="width:24px"></div><span class="ds-spacing-val">24px / gap-6</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">gap-lg</span>       <div class="ds-spacing-bar" style="width:32px"></div><span class="ds-spacing-val">32px / gap-8</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">gap-xl</span>       <div class="ds-spacing-bar" style="width:48px"></div><span class="ds-spacing-val">48px / gap-12</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">section-pb</span>   <div class="ds-spacing-bar" style="width:96px"></div><span class="ds-spacing-val">96px / pb-24</span></div>
+        <div class="ds-spacing-item"><span class="ds-spacing-label">section-py</span>   <div class="ds-spacing-bar" style="width:128px"></div><span class="ds-spacing-val">128px / py-32</span></div>
+      </div>
+    </section>
+
+    <!-- ════ BORDERS ════ -->
+    <section class="ds-section" id="borders">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">⬡</div>
+        <div>
+          <h2 class="ds-section-title">Raios & Bordas</h2>
+          <p class="ds-section-sub">Bordas generosamente arredondadas — princípio Evidex</p>
+        </div>
+      </div>
+
+      <div class="ds-radius-grid">
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:12px"></div>
+          <div class="ds-radius-name">xl</div>
+          <div class="ds-radius-val">12px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:16px"></div>
+          <div class="ds-radius-name">2xl</div>
+          <div class="ds-radius-val">16px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:24px"></div>
+          <div class="ds-radius-name">3xl</div>
+          <div class="ds-radius-val">24px</div>
+        </div>
+        <div class="ds-radius-item">
+          <div class="ds-radius-box" style="border-radius:9999px;width:64px;height:32px"></div>
+          <div class="ds-radius-name">full</div>
+          <div class="ds-radius-val">9999px</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ EFFECTS ════ -->
+    <section class="ds-section" id="effects">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">✨</div>
+        <div>
+          <h2 class="ds-section-title">Efeitos & Sombras</h2>
+          <p class="ds-section-sub">Sombras, glassmorphism, glow amarelo e transições 300ms</p>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Sombras</div>
+        <div class="ds-shadow-grid" style="padding:2rem;background:var(--color-bg-surface);border-radius:16px">
+          <div class="ds-shadow-item">
+            <div class="ds-shadow-box" style="box-shadow:var(--shadow-subtle);border:1px solid var(--color-border-default)"></div>
+            <div class="ds-shadow-name">subtle</div>
+          </div>
+          <div class="ds-shadow-item">
+            <div class="ds-shadow-box" style="box-shadow:var(--shadow-default)"></div>
+            <div class="ds-shadow-name">default</div>
+          </div>
+          <div class="ds-shadow-item">
+            <div class="ds-shadow-box" style="box-shadow:var(--shadow-intense)"></div>
+            <div class="ds-shadow-name">intense</div>
+          </div>
+          <div class="ds-shadow-item">
+            <div class="ds-shadow-box" style="background:var(--color-brand-navy);box-shadow:var(--shadow-glow-yellow)"></div>
+            <div class="ds-shadow-name">glow yellow</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Efeito Glow em Texto</div>
+        <div style="background:var(--color-brand-navy-dark);border-radius:16px;padding:2rem;text-align:center">
+          <span style="font-size:3rem;font-weight:700;color:#D4FF00;text-shadow:0 0 20px rgba(212,255,0,0.3)">30 segundos</span>
+          <p style="color:rgba(255,255,255,0.7);margin-top:0.5rem">text-shadow: 0 0 20px rgba(212,255,0,0.3)</p>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Glassmorphism</div>
+        <div style="background:linear-gradient(135deg,#0A2540,#01203f);border-radius:16px;padding:2rem;display:flex;gap:1rem">
+          <div style="flex:1;background:rgba(255,255,255,0.05);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:1.5rem;color:white;font-size:0.875rem">
+            <div style="color:rgba(255,255,255,0.5);font-size:0.7rem;margin-bottom:0.5rem;font-family:monospace">backdrop-blur-sm</div>
+            Blur sutil (8px)
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.10);backdrop-filter:blur(12px);border:2px solid rgba(255,255,255,0.20);border-radius:16px;padding:1.5rem;color:white;font-size:0.875rem">
+            <div style="color:rgba(255,255,255,0.5);font-size:0.7rem;margin-bottom:0.5rem;font-family:monospace">backdrop-blur-md</div>
+            Blur médio (12px)
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.70);backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.30);border-radius:16px;padding:1.5rem;font-size:0.875rem;color:#0A2540">
+            <div style="color:#6B7280;font-size:0.7rem;margin-bottom:0.5rem;font-family:monospace">backdrop-blur-2xl</div>
+            Blur forte (40px)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ BUTTONS ════ -->
+    <section class="ds-section" id="buttons">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🔲</div>
+        <div>
+          <h2 class="ds-section-title">Botões</h2>
+          <p class="ds-section-sub">rounded-full — amarelo neon primário, outline secundário</p>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Variantes sobre fundo claro</div>
+        <div class="ds-comp-preview">
+          <button class="btn btn-primary btn-md">✦ Começar Agora</button>
+          <button class="btn btn-secondary btn-md">Ver Demonstração</button>
+          <button class="btn btn-primary btn-sm">Primário SM</button>
+          <button class="btn btn-secondary btn-sm">Secundário SM</button>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Variantes sobre fundo escuro</div>
+        <div class="ds-comp-preview dark">
+          <button class="btn btn-primary btn-md">✦ Começar Agora</button>
+          <button class="btn btn-secondary on-dark btn-md">Ver Demonstração</button>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Tamanhos</div>
+        <div class="ds-comp-preview" style="align-items:center">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary btn-md">Medium</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ BADGES ════ -->
+    <section class="ds-section" id="badges">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🏷️</div>
+        <div>
+          <h2 class="ds-section-title">Badges & Tarjas de Título</h2>
+          <p class="ds-section-sub">Pills de status + tarjas amarelas para seções</p>
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Tarja de Título (Title Badge)</div>
+        <div class="ds-comp-preview" style="justify-content:center;padding:2.5rem">
+          <span class="title-badge">Sua Solução Chegou</span>
+        </div>
+        <div style="font-size:0.75rem;font-family:monospace;color:var(--color-text-muted);background:var(--color-bg-surface);padding:0.75rem 1rem;border-radius:8px">
+          bg: #D4FF00 · color: #0A2540 · px-6 py-3 · rounded-2xl · shadow-lg
+        </div>
+      </div>
+
+      <div class="ds-comp-card">
+        <div class="ds-comp-label">Badges de Status</div>
+        <div class="ds-comp-preview">
+          <span class="badge-status badge-navy">⚡ EVIDEX</span>
+          <span class="badge-status badge-yellow">★ DESTAQUE</span>
+          <span class="badge-status badge-success">✓ ATIVO</span>
+          <span class="badge-status badge-error">✕ INATIVO</span>
+          <span class="badge-status badge-outline">NEUTRO</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ CARDS ════ -->
+    <section class="ds-section" id="cards">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🃏</div>
+        <div>
+          <h2 class="ds-section-title">Cards</h2>
+          <p class="ds-section-sub">3 variantes — Light, Glassmorphism (dark), Destaque (yellow)</p>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:1.5rem">
+        <div class="card card-light">
+          <div class="card-title">Card Padrão</div>
+          <div class="card-body">Gradiente cinza → branco. Borda muda para amarelo no hover com elevação.</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#0A2540,#01203f);padding:1rem;border-radius:24px">
+          <div class="card card-glass">
+            <div class="card-title">Glassmorphism</div>
+            <div class="card-body">Efeito vidro sobre fundo escuro. backdrop-blur-md + bg-white/10.</div>
+          </div>
+        </div>
+        <div class="card card-yellow">
+          <div class="card-title">Card Destaque</div>
+          <div class="card-body">Fundo amarelo gradiente com borda branca. Para CTAs e destaques.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ STATS ════ -->
+    <section class="ds-section" id="stats">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">📊</div>
+        <div>
+          <h2 class="ds-section-title">Stats & Métricas</h2>
+          <p class="ds-section-sub">Números grandes com glow amarelo sobre fundo dark</p>
+        </div>
+      </div>
+
+      <div class="grid-4">
+        <div class="stat-card">
+          <div class="stat-number">30s</div>
+          <div class="stat-label">Tempo de Validação</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Disponibilidade</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1.2k</div>
+          <div class="stat-label">Entregas / Dia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">-90%</div>
+          <div class="stat-label">Custo Reduzido</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ ICONS ════ -->
+    <section class="ds-section" id="icons">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🎨</div>
+        <div>
+          <h2 class="ds-section-title">Ícones — Container Gradiente</h2>
+          <p class="ds-section-sub">6 variantes de cor — rounded-2xl com gradiente diagonal</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;padding:2rem;background:var(--color-bg-surface);border-radius:16px">
+        <div class="icon-box icon-green">🚀</div>
+        <div class="icon-box icon-blue">💡</div>
+        <div class="icon-box icon-purple">⚡</div>
+        <div class="icon-box icon-orange">🔥</div>
+        <div class="icon-box icon-red">❤️</div>
+        <div class="icon-box icon-cyan">🌊</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0.5rem;margin-top:0.75rem;font-size:0.7rem;font-family:monospace;color:var(--color-text-muted);text-align:center">
+        <span>green-500<br>→ emerald-600</span>
+        <span>blue-500<br>→ indigo-600</span>
+        <span>purple-500<br>→ violet-600</span>
+        <span>amber-500<br>→ orange-600</span>
+        <span>red-500<br>→ rose-600</span>
+        <span>cyan-500<br>→ teal-600</span>
+      </div>
+    </section>
+
+    <!-- ════ HEADER ════ -->
+    <section class="ds-section" id="header">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">🧭</div>
+        <div>
+          <h2 class="ds-section-title">Header Glassmorphism</h2>
+          <p class="ds-section-sub">Navegação fixa flutuante — backdrop-blur-2xl bg-white/70</p>
+        </div>
+      </div>
+
+      <div style="background:var(--color-bg-surface);padding:2rem;border-radius:16px">
+        <div class="header-demo">
+          <div class="nav-logo">
+            <div class="nav-logo-dot">⚡</div>
+            Evidex
+          </div>
+          <div class="nav-links">
+            <span class="nav-link">Produto</span>
+            <span class="nav-link">Preços</span>
+            <span class="nav-link">Sobre</span>
+          </div>
+          <button class="btn btn-primary btn-sm">Começar →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ SECTIONS DEMO ════ -->
+    <section class="ds-section" id="sections">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">📋</div>
+        <div>
+          <h2 class="ds-section-title">Seção Escura Completa</h2>
+          <p class="ds-section-sub">Gradiente dark + dot pattern + componentes sobre fundo escuro</p>
+        </div>
+      </div>
+
+      <div class="section-dark">
+        <div style="position:relative;z-index:1;text-align:center">
+          <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(212,255,0,0.15);border:1px solid rgba(212,255,0,0.30);border-radius:9999px;padding:0.25rem 1rem;font-size:0.75rem;font-weight:600;color:#D4FF00;margin-bottom:1.5rem">
+            ⚡ Evidex Platform
+          </div>
+          <h2 style="font-size:2.5rem;font-weight:700;color:white;line-height:1.1;margin-bottom:1rem">
+            <span style="background:#D4FF00;color:#0A2540;padding:0.5rem 1.25rem;border-radius:12px;display:inline-block">Transforme</span>
+            <br>seu processo de validação
+          </h2>
+          <p style="color:rgba(255,255,255,0.70);font-size:1.125rem;max-width:480px;margin:0 auto 2rem">
+            Validação de entregas em 30 segundos. Automatize e escale sem limites.
+          </p>
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <button class="btn btn-primary btn-md">✦ Começar Grátis</button>
+            <button class="btn btn-secondary on-dark btn-md">Ver Demo</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem">
+            <div class="stat-card"><div class="stat-number">30s</div><div class="stat-label">Validação</div></div>
+            <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label">Uptime</div></div>
+            <div class="stat-card"><div class="stat-number">1.2k</div><div class="stat-label">Entregas/dia</div></div>
+            <div class="stat-card"><div class="stat-number">-90%</div><div class="stat-label">Custo</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ CSS TOKENS ════ -->
+    <section class="ds-section" id="tokens-css">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">{ }</div>
+        <div>
+          <h2 class="ds-section-title">CSS Tokens</h2>
+          <p class="ds-section-sub">Cole em qualquer projeto para ter a paleta Evidex</p>
+        </div>
+      </div>
+
+      <div class="ds-code" style="position:relative">
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').innerText).then(()=>{this.textContent='Copiado!';setTimeout(()=>this.textContent='Copiar CSS',1500)})">Copiar CSS</button>
+        <code>:root {
+  /* Brand */
+  --color-brand-yellow:    #D4FF00;
+  --color-brand-navy:      #0A2540;
+  --color-brand-navy-dark: #01203f;
+
+  /* Background */
+  --color-bg-primary:  #FFFFFF;
+  --color-bg-surface:  #F5F5F0;
+  --color-bg-dark:     #0A2540;
+
+  /* Text */
+  --color-text-primary:   #0A2540;
+  --color-text-body:      #374151;
+  --color-text-secondary: #4B5563;
+  --color-text-muted:     #9B9B9B;
+  --color-text-on-dark:   #FFFFFF;
+  --color-text-highlight: #D4FF00;
+
+  /* Border */
+  --color-border-default: #E5E7EB;
+  --color-border-accent:  #D4FF00;
+
+  /* Border Radius */
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-default:     0 10px 15px -3px rgba(0,0,0,0.10);
+  --shadow-intense:     0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-glow-yellow: 0 0 20px rgba(212,255,0,0.30);
+
+  /* Gradients */
+  --gradient-dark:  linear-gradient(135deg, #0A2540 0%, #01203f 50%, #0A2540 100%);
+  --gradient-light: linear-gradient(180deg, #F9FAFB 0%, #FFFFFF 100%);
+
+  /* Transitions */
+  --transition-base: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}</code>
+      </div>
+    </section>
+
+    <!-- ════ JSON TOKENS ════ -->
+    <section class="ds-section" id="tokens-json">
+      <div class="ds-section-header">
+        <div class="ds-section-icon" style="background:rgba(212,255,0,0.15)">⬇️</div>
+        <div>
+          <h2 class="ds-section-title">JSON Tokens (W3C DTCG)</h2>
+          <p class="ds-section-sub">Compatível com Style Dictionary, Theo, Figma Tokens Plugin</p>
+        </div>
+      </div>
+
+      <div class="ds-code" style="position:relative">
+        <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').innerText).then(()=>{this.textContent='Copiado!';setTimeout(()=>this.textContent='Copiar JSON',1500)})">Copiar JSON</button>
+        <code>{
+  "color": {
+    "brand": {
+      "yellow": { "$value": "#D4FF00", "$type": "color" },
+      "navy":   { "$value": "#0A2540", "$type": "color" },
+      "navy-dark": { "$value": "#01203f", "$type": "color" }
+    },
+    "text": {
+      "primary":   { "$value": "#0A2540", "$type": "color" },
+      "body":      { "$value": "#374151", "$type": "color" },
+      "on-dark":   { "$value": "#FFFFFF", "$type": "color" },
+      "highlight": { "$value": "#D4FF00", "$type": "color" }
+    }
+  },
+  "borderRadius": {
+    "xl":   { "$value": "12px",   "$type": "dimension" },
+    "2xl":  { "$value": "16px",   "$type": "dimension" },
+    "3xl":  { "$value": "24px",   "$type": "dimension" },
+    "full": { "$value": "9999px", "$type": "dimension" }
+  },
+  "transition": {
+    "base": { "$value": "300ms", "$type": "duration" }
+  }
+}</code>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="ds-footer">
+      <div>🔍 <strong>Lens</strong> extraiu · ⚗️ <strong>Forge</strong> construiu · <strong>design-extractor-squad</strong> v1.0.0</div>
+      <div>Fonte: <a href="https://www.evidex.com.br/" style="color:var(--color-brand-yellow)">evidex.com.br</a> · 2026-02-24</div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const sections = document.querySelectorAll('.ds-section');
+  const navLinks = document.querySelectorAll('.ds-nav-link');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.ds-nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  launchd plist — Mac Sync Daemon
+  Roda mac-sync-daemon.js a cada 5 minutos automaticamente
+
+  INSTALAR:
+    cp com.aios.messaging-sync.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.aios.messaging-sync.plist
+
+  VERIFICAR:
+    launchctl list | grep aios
+
+  REMOVER:
+    launchctl unload ~/Library/LaunchAgents/com.aios.messaging-sync.plist
+    rm ~/Library/LaunchAgents/com.aios.messaging-sync.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.aios.messaging-sync</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/node</string>
+    <string>/Users/leonardogazola/projetos-aios/meu-primeiro-projeto/squads/messaging-capture-squad/scripts/mac-sync-daemon.js</string>
+  </array>
+
+  <!-- Rodar a cada 5 minutos (300 segundos) -->
+  <key>StartInterval</key>
+  <integer>300</integer>
+
+  <!-- Rodar ao fazer login -->
+  <key>RunAtLoad</key>
+  <true/>
+
+  <!-- Logs -->
+  <key>StandardOutPath</key>
+  <string>/Users/leonardogazola/projetos-aios/meu-primeiro-projeto/squads/messaging-capture-squad/sync.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/leonardogazola/projetos-aios/meu-primeiro-projeto/squads/messaging-capture-squad/sync-error.log</string>
+
+  <!-- Variáveis de ambiente -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+
+  <!-- Não rodar com bateria fraca -->
+  <key>ProcessType</key>
+  <string>Background</string>
+</dict>
+</plist>

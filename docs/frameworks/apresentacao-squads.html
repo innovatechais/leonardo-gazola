@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engenharia Reversa dos Squads AIOS</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg: #07070f;
+    --surface: #0e0e1c;
+    --surface2: #14142a;
+    --purple: #7c3aed;
+    --purple-light: #a78bfa;
+    --orange: #f59e0b;
+    --orange-light: #fcd34d;
+    --cyan: #06b6d4;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #f1f0ff;
+    --text-muted: #6b7280;
+    --border: rgba(124,58,237,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple), var(--orange));
+    z-index: 1000;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 12px var(--purple);
+  }
+
+  /* NAV DOTS */
+  #nav-dots {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active {
+    background: var(--purple-light);
+    transform: scale(1.5);
+    box-shadow: 0 0 8px var(--purple);
+  }
+
+  /* KEYBOARD HINT */
+  #key-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  kbd {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+
+  /* SLIDES */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide-inner {
+    max-width: 900px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .slide-inner.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SLIDE NUMBERS */
+  .slide-num {
+    position: absolute;
+    bottom: 24px;
+    left: 40px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  /* BACKGROUNDS */
+  .bg-gradient-1::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+    top: -200px; right: -200px;
+    pointer-events: none;
+  }
+
+  .bg-gradient-2::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+    bottom: -150px; left: -150px;
+    pointer-events: none;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* TYPOGRAPHY */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(124,58,237,0.15);
+    border: 1px solid rgba(124,58,237,0.3);
+    color: var(--purple-light);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, var(--purple-light) 0%, var(--orange-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-cyan {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--green) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  p { font-size: 1.1rem; line-height: 1.7; color: rgba(241,240,255,0.75); }
+  p.large { font-size: 1.25rem; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,58,237,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .card-hot {
+    border-color: rgba(245,158,11,0.4);
+    background: linear-gradient(135deg, rgba(245,158,11,0.05) 0%, var(--surface) 50%);
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  /* EQUATION */
+  .equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 32px 0;
+  }
+
+  .eq-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .eq-box .icon { font-size: 2rem; display: block; margin-bottom: 6px; }
+  .eq-box.result { border-color: rgba(124,58,237,0.5); background: rgba(124,58,237,0.1); }
+  .eq-box.result .label { color: var(--purple-light); }
+
+  .eq-op {
+    font-size: 2rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* FLOW */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    color: var(--purple-light);
+    font-size: 1.2rem;
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  .badge-hot { background: rgba(245,158,11,0.2); color: var(--orange); border: 1px solid rgba(245,158,11,0.3); }
+  .badge-cyan { background: rgba(6,182,212,0.2); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
+  .badge-green { background: rgba(16,185,129,0.2); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .badge-purple { background: rgba(124,58,237,0.2); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.3); }
+
+  /* ASSET TABLE */
+  .asset-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .asset-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--purple);
+  }
+
+  .asset-item .icon { font-size: 1.2rem; margin-top: 1px; flex-shrink: 0; }
+  .asset-item .name { font-weight: 600; font-size: 0.95rem; margin-bottom: 2px; }
+  .asset-item .desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.4; }
+
+  /* LEVELS */
+  .levels { display: flex; flex-direction: column; gap: 16px; }
+
+  .level-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .level-badge {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .level-0 { background: rgba(6,182,212,0.15); border: 2px solid var(--cyan); color: var(--cyan); }
+  .level-1 { background: rgba(124,58,237,0.15); border: 2px solid var(--purple); color: var(--purple-light); }
+  .level-2 { background: rgba(245,158,11,0.15); border: 2px solid var(--orange); color: var(--orange); }
+
+  .level-content { flex: 1; }
+  .level-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .level-desc { font-size: 0.85rem; color: rgba(241,240,255,0.6); line-height: 1.5; }
+
+  .level-connector {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(180deg, var(--cyan), var(--purple));
+    margin-left: 27px;
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+
+  /* AGENT GRID */
+  .agent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+  .agent-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .agent-icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .agent-name { font-weight: 700; font-size: 0.9rem; color: var(--purple-light); }
+  .agent-role { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; line-height: 1.3; }
+
+  /* RESEARCH CARDS */
+  .research-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .research-num {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(124,58,237,0.2);
+    border: 1px solid rgba(124,58,237,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--purple-light);
+    flex-shrink: 0;
+  }
+
+  /* ROADMAP */
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+
+  .roadmap-item {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 24px;
+    position: relative;
+  }
+
+  .roadmap-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    width: 2px;
+    bottom: 0;
+    background: linear-gradient(180deg, var(--purple) 0%, transparent 100%);
+    opacity: 0.3;
+  }
+
+  .roadmap-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(124,58,237,0.2);
+    border: 2px solid var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--purple-light);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .roadmap-content { flex: 1; padding-top: 8px; }
+  .roadmap-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .roadmap-desc { font-size: 0.85rem; color: rgba(241,240,255,0.6); line-height: 1.4; }
+
+  /* QUOTE */
+  .quote-card {
+    background: var(--surface);
+    border-left: 4px solid var(--purple);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(241,240,255,0.8);
+  }
+
+  .quote-author {
+    font-style: normal;
+    font-size: 0.82rem;
+    color: var(--purple-light);
+    font-weight: 600;
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(245,158,11,0.08) 100%);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .highlight .big-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  /* SEPARATOR */
+  .sep {
+    width: 60px; height: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--orange));
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  /* SLIDE SPECIFIC BACKGROUNDS */
+  #slide-1 {
+    background: radial-gradient(ellipse at 70% 30%, rgba(124,58,237,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(245,158,11,0.08) 0%, transparent 50%),
+                var(--bg);
+  }
+
+  #slide-2 {
+    background: var(--bg);
+  }
+
+  /* ANIMATED PARTICLES */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    opacity: 0;
+    animation: float-particle linear infinite;
+  }
+
+  @keyframes float-particle {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.2; }
+    100% { opacity: 0; transform: translateY(-10vh) scale(1.5); }
+  }
+
+  /* STAGGER ANIMATIONS */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+  .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+  .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+  .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+  .stagger.visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+  .stagger.visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+
+  /* PULSE ANIMATION */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
+    50% { box-shadow: 0 0 20px 4px rgba(124,58,237,0.2); }
+  }
+
+  .pulse { animation: pulse-glow 3s ease-in-out infinite; }
+
+  /* FLOAT ANIMATION */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .float { animation: float 4s ease-in-out infinite; }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 12px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .grid-2, .grid-3, .agent-grid { grid-template-columns: 1fr; }
+    .equation { flex-direction: column; }
+    #nav-dots { display: none; }
+  }
+
+  /* ICON BIG */
+  .icon-big { font-size: 4rem; margin-bottom: 16px; display: block; }
+  .icon-med { font-size: 2.5rem; display: block; margin-bottom: 8px; }
+
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:0%"></div>
+
+<div id="nav-dots"></div>
+
+<div id="key-hint">
+  <kbd>↑</kbd><kbd>↓</kbd> ou <kbd>scroll</kbd> para navegar
+</div>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+<!-- =================== SLIDE 1 — TÍTULO =================== -->
+<section class="slide bg-gradient-1" id="slide-1">
+  <div class="slide-inner">
+    <div class="tag">🧠 Sales Content Architecture · AIOS</div>
+    <h1>Engenharia<br><span class="gradient-text">Reversa</span><br>dos Squads</h1>
+    <p class="large" style="margin-top:20px; max-width:600px;">
+      Como replicar os sistemas dos criadores do AIOS — com as suas próprias informações, no seu nicho, para a sua empresa.
+    </p>
+    <div style="display:flex; gap:12px; margin-top:32px; flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);">
+        <span>👤</span> Alan Nicolas · Pedro Valério · Thiago Finchi
+      </div>
+      <span style="color:var(--border)">·</span>
+      <div style="display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);">
+        <span>📅</span> 2026-02-23
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>▼</span>
+    <span>role para baixo</span>
+  </div>
+  <div class="slide-num">01 / 12</div>
+</section>
+
+<!-- =================== SLIDE 2 — O PROBLEMA =================== -->
+<section class="slide bg-gradient-2" id="slide-2">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">⚠️ O Problema</div>
+    <h2>Os squads dos criadores<br><span class="gradient-text">não estão disponíveis prontos.</span></h2>
+    <p style="margin-bottom:32px;">
+      A arquitetura AIOS é open source e idêntica para todos. O que diferencia cada squad dos criadores não é o framework — é o <strong style="color:var(--orange)">combustível</strong> que alimenta cada agente.
+    </p>
+    <div class="grid-2" style="gap:16px;">
+      <div class="card">
+        <span style="font-size:2rem;">🏗️</span>
+        <h3 style="margin-top:8px;font-size:1.1rem;">Arquitetura</h3>
+        <p style="font-size:0.88rem;">Open source · Igual para todos · Você já tem</p>
+      </div>
+      <div class="card card-hot">
+        <span style="font-size:2rem;">⛽</span>
+        <h3 style="margin-top:8px;font-size:1.1rem;color:var(--orange);">Combustível</h3>
+        <p style="font-size:0.88rem;">ICP, frameworks, swipe files, conhecimento absorvido · <strong>Você precisa criar</strong></p>
+      </div>
+    </div>
+    <div class="highlight" style="margin-top:24px;">
+      <p class="big-text">"A IA amplifica o que você coloca nela. Amplificar bosta continua sendo bosta. Precisa de processo e repertório."</p>
+      <span style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">— Pedro Valério</span>
+    </div>
+  </div>
+  <div class="slide-num">02 / 12</div>
+</section>
+
+<!-- =================== SLIDE 3 — A EQUAÇÃO =================== -->
+<section class="slide" id="slide-3">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">🔢 A Equação</div>
+    <h2>A fórmula para <span class="gradient-text">replicar qualquer squad</span></h2>
+
+    <div class="equation">
+      <div class="eq-box">
+        <span class="icon">🏗️</span>
+        <div style="color:var(--purple-light);font-size:0.8rem;">Arquitetura</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">AIOS (você já tem)</div>
+      </div>
+      <div class="eq-op">+</div>
+      <div class="eq-box">
+        <span class="icon">📦</span>
+        <div style="color:var(--orange);font-size:0.8rem;">Assets</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Seus dados e conhecimento</div>
+      </div>
+      <div class="eq-op">=</div>
+      <div class="eq-box result pulse">
+        <span class="icon">🚀</span>
+        <div class="label" style="font-size:0.8rem;">Squad funcional</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Com a sua realidade</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:1rem;margin:24px 0 16px;color:var(--text-muted);">O processo de replicação:</h3>
+    <div class="flow">
+      <div class="flow-step">🔍 Identificar<br>assets do squad</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">📥 Coletar/criar<br>seus dados</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🔌 Plugar na<br>arquitetura</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="border-color:rgba(124,58,237,0.4);color:var(--purple-light);">✅ Squad funcional<br>com sua realidade</div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 12</div>
+</section>
+
+<!-- =================== SLIDE 4 — 5 SQUADS =================== -->
+<section class="slide bg-gradient-1" id="slide-4">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">🎯 Mapeamento</div>
+    <h2>5 Squads <span class="gradient-text">Prioritários</span></h2>
+    <p style="margin-bottom:28px;">Mapeados com base nos sistemas dos criadores. Cada um tem seus assets identificados.</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="card card-hot" style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:2rem;">✍️</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="agent-name" style="font-size:1rem;">CopyChief Squad</span>
+            <span class="badge badge-hot">🔥 Alta Prioridade</span>
+          </div>
+          <p style="font-size:0.85rem;">14+ copywriters históricos · ICP de 40 páginas · Geração de copy completa</p>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">01</span>
+      </div>
+
+      <div class="card card-hot" style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:2rem;">💼</span>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <span class="agent-name" style="font-size:1rem;">Squad Comercial</span>
+            <span class="badge badge-hot">🔥 Alta Prioridade</span>
+          </div>
+          <p style="font-size:0.85rem;">CMO + Media Buyer + Closer + CFO + CRO + Conselho · Operação de vendas completa</p>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">02</span>
+      </div>
+
+      <div class="card" style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:2rem;">🧠</span>
+        <div style="flex:1;">
+          <span class="agent-name" style="font-size:1rem;">Sistema de Conhecimento Absorvido</span>
+          <p style="font-size:0.85rem;margin-top:4px;">2.000+ horas de especialistas · Respostas como especialistas, não como ChatGPT</p>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">03</span>
+      </div>
+
+      <div class="card" style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:2rem;">🪞</span>
+        <div style="flex:1;">
+          <span class="agent-name" style="font-size:1rem;">Clone de Especialista</span>
+          <p style="font-size:0.85rem;margin-top:4px;">ETL de conteúdo público · Agente que pensa como a pessoa clonada</p>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">04</span>
+      </div>
+
+      <div class="card" style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:2rem;">💡</span>
+        <div style="flex:1;">
+          <span class="agent-name" style="font-size:1rem;">Ideia → Produto → Lançamento</span>
+          <p style="font-size:0.85rem;margin-top:4px;">De texto livre a produto completo · Landing page + copy + infra + vendas</p>
+        </div>
+        <span style="color:var(--text-muted);font-size:0.85rem;">05</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">04 / 12</div>
+</section>
+
+<!-- =================== SLIDE 5 — COPYCHIEF =================== -->
+<section class="slide" id="slide-5">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div class="tag" style="margin-bottom:0;">Squad 01</div>
+      <span class="badge badge-hot">🔥 Alta Prioridade</span>
+    </div>
+    <h2>✍️ CopyChief Squad</h2>
+    <p style="margin-bottom:24px;">Squad com os maiores copywriters da história, cada um com DNA extraído. Um agente-chefe decide quem chamar para cada tarefa.</p>
+
+    <div class="flow" style="margin-bottom:24px;">
+      <div class="flow-step">📄 ICP Document</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.3);color:var(--purple-light);font-weight:700;">👑 CopyChief</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">🖊️ Copywriter Especialista</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">✅ Checklist</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="color:var(--green);">📤 Output</div>
+    </div>
+
+    <h3 style="font-size:0.95rem;color:var(--text-muted);margin-bottom:12px;">ASSETS NECESSÁRIOS PARA A SUA VERSÃO:</h3>
+    <div class="asset-list">
+      <div class="asset-item">
+        <span class="icon">👤</span>
+        <div>
+          <div class="name">ICP Document (40+ páginas)</div>
+          <div class="desc">Perfil completo do cliente ideal: quem é, o que sente, o que quer, o que teme, vocabulário, objeções</div>
+        </div>
+      </div>
+      <div class="asset-item">
+        <span class="icon">📚</span>
+        <div>
+          <div class="name">Swipe Files do seu nicho</div>
+          <div class="desc">Anúncios, páginas, emails que funcionaram no seu mercado — coletados de concorrentes e referências</div>
+        </div>
+      </div>
+      <div class="asset-item">
+        <span class="icon">🎯</span>
+        <div>
+          <div class="name">Contexto do produto/oferta</div>
+          <div class="desc">O que você vende, para quem, por quanto, qual o mecanismo único — a Sales Intelligence Library</div>
+        </div>
+      </div>
+      <div class="asset-item">
+        <span class="icon">📋</span>
+        <div>
+          <div class="name">Frameworks dos Copywriters</div>
+          <div class="desc">Modelos mentais de Gary Halbert, Dan Kennedy, Todd Brown, etc. extraídos de livros e cursos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">05 / 12</div>
+</section>
+
+<!-- =================== SLIDE 6 — SQUAD COMERCIAL =================== -->
+<section class="slide bg-gradient-2" id="slide-6">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+      <div class="tag" style="margin-bottom:0;">Squad 02</div>
+      <span class="badge badge-hot">🔥 Alta Prioridade</span>
+    </div>
+    <h2>💼 Squad Comercial</h2>
+    <p style="margin-bottom:24px;">Toda a operação de vendas automatizada. O Thiago Finchi usa para analisar crises em tempo real com profundidade de board executivo.</p>
+
+    <div class="agent-grid" style="margin-bottom:20px;">
+      <div class="agent-card">
+        <div class="agent-icon">🎯</div>
+        <div class="agent-name">Vera (CMO)</div>
+        <div class="agent-role">Orquestra o time · monitora pipeline e CRM</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">📊</div>
+        <div class="agent-name">Scott (Media Buyer)</div>
+        <div class="agent-role">Tráfego pago · CPL · Connect rate</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">⚡</div>
+        <div class="agent-name">Ad Midas</div>
+        <div class="agent-role">Performance de anúncios · corrige CPL</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">💬</div>
+        <div class="agent-name">Closer</div>
+        <div class="agent-role">Orienta o vendedor humano em tempo real</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">💰</div>
+        <div class="agent-name">CFO</div>
+        <div class="agent-role">CAC · LTV · caixa · métricas financeiras</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-icon">🧭</div>
+        <div class="agent-name">Conselho</div>
+        <div class="agent-role">Board estratégico · melhores mentes absorvidas</div>
+      </div>
+    </div>
+
+    <div class="quote-card" style="margin-top:8px;">
+      Exemplo real: campanha com ROAS 0.96, queimando R$18k/dia. Squad analisa, Conselho decide: "não matar a campanha — problema é a oferta, não o tráfego." Decisão em minutos.
+    </div>
+  </div>
+  <div class="slide-num">06 / 12</div>
+</section>
+
+<!-- =================== SLIDE 7 — CLONES =================== -->
+<section class="slide" id="slide-7">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">🪞 Squads 03 e 04</div>
+    <h2>Conhecimento Absorvido<br><span class="gradient-text">+ Clones de Especialistas</span></h2>
+
+    <div class="grid-2" style="gap:20px;margin-bottom:20px;">
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:12px;color:var(--cyan);">🧠 Sistema de Conhecimento</h3>
+        <p style="font-size:0.88rem;margin-bottom:12px;">O Thiago absorveu 2.000+ horas de 12+ especialistas mundiais. Os agentes respondem com o que <em>esse especialista específico</em> responderia.</p>
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:6px;">
+          <div class="flow-step">📺 YouTube · podcasts · livros · cursos</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">🔄 ETL: extrair frameworks e heurísticas</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step" style="color:var(--cyan);">🧠 Base de conhecimento por tema</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1rem;margin-bottom:12px;color:var(--purple-light);">🪞 Clone de Especialista</h3>
+        <p style="font-size:0.88rem;margin-bottom:12px;">Agente que pensa e decide como uma pessoa específica. Alan tem 24 copywriters clonados + clones de Pedro e Thiago.</p>
+        <div class="flow" style="flex-direction:column;align-items:flex-start;gap:6px;">
+          <div class="flow-step">🎯 Definir quem clonar</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">📦 Coletar todo conteúdo público</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">🔬 ETL: DNA cognitivo</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step" style="color:var(--purple-light);">🪞 Agente calibrado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p class="big-text">"Por que você não pega aquela mente inteira decupada e coloca em cima de um agente para ele construir o seu sistema de gestão?"</p>
+      <span style="font-size:0.85rem;color:var(--text-muted);font-weight:600;">— Thiago Finchi</span>
+    </div>
+  </div>
+  <div class="slide-num">07 / 12</div>
+</section>
+
+<!-- =================== SLIDE 8 — SCA CONEXÃO =================== -->
+<section class="slide bg-gradient-1" id="slide-8">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">🔗 A Conexão Central</div>
+    <h2>Como a <span class="gradient-text">SCA</span> alimenta<br>todos os squads</h2>
+    <p style="margin-bottom:28px;">A Sales Content Architecture não é separada dos squads — é o combustível que todos eles compartilham. Construir o Nível 0 é a alavanca máxima.</p>
+
+    <div class="levels">
+      <div class="level-item">
+        <div class="level-badge level-0">NÍVEL<br>0</div>
+        <div class="level-content">
+          <div class="level-title" style="color:var(--cyan);">Sales Intelligence Library</div>
+          <div class="level-desc">Dores mapeadas · Objeções + contra-argumentos · Diferenciais + provas · Proposta de valor · ICP completo<br><strong style="color:rgba(241,240,255,0.5)">→ combustível de TODOS os squads ao mesmo tempo</strong></div>
+        </div>
+      </div>
+      <div class="level-connector"></div>
+      <div class="level-item">
+        <div class="level-badge level-1">NÍVEL<br>1</div>
+        <div class="level-content">
+          <div class="level-title" style="color:var(--purple-light);">Modular Messaging Blocks</div>
+          <div class="level-desc">Blocos derivados do Nível 0 · Versões curta/média/longa · Por contexto: página, email, script, deck<br><strong style="color:rgba(241,240,255,0.5)">→ o que o CopyChief Squad produz e reutiliza</strong></div>
+        </div>
+      </div>
+      <div class="level-connector" style="background:linear-gradient(180deg, var(--purple), var(--orange));"></div>
+      <div class="level-item">
+        <div class="level-badge level-2">NÍVEL<br>2</div>
+        <div class="level-content">
+          <div class="level-title" style="color:var(--orange);">Outputs Montados</div>
+          <div class="level-desc">Landing pages · Decks de venda · Scripts · Anúncios · Email sequences<br><strong style="color:rgba(241,240,255,0.5)">→ o que o Squad Comercial e o Fluxo I→P→L entregam</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 12</div>
+</section>
+
+<!-- =================== SLIDE 9 — AGENDA DE PESQUISA =================== -->
+<section class="slide" id="slide-9">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">📌 Próximos Passos</div>
+    <h2>Agenda de <span class="gradient-text">Pesquisa</span></h2>
+    <p style="margin-bottom:24px;">4 pesquisas que os agentes precisam executar para alimentar os squads. Mapeadas aqui para não se perder.</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="research-card">
+        <div class="research-num">1</div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Copywriters Relevantes para o Nicho</h3>
+          <p style="font-size:0.85rem;">Quais copywriters têm histórico de sucesso no meu mercado? Quais frameworks funcionam com meu público? → alimenta o CopyChief Squad</p>
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="research-num">2</div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Modelos de Venda para o Nicho</h3>
+          <p style="font-size:0.85rem;">Frameworks de landing page, apresentação, VSL, funil, fechamento. Scripts guardados no Obsidian + transcrições de mentores → alimenta o Squad Comercial</p>
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="research-num">3</div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Especialistas para Clonar</h3>
+          <p style="font-size:0.85rem;">Copy, vendas, estratégia de negócio, especialistas do nicho. Mapear conteúdo público disponível para ETL → alimenta o Conselho e os Clones</p>
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="research-num">4</div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Inventário do Obsidian</h3>
+          <p style="font-size:0.85rem;">O que já existe salvo: scripts, transcrições de aulas, swipe files, frameworks. Mapear por onde encaixa na SCA → aproveitar antes de criar do zero</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">09 / 12</div>
+</section>
+
+<!-- =================== SLIDE 10 — ROADMAP =================== -->
+<section class="slide bg-gradient-2" id="slide-10">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">🗺️ Sequência Correta</div>
+    <h2>A ordem <span class="gradient-text">certa</span> de fazer</h2>
+    <p style="margin-bottom:28px;">Não tente automatizar tudo de uma vez. Uma coisa por vez, validando antes de avançar.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-circle">1</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">🗄️ Construir o Nível 0 da SCA</div>
+          <div class="roadmap-desc">Sales Intelligence Library — alimenta TODOS os squads ao mesmo tempo. É a base. Sem isso, nada funciona bem.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-circle">2</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">🔍 Fazer as 4 Pesquisas Mapeadas</div>
+          <div class="roadmap-desc">Copywriters do nicho · modelos de venda · especialistas para clonar · inventário do Obsidian. Os agentes executam isso.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-circle">3</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">✍️ Montar o CopyChief Squad</div>
+          <div class="roadmap-desc">Maior alavancagem para qualquer coisa comercial. Com o Nível 0 pronto e a pesquisa feita, é o squad mais impactante primeiro.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-circle">4</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">💼 Montar o Squad Comercial</div>
+          <div class="roadmap-desc">Vera + Scott + Closer + CFO + CRO + Conselho. Operar a máquina de vendas com inteligência de board executivo.</div>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-circle">5</div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">🚀 Expandir Incrementalmente</div>
+          <div class="roadmap-desc">Sistema de Conhecimento · Clones · Fluxo I→P→L. Um squad por vez, sempre validando antes de avançar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">10 / 12</div>
+</section>
+
+<!-- =================== SLIDE 11 — QUESTÃO ABERTA =================== -->
+<section class="slide bg-gradient-1" id="slide-11">
+  <div class="slide-inner stagger">
+    <div class="sep"></div>
+    <div class="tag">💭 Visão de Futuro</div>
+    <h2>E se o <span class="gradient-text">próprio AIOS</span><br>fosse a infraestrutura da SCA?</h2>
+    <p style="margin-bottom:28px;">Uma questão em aberto que emerge naturalmente da arquitetura. Não será respondida agora — é uma hipótese de evolução.</p>
+
+    <div class="grid-3" style="margin-bottom:24px;">
+      <div class="card" style="text-align:center;">
+        <span class="icon-med">📥</span>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--cyan);margin-bottom:4px;">Nível 0</div>
+        <p style="font-size:0.8rem;">Squads capturam e atualizam a Sales Intelligence Library continuamente</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <span class="icon-med">🔄</span>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--purple-light);margin-bottom:4px;">Nível 1</div>
+        <p style="font-size:0.8rem;">Agentes derivam blocos automaticamente, versionados e rastreáveis</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <span class="icon-med">📤</span>
+        <div style="font-size:0.85rem;font-weight:600;color:var(--orange);margin-bottom:4px;">Nível 2</div>
+        <p style="font-size:0.8rem;">Squads montam outputs sob demanda — de texto simples a interface visual</p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p class="big-text" style="font-style:italic;">Como arquitetar a SCA usando a infraestrutura do AIOS — com squads dedicados a cada nível, workflows de derivação automatizados, e capacidade de gerar outputs que vão do texto simples ao artefato visual complexo?</p>
+    </div>
+  </div>
+  <div class="slide-num">11 / 12</div>
+</section>
+
+<!-- =================== SLIDE 12 — FINAL =================== -->
+<section class="slide" id="slide-12" style="background:radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.2) 0%, transparent 70%), var(--bg);">
+  <div class="slide-inner" style="text-align:center;">
+    <span class="icon-big float">🚀</span>
+    <div class="tag" style="margin:0 auto 24px;">✅ Resumo</div>
+    <h2 style="margin-bottom:20px;">A arquitetura é a mesma.<br><span class="gradient-text">O combustível é seu.</span></h2>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0;text-align:left;">
+      <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:1.5rem;margin-bottom:8px;">🗄️</div>
+        <div style="font-weight:700;color:var(--cyan);font-size:0.9rem;margin-bottom:4px;">Primeiro</div>
+        <p style="font-size:0.82rem;">Construir o Nível 0 da SCA</p>
+      </div>
+      <div style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:1.5rem;margin-bottom:8px;">🔍</div>
+        <div style="font-weight:700;color:var(--purple-light);font-size:0.9rem;margin-bottom:4px;">Segundo</div>
+        <p style="font-size:0.82rem;">Pesquisar e mapear os assets</p>
+      </div>
+      <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:12px;padding:16px;">
+        <div style="font-size:1.5rem;margin-bottom:8px;">🚀</div>
+        <div style="font-weight:700;color:var(--orange);font-size:0.9rem;margin-bottom:4px;">Terceiro</div>
+        <p style="font-size:0.82rem;">Montar os squads incrementalmente</p>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem;color:var(--text-muted);margin-top:16px;">
+      Documentos completos salvos em: <code style="background:var(--surface);padding:3px 8px;border-radius:4px;font-size:0.85rem;">Obsidian / Evidex / SCA - Sales Content Architecture /</code>
+    </p>
+  </div>
+  <div class="slide-num">12 / 12</div>
+</section>
+
+<script>
+  // PARTICLES
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+    particleContainer.appendChild(p);
+  }
+
+  // SLIDES
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  // NAV DOTS
+  const dotsContainer = document.getElementById('nav-dots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.title = `Slide ${i + 1}`;
+    dot.addEventListener('click', () => scrollToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.dot');
+
+  function scrollToSlide(index) {
+    slides[index].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // INTERSECTION OBSERVER
+  let currentSlide = 0;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const inner = entry.target.querySelector('.slide-inner');
+        const stagger = entry.target.querySelector('.stagger');
+        if (inner) inner.classList.add('visible');
+        if (stagger) stagger.classList.add('visible');
+
+        const idx = Array.from(slides).indexOf(entry.target);
+        currentSlide = idx;
+
+        // Update dots
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+        // Update progress bar
+        const progress = ((idx + 1) / totalSlides) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(slide => observer.observe(slide));
+
+  // KEYBOARD NAV
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (currentSlide < totalSlides - 1) scrollToSlide(currentSlide + 1);
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (currentSlide > 0) scrollToSlide(currentSlide - 1);
+    }
+  });
+
+  // HIDE KEY HINT AFTER 5S
+  setTimeout(() => {
+    document.getElementById('key-hint').style.opacity = '0';
+    document.getElementById('key-hint').style.transition = 'opacity 1s';
+  }, 5000);
+</script>
+</body>
+</html>

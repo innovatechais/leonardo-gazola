@@ -1,0 +1,276 @@
+{
+  "meta": {
+    "session": "clube-tartar-2026-02-24",
+    "title": "Clube Tartar — Programa de Assinatura B2B",
+    "date": "2026-02-24",
+    "objective": "Estruturar um modelo de clube de benefícios recorrente para clientes B2B da Tartar (restaurantes, hamburguerias), com desconto por adesão e flexibilidade de pedido",
+    "audience": "Time Tartar (Leonardo, Renato, Raphael) — decisão de produto/comercial",
+    "source": {
+      "type": "file",
+      "path": "squads/ideation-to-docs-squad/inbox/clube-tartar-briefing.md"
+    }
+  },
+  "assumptions": [
+    "O modelo é viável operacionalmente com as plataformas já utilizadas (ASA, CRM iPro)",
+    "Margem de desconto (ex: 10-15%) ainda não foi validada internamente pela Tartar",
+    "Clientes B2B têm pedido relativamente estável por estabelecimento (base para a flexibilidade do crédito)",
+    "Período trimestral é o preferido por Renato para não fragmentar ticket médio — mas não foi decidido formalmente"
+  ],
+  "topics": [
+    {
+      "id": "T1",
+      "title": "Conceito do Clube Tartar",
+      "children": [
+        { "id": "T1.1", "title": "Nome e posicionamento: Clube de Benefícios B2B", "children": [] },
+        { "id": "T1.2", "title": "Mecânica: crédito pré-pago com desconto por pedido", "children": [] },
+        { "id": "T1.3", "title": "Público-alvo: restaurantes e hamburguerias B2B", "children": [] }
+      ]
+    },
+    {
+      "id": "T2",
+      "title": "Modelo de Recorrência",
+      "children": [
+        { "id": "T2.1", "title": "Periodicidade: mensal, trimestral ou anual", "children": [] },
+        { "id": "T2.2", "title": "Preferência por trimestral (maior ticket, dilui frete)", "children": [] },
+        { "id": "T2.3", "title": "Flexibilidade total de SKU — sem kit fixo", "children": [] }
+      ]
+    },
+    {
+      "id": "T3",
+      "title": "Justificativa B2B vs B2C",
+      "children": [
+        { "id": "T3.1", "title": "Volume alto justifica desconto no B2B", "children": [] },
+        { "id": "T3.2", "title": "B2C tem volume baixo e variação de preferência alta", "children": [] },
+        { "id": "T3.3", "title": "Restaurante já consome os mesmos produtos regularmente", "children": [] }
+      ]
+    },
+    {
+      "id": "T4",
+      "title": "Implementação e Tecnologia",
+      "children": [
+        { "id": "T4.1", "title": "Plataforma ASA para recorrência em cartão", "children": [] },
+        { "id": "T4.2", "title": "Alternativa: boleto para quem não usa cartão", "children": [] },
+        { "id": "T4.3", "title": "Landing page para apresentar o modelo", "children": [] },
+        { "id": "T4.4", "title": "Integração com CRM iPro (tags + pipeline)", "children": [] }
+      ]
+    },
+    {
+      "id": "T5",
+      "title": "Estratégia de Lançamento",
+      "children": [
+        { "id": "T5.1", "title": "Disparo via WhatsApp para base já ativa", "children": [] },
+        { "id": "T5.2", "title": "Funil: cliente novo → desconto 1ª compra → upgrade para clube", "children": [] },
+        { "id": "T5.3", "title": "Foco inicial em clientes que já compram mensalmente", "children": [] }
+      ]
+    },
+    {
+      "id": "T6",
+      "title": "Riscos e Tensões",
+      "children": [
+        { "id": "T6.1", "title": "Risco de fragmentação do ticket médio (Renato)", "children": [] },
+        { "id": "T6.2", "title": "Complexidade de gestão por kit fixo (rejeitado)", "children": [] },
+        { "id": "T6.3", "title": "Custo de frete elevado para entregas fora de Campo Grande", "children": [] }
+      ]
+    }
+  ],
+  "ideas": [
+    {
+      "id": "I1",
+      "type": "idea",
+      "title": "Clube Tartar: cliente paga aporte periódico e recebe crédito com desconto",
+      "details": "Funciona como crédito pré-pago. Ex: paga R$2.000 → pede o que quiser → cada produto sai com ~10-15% de desconto. Crédito vai sendo debitado conforme pedidos.",
+      "topicIds": ["T1", "T2"],
+      "tags": ["core-concept", "recorrencia", "desconto", "credito"],
+      "quotes": ["Clube Tartar: o cara que fideliza o clube e tem esses benefícios — Raphael Cavalcanti"],
+      "confidence": "high"
+    },
+    {
+      "id": "I2",
+      "type": "idea",
+      "title": "Período trimestral como padrão para manter ticket médio alto",
+      "details": "Renato prefere trimestral para evitar fragmentação de pedidos e diluir custo de frete. Cliente faz um aporte maior a cada 3 meses e retira produto conforme precisar.",
+      "topicIds": ["T2", "T6"],
+      "tags": ["trimestral", "ticket-medio", "frete"],
+      "quotes": ["Trimestral é legal! Para restaurante — faz ele pedir mais para três meses e ter recorrência — Renato"],
+      "confidence": "high"
+    },
+    {
+      "id": "I3",
+      "type": "idea",
+      "title": "Flexibilidade de SKU: sem kit fixo, cliente pede o que quiser dentro do crédito",
+      "details": "Modelo de kit fixo por cliente foi rejeitado por ser inviável operacionalmente. Crédito livre resolve isso — cliente pede qualquer mix de produtos e desconto é aplicado automaticamente.",
+      "topicIds": ["T1", "T2"],
+      "tags": ["sku", "flexibilidade", "operacional"],
+      "quotes": ["De um mês pro outro ele não vai pedir um produto, ele quer pedir dois de outro — já vai ter que mudar tudo — Leonardo"],
+      "confidence": "high"
+    },
+    {
+      "id": "I4",
+      "type": "idea",
+      "title": "Funil de conversão: 1ª compra com desconto → oferta do clube → recorrência",
+      "details": "Para clientes novos: desconto de boas-vindas na 1ª compra. Na 2ª compra (preço cheio), oferecer o plano do clube como alternativa. Quem aceita entra na recorrência.",
+      "topicIds": ["T5"],
+      "tags": ["funil", "conversao", "cliente-novo", "onboarding"],
+      "quotes": ["Na segunda compra você vende pelo preço original. Ou oferece o plano, porque o plano é a recorrência — Leonardo"],
+      "confidence": "high"
+    },
+    {
+      "id": "I5",
+      "type": "idea",
+      "title": "Recorrência via ASA (banco digital) no cartão de crédito mês a mês",
+      "details": "Diferente de parcelamento (que consome limite inteiro), o ASA cobra mês a mês apenas o valor daquele período. Não compromete o limite total do cliente.",
+      "topicIds": ["T4"],
+      "tags": ["ASA", "cartao", "recorrencia-tecnica", "pagamento"],
+      "quotes": ["Você configura um pagamento de R$1.000, R$2.000 e vai batendo no cartão dele. É mês a mês — Leonardo"],
+      "confidence": "medium"
+    },
+    {
+      "id": "I6",
+      "type": "idea",
+      "title": "Landing page explicativa para apresentar o modelo do clube",
+      "details": "Página simples que explica o Clube Tartar com CTA para entrar em contato comercial. Facilita disparos via WhatsApp (link direto na mensagem).",
+      "topicIds": ["T4", "T5"],
+      "tags": ["landing-page", "conteudo", "whatsapp", "disparo"],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "I7",
+      "type": "idea",
+      "title": "Priorizar redes grandes e clientes de alto volume para o clube anual",
+      "details": "Para redes (ex: redes de hamburgueria em SP), o modelo anual com entregas periódicas pode ser ainda mais atrativo — previsibilidade máxima e desconto maior.",
+      "topicIds": ["T1", "T5"],
+      "tags": ["redes", "alto-volume", "anual", "sao-paulo"],
+      "quotes": ["Pô, você pega essas redes grandes, que compram com frequência — faz um plano anual — Raphael"],
+      "confidence": "medium"
+    },
+    {
+      "id": "I8",
+      "type": "idea",
+      "title": "Desconto por quantidade (ex: leve 2 ganhe 1) como alternativa ao percentual",
+      "details": "Para hamburguerias no Dia do Hambúrguer (28/mai), desconto em quantidade é mais tangível que percentual. Ex: compre 2 galões e ganhe 1. Cliente visualiza o estoque ganho diretamente.",
+      "topicIds": ["T5"],
+      "tags": ["desconto-quantidade", "dia-hamburguer", "promocao", "galao"],
+      "quotes": ["Compra dois que eu te dou um — 50% de bonificação. O cara pode comprar e fazer estoque — Renato"],
+      "confidence": "high"
+    },
+    {
+      "id": "Q1",
+      "type": "question",
+      "title": "Qual o percentual de desconto sustentável para o clube?",
+      "details": "10% ou 15% foram mencionados como exemplos, mas a margem real precisa ser validada internamente pela Tartar.",
+      "topicIds": ["T1", "T6"],
+      "tags": ["margem", "precificacao", "validacao"],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "Q2",
+      "type": "question",
+      "title": "Como o clube se integra com o modelo de frete atual (Cavalima + distribuidoras)?",
+      "details": "Se cliente faz pedidos trimestrais via clube, frete é cobrado uma vez. Mas se mensal, pode impactar margem. Precisa de simulação.",
+      "topicIds": ["T2", "T6"],
+      "tags": ["frete", "logistica", "cavalima", "margem"],
+      "quotes": ["O ideal é a gente aumentar o ticket médio. Tenho o temor de diminuir o ticket médio para o cara fragmentar — Renato"],
+      "confidence": "medium"
+    },
+    {
+      "id": "Q3",
+      "type": "question",
+      "title": "O clube funciona para clientes de fora de Campo Grande (frete caro)?",
+      "details": "Para clientes distantes, o modelo precisa incentivar pedidos maiores e menos frequentes. Trimestral/anual ajuda, mas precisa validar com simulação financeira.",
+      "topicIds": ["T2", "T6"],
+      "tags": ["campo-grande", "frete", "regioes"],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "Q4",
+      "type": "question",
+      "title": "Como comunicar o clube para clientes já ativos vs. clientes sendo reativados?",
+      "details": "Mensagem para clientes ativos (já compram regularmente) pode ser direta: 'formalize a recorrência e ganhe desconto'. Para inativos, precisa de outra abordagem.",
+      "topicIds": ["T5"],
+      "tags": ["comunicacao", "segmentacao", "mensagem"],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "A1",
+      "type": "action",
+      "title": "Validar percentual de desconto sustentável internamente",
+      "details": "Calcular margem mínima para o clube ser viável. Testar 10% e 15% sobre produtos principais.",
+      "owner": "Renato / Tartar (interno)",
+      "due": "",
+      "topicIds": ["T1"],
+      "tags": ["financeiro", "margem", "precificacao"],
+      "quotes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "A2",
+      "type": "action",
+      "title": "Definir período padrão do clube: mensal vs. trimestral",
+      "details": "Decisão estratégica que afeta ticket médio, custo de frete e complexidade operacional.",
+      "owner": "Renato + Raphael",
+      "due": "próxima reunião",
+      "topicIds": ["T2"],
+      "tags": ["decisao", "periodo", "trimestral"],
+      "quotes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "A3",
+      "type": "action",
+      "title": "Mapear clientes que já compram regularmente (candidatos naturais ao clube)",
+      "details": "Filtrar base CRM por frequência de pedido. Esses são os leads mais quentes para o clube.",
+      "owner": "Renato",
+      "due": "",
+      "topicIds": ["T5"],
+      "tags": ["crm", "segmentacao", "base"],
+      "quotes": [],
+      "confidence": "high"
+    },
+    {
+      "id": "A4",
+      "type": "action",
+      "title": "Criar disparo WhatsApp específico para apresentar o Clube Tartar",
+      "details": "Mensagem segmentada para clientes regulares com oferta do clube. Pode incluir link para landing page.",
+      "owner": "Leonardo",
+      "due": "",
+      "topicIds": ["T4", "T5"],
+      "tags": ["disparo", "whatsapp", "mensagem"],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "A5",
+      "type": "action",
+      "title": "Avaliar integração com ASA ou outra plataforma de cobrança recorrente",
+      "details": "Confirmar se ASA suporta o modelo de crédito pré-pago ou se precisa de outra solução.",
+      "owner": "Leonardo",
+      "due": "",
+      "topicIds": ["T4"],
+      "tags": ["asa", "pagamento", "integracao"],
+      "quotes": [],
+      "confidence": "medium"
+    }
+  ],
+  "relations": [
+    { "fromId": "I1", "toId": "I3", "type": "refines", "note": "Crédito livre resolve problema do kit fixo" },
+    { "fromId": "I2", "toId": "Q2", "type": "causes", "note": "Trimestral é solução para o risco de frete fragmentado" },
+    { "fromId": "I4", "toId": "A4", "type": "supports", "note": "Funil exige disparo bem estruturado para cada etapa" },
+    { "fromId": "I5", "toId": "A5", "type": "depends_on", "note": "ASA precisa ser validado antes de definir modelo de pagamento" },
+    { "fromId": "I8", "toId": "I4", "type": "supports", "note": "Desconto Dia do Hambúrguer pode ser porta de entrada para o clube" },
+    { "fromId": "Q1", "toId": "A1", "type": "causes", "note": "Pergunta sobre margem gera ação de validação interna" }
+  ],
+  "prioritization": {
+    "method": "impact_effort",
+    "items": [
+      { "id": "A1", "impact": "high", "effort": "low", "priority": 1, "note": "Desbloqueia tudo — sem margem validada, não tem clube" },
+      { "id": "A2", "impact": "high", "effort": "low", "priority": 2, "note": "Decisão estratégica rápida entre Renato e Raphael" },
+      { "id": "A3", "impact": "high", "effort": "medium", "priority": 3, "note": "Base para o primeiro disparo do clube" },
+      { "id": "A4", "impact": "high", "effort": "medium", "priority": 4, "note": "Depende de A1, A2 e A3" },
+      { "id": "A5", "impact": "medium", "effort": "medium", "priority": 5, "note": "Implementação técnica — pode começar em paralelo" }
+    ]
+  }
+}

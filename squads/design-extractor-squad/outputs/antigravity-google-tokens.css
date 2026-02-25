@@ -1,0 +1,225 @@
+/**
+ * Design Tokens — antigravity.google
+ * Extracted by: Lens (design-extractor-squad)
+ * Built by: Forge (design-extractor-squad)
+ * Source: https://antigravity.google/
+ * Date: 2026-02-24
+ */
+
+:root {
+
+  /* ─────────────────────────────────────────
+     COLORS — Background
+  ───────────────────────────────────────── */
+  --color-bg-primary:   #ffffff;
+  --color-bg-surface:   #f8f9fa;
+  --color-bg-elevated:  #ffffff;
+  --color-bg-dark:      #202124;
+  --color-bg-overlay:   rgba(32, 33, 36, 0.6);
+
+  /* ─────────────────────────────────────────
+     COLORS — Text
+  ───────────────────────────────────────── */
+  --color-text-primary:   #202124;
+  --color-text-secondary: #5f6368;
+  --color-text-tertiary:  #80868b;
+  --color-text-disabled:  #bdc1c6;
+  --color-text-on-dark:   #ffffff;
+  --color-text-on-primary: #ffffff;
+
+  /* ─────────────────────────────────────────
+     COLORS — Brand / Accent
+  ───────────────────────────────────────── */
+  --color-accent-blue:        #4285f4;
+  --color-accent-blue-dark:   #1967d2;
+  --color-accent-blue-light:  #d2e3fc;
+  --color-accent-green:       #34a853;
+  --color-accent-green-dark:  #188038;
+  --color-accent-yellow:      #fbbc04;
+  --color-accent-yellow-dark: #f29900;
+  --color-accent-red:         #ea4335;
+  --color-accent-red-dark:    #c5221f;
+
+  /* ─────────────────────────────────────────
+     COLORS — Semantic States
+  ───────────────────────────────────────── */
+  --color-state-success:      #34a853;
+  --color-state-success-bg:   #e6f4ea;
+  --color-state-warning:      #fbbc04;
+  --color-state-warning-bg:   #fef7e0;
+  --color-state-error:        #ea4335;
+  --color-state-error-bg:     #fce8e6;
+  --color-state-info:         #4285f4;
+  --color-state-info-bg:      #e8f0fe;
+
+  /* ─────────────────────────────────────────
+     COLORS — Border
+  ───────────────────────────────────────── */
+  --color-border-subtle:  #f1f3f4;
+  --color-border-default: #e8eaed;
+  --color-border-strong:  #bdc1c6;
+  --color-border-focus:   #4285f4;
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY — Font Families
+  ───────────────────────────────────────── */
+  --font-family-base:  "Google Sans Flex", "Roboto", system-ui, -apple-system, sans-serif;
+  --font-family-mono:  "Google Sans Code", ui-monospace, "SFMono-Regular", monospace;
+  --font-family-icons: "Google Symbols";
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY — Font Size Scale
+  ───────────────────────────────────────── */
+  --font-size-xs:   0.75rem;    /* 12px */
+  --font-size-sm:   0.875rem;   /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg:   1.125rem;   /* 18px */
+  --font-size-xl:   1.25rem;    /* 20px */
+  --font-size-2xl:  1.5rem;     /* 24px */
+  --font-size-3xl:  1.875rem;   /* 30px */
+  --font-size-4xl:  2.25rem;    /* 36px */
+  --font-size-5xl:  3rem;       /* 48px */
+  --font-size-6xl:  3.75rem;    /* 60px */
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY — Font Weights
+  ───────────────────────────────────────── */
+  --font-weight-light:    300;
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY — Line Height
+  ───────────────────────────────────────── */
+  --line-height-tight:   1.25;
+  --line-height-snug:    1.375;
+  --line-height-normal:  1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose:   2;
+
+  /* ─────────────────────────────────────────
+     TYPOGRAPHY — Letter Spacing
+  ───────────────────────────────────────── */
+  --letter-spacing-tight:  -0.025em;
+  --letter-spacing-normal:  0;
+  --letter-spacing-wide:    0.025em;
+  --letter-spacing-wider:   0.05em;
+  --letter-spacing-widest:  0.1em;
+
+  /* ─────────────────────────────────────────
+     SPACING — 4px Base Grid
+  ───────────────────────────────────────── */
+  --space-1:  0.25rem;   /*  4px */
+  --space-2:  0.5rem;    /*  8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+  --space-32: 8rem;      /* 128px */
+
+  /* ─────────────────────────────────────────
+     SPACING — Semantic Aliases
+  ───────────────────────────────────────── */
+  --spacing-xs:  var(--space-2);    /*  8px */
+  --spacing-sm:  var(--space-3);    /* 12px */
+  --spacing-md:  var(--space-4);    /* 16px */
+  --spacing-lg:  var(--space-6);    /* 24px */
+  --spacing-xl:  var(--space-8);    /* 32px */
+  --spacing-2xl: var(--space-12);   /* 48px */
+  --spacing-3xl: var(--space-16);   /* 64px */
+  --spacing-4xl: var(--space-24);   /* 96px */
+
+  /* ─────────────────────────────────────────
+     BORDERS — Radius
+  ───────────────────────────────────────── */
+  --radius-none:  0;
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --radius-2xl:   24px;
+  --radius-3xl:   32px;
+  --radius-full:  9999px;
+
+  /* ─────────────────────────────────────────
+     BORDERS — Width
+  ───────────────────────────────────────── */
+  --border-width-thin:   1px;
+  --border-width-base:   2px;
+  --border-width-thick:  4px;
+
+  /* ─────────────────────────────────────────
+     EFFECTS — Shadows (Google-style)
+  ───────────────────────────────────────── */
+  --shadow-none: none;
+  --shadow-sm:  0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-md:  0 2px 6px 2px rgba(60, 64, 67, 0.15), 0 1px 2px 0 rgba(60, 64, 67, 0.30);
+  --shadow-lg:  0 4px 8px 3px rgba(60, 64, 67, 0.15), 0 1px 3px 0 rgba(60, 64, 67, 0.30);
+  --shadow-xl:  0 6px 10px 4px rgba(60, 64, 67, 0.15), 0 2px 3px 0 rgba(60, 64, 67, 0.30);
+  --shadow-2xl: 0 8px 12px 6px rgba(60, 64, 67, 0.15), 0 4px 4px 0 rgba(60, 64, 67, 0.30);
+
+  /* ─────────────────────────────────────────
+     EFFECTS — Blur
+  ───────────────────────────────────────── */
+  --blur-sm:  4px;
+  --blur-md:  8px;
+  --blur-lg:  16px;
+  --blur-xl:  24px;
+
+  /* ─────────────────────────────────────────
+     EFFECTS — Transitions
+  ───────────────────────────────────────── */
+  --transition-fast:   150ms ease;
+  --transition-base:   250ms ease;
+  --transition-slow:   350ms ease;
+  --transition-spring: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ─────────────────────────────────────────
+     LAYOUT — Container Sizes
+  ───────────────────────────────────────── */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1280px;
+  --container-2xl: 1536px;
+
+  /* ─────────────────────────────────────────
+     Z-INDEX
+  ───────────────────────────────────────── */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   1;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+
+}
+
+/* ─────────────────────────────────────────
+   DARK MODE
+───────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary:   #202124;
+    --color-bg-surface:   #2d2e30;
+    --color-bg-elevated:  #35363a;
+    --color-text-primary:   #e8eaed;
+    --color-text-secondary: #9aa0a6;
+    --color-text-tertiary:  #80868b;
+    --color-border-subtle:  #3c4043;
+    --color-border-default: #5f6368;
+    --shadow-sm:  0 1px 2px 0 rgba(0, 0, 0, 0.40), 0 1px 3px 1px rgba(0, 0, 0, 0.20);
+    --shadow-md:  0 2px 6px 2px rgba(0, 0, 0, 0.20), 0 1px 2px 0 rgba(0, 0, 0, 0.40);
+  }
+}

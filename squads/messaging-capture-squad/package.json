@@ -1,0 +1,20 @@
+{
+  "name": "messaging-capture-squad",
+  "version": "1.0.0",
+  "description": "Bot Telegram 24/7 para captura de ideias → Obsidian via Archimedes",
+  "main": "scripts/telegram-bot.js",
+  "scripts": {
+    "start": "node scripts/telegram-bot.js",
+    "sync": "node scripts/mac-sync-daemon.js",
+    "dev": "node --watch scripts/telegram-bot.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "keywords": ["aios", "telegram", "obsidian", "notes", "groq", "whisper"],
+  "author": "Synkra AIOS",
+  "license": "MIT"
+}

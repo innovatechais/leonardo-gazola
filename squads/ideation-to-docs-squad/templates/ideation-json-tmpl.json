@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "session": "ideation-YYYY-MM-DD",
+    "title": "",
+    "date": "YYYY-MM-DD",
+    "objective": "",
+    "audience": "",
+    "source": {
+      "type": "file|paste",
+      "path": "docs/ideation/<session>/transcript.md"
+    }
+  },
+  "assumptions": [],
+  "topics": [
+    {
+      "id": "T1",
+      "title": "Tema principal",
+      "children": [
+        { "id": "T1.1", "title": "Subtema", "children": [] }
+      ]
+    }
+  ],
+  "ideas": [
+    {
+      "id": "I1",
+      "type": "idea",
+      "title": "Ideia atômica (1 linha)",
+      "details": "",
+      "topicIds": ["T1"],
+      "tags": [],
+      "quotes": [],
+      "confidence": "high|medium|low"
+    },
+    {
+      "id": "Q1",
+      "type": "question",
+      "title": "Pergunta em aberto",
+      "details": "",
+      "topicIds": [],
+      "tags": [],
+      "quotes": [],
+      "confidence": "medium"
+    },
+    {
+      "id": "A1",
+      "type": "action",
+      "title": "Próximo passo",
+      "details": "",
+      "owner": "",
+      "due": "",
+      "topicIds": [],
+      "tags": [],
+      "quotes": [],
+      "confidence": "medium"
+    }
+  ],
+  "relations": [
+    {
+      "fromId": "I1",
+      "toId": "I2",
+      "type": "supports|depends_on|contradicts|causes|refines",
+      "note": ""
+    }
+  ],
+  "prioritization": {
+    "method": "none|impact_effort",
+    "items": []
+  }
+}
+

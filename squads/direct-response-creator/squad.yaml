@@ -1,0 +1,139 @@
+name: direct-response-creator
+version: 1.0.0
+description: >
+  Squad especializado em criar copy de Direct Response completa para qualquer nicho e mercado.
+  Recebe texto de input (página de vendas, transcrição, briefing ou qualquer dado escrito)
+  e produz: análise de mercado, avatar profundo, oferta estruturada, TSL (+2000 palavras),
+  headlines, scripts de vídeo (9 ângulos), sequências de email (17 templates) e FAQs.
+  Suporta múltiplos mercados e idiomas com nuances culturais reais (PT-BR, EN-US, ES-LATAM).
+author: leonardogazola
+license: MIT
+slashPrefix: dr
+
+aios:
+  minVersion: "2.1.0"
+  type: squad
+
+agents:
+  - id: rex
+    name: Rex
+    file: agents/rex.md
+    role: Intel & Market Analyst (Parasita)
+    icon: "🔍"
+
+  - id: psyche
+    name: Psyche
+    file: agents/psyche.md
+    role: Avatar & Psychology Specialist
+    icon: "🧠"
+
+  - id: vera
+    name: Vera
+    file: agents/vera.md
+    role: Offer Architect
+    icon: "🏗️"
+
+  - id: quill
+    name: Quill
+    file: agents/quill.md
+    role: Master Copywriter (TSL & Headlines)
+    icon: "✍️"
+
+  - id: reel
+    name: Reel
+    file: agents/reel.md
+    role: Video Script Specialist (9 angles)
+    icon: "🎬"
+
+  - id: spark
+    name: Spark
+    file: agents/spark.md
+    role: Email Marketing Specialist (17 templates)
+    icon: "⚡"
+
+  - id: sage
+    name: Sage
+    file: agents/sage.md
+    role: FAQ & Objection Handler
+    icon: "📚"
+
+  - id: judge
+    name: Judge
+    file: agents/judge.md
+    role: QA & Language Validator (multi-market)
+    icon: "⚖️"
+
+components:
+  tasks:
+    - intake.md
+    - run-parasita.md
+    - extract-avatar.md
+    - build-offer.md
+    - create-usp.md
+    - create-upsell.md
+    - create-tsl.md
+    - create-headlines.md
+    - create-video-script.md
+    - create-email.md
+    - create-faq.md
+    - qa-review.md
+  agents:
+    - rex.md
+    - psyche.md
+    - vera.md
+    - quill.md
+    - reel.md
+    - spark.md
+    - sage.md
+    - judge.md
+  workflows:
+    - full-product-pipeline.yaml
+  checklists:
+    - copy-quality-checklist.md
+  templates:
+    - context-tmpl.md
+  data:
+    - prompt-library.md
+  scripts: []
+
+config:
+  standards: config/standards.md
+  market_profiles: config/market-profiles/
+
+pipeline_order:
+  core:
+    - intake → rex
+    - run-parasita → rex
+    - extract-avatar → psyche
+    - build-offer → vera
+    - create-usp → vera
+    - create-upsell → vera
+  production:
+    - create-tsl → quill
+    - create-headlines → quill
+    - create-video-script → reel (on-demand, choose angle)
+    - create-email → spark (on-demand, choose template)
+    - create-faq → sage
+  quality:
+    - qa-review → judge (after avatar & after full production)
+
+context_file: outputs/context.md
+
+dependencies:
+  node: []
+  python: []
+  squads: []
+
+tags:
+  - direct-response
+  - copywriting
+  - marketing
+  - avatar
+  - sales-letter
+  - email-marketing
+  - video-scripts
+  - multi-market
+  - multi-language
+  - pt-br
+  - en-us
+  - es-latam
