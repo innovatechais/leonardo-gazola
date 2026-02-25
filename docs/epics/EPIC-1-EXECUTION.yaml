@@ -1,0 +1,214 @@
+epic:
+  id: EPIC-1
+  title: "Knowledge Hub & SCA Engine"
+  goal: "Estabelecer o sistema de substratos, blocos e outputs como infraestrutura central do NEXUS"
+  status: planned
+  created_at: 2026-02-25
+  prd_ref: docs/prd/nexus-prd-v1.md
+  architecture_ref: docs/architecture/nexus-architecture-v1.md
+
+waves:
+  - id: wave-1
+    name: "Fundação"
+    mode: sequential
+    stories:
+      - id: "1.1"
+        title: "Project Registry & Structure"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [pattern_validation, schema_review]
+        risk: LOW
+        files_to_create:
+          - src/shared/schemas.js
+          - src/shared/fs-utils.js
+          - src/shared/paths.js
+          - src/shared/errors.js
+          - src/shared/constants.js
+          - src/project/index.js
+          - src/project/registry.js
+          - src/project/session.js
+          - src/project/cloner.js
+          - src/project/visibility.js
+          - src/cli/project.js
+          - tests/project/registry.test.js
+          - tests/project/session.test.js
+          - tests/project/visibility.test.js
+          - tests/shared/schemas.test.js
+          - tests/shared/fs-utils.test.js
+          - tests/fixtures/projects/test-project/manifest.yaml
+          - tests/fixtures/projects/personal-project/manifest.yaml
+        seed_data:
+          - docs/knowledge/innovatech/manifest.yaml
+          - docs/knowledge/evidex/manifest.yaml
+          - docs/knowledge/ipro/manifest.yaml
+        commands_delivered:
+          - "*project create {slug}"
+          - "*project list"
+          - "*project select {slug}"
+          - "*project status"
+        acceptance_criteria:
+          - "Comando *project create cria estrutura com manifest.yaml"
+          - "Comando *project list exibe projetos registrados"
+          - "Comando *project select persiste em .aios/session.yaml"
+          - "Projetos innovatech, evidex e ipro registrados como seed"
+          - "manifest.yaml inclui campo visibility: public|private"
+
+      - id: "1.2"
+        title: "Substrate CRUD & Validation"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [schema_validation, code_review]
+        risk: LOW
+        depends_on: ["1.1"]
+        files_to_create:
+          - src/sca-engine/index.js
+          - src/sca-engine/parser.js
+          - src/sca-engine/validator.js
+          - src/sca-engine/writer.js
+          - src/cli/substrate.js
+          - src/shared/security.js
+          - tests/sca-engine/parser.test.js
+          - tests/sca-engine/validator.test.js
+          - tests/shared/security.test.js
+          - tests/fixtures/substrates/S1-valid.md
+          - tests/fixtures/substrates/S2-valid.md
+          - tests/fixtures/substrates/S99-too-long.md
+          - tests/fixtures/substrates/S98-bad-frontmatter.md
+          - tests/fixtures/substrates/S97-sensitive.md
+        commands_delivered:
+          - "*substrate create {id}"
+          - "*substrate list"
+          - "*substrate view {id}"
+          - "*substrate edit {id}"
+        acceptance_criteria:
+          - "Substrato criado com frontmatter válido"
+          - "Rejeita > 200 palavras"
+          - "Lista com tabela formatada (ID, título, categoria, palavras, status)"
+          - "Edit cria nova versão (histórico via git)"
+          - "Formato: docs/knowledge/{project}/substrates/S{n}-{slug}.md"
+
+  - id: wave-2
+    name: "Composição"
+    mode: parallel
+    depends_on: [wave-1]
+    stories:
+      - id: "1.3"
+        title: "Block Composer"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [pattern_validation, integration_review]
+        risk: MEDIUM
+        depends_on: ["1.2"]
+        files_to_create:
+          - src/sca-engine/composer.js
+          - src/cli/block.js
+          - tests/sca-engine/composer.test.js
+          - tests/fixtures/blocks/A1-valid.md
+          - tests/fixtures/blocks/C1-stale.md
+          - tests/fixtures/blocks/D1-broken-ref.md
+        commands_delivered:
+          - "*block create {id}"
+          - "*block list"
+          - "*block view {id}"
+        acceptance_criteria:
+          - "Bloco gerado concatenando substratos referenciados"
+          - "Lista agrupada por etapa de funil"
+          - "View mostra conteúdo + referências (rastreabilidade)"
+          - "Blocos afetados por edição mostram flag [STALE]"
+          - "Formato: docs/knowledge/{project}/blocks/{stage}-{slug}.md"
+          - "Blocos seed para Evidex: A1, C1, D1"
+
+      - id: "1.4"
+        title: "Context Generator (SCA Output Engine)"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, pattern_validation]
+        risk: MEDIUM
+        depends_on: ["1.3"]
+        files_to_create:
+          - src/sca-engine/context-generator.js
+          - src/cli/context.js
+          - config/squad-context-map.yaml
+          - tests/sca-engine/context-generator.test.js
+          - tests/fixtures/configs/squad-context-map.yaml
+        commands_delivered:
+          - "*context generate {project} --for {squad}"
+          - "*context preview"
+        acceptance_criteria:
+          - "Gera context.md com header, substratos e blocos compilados"
+          - "Respeita squad-context-map.yaml (categorias por squad)"
+          - "Preview mostra sem salvar (dry-run)"
+          - "Salvo em docs/knowledge/{project}/contexts/{squad}-context.md"
+          - "Valida que substratos existem e nenhum bloco está STALE"
+
+  - id: wave-3
+    name: "Inteligência"
+    mode: parallel
+    depends_on: [wave-2]
+    stories:
+      - id: "1.5"
+        title: "Impact Analysis & Knowledge Health"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, test_validation]
+        risk: LOW
+        depends_on: ["1.4"]
+        files_to_create:
+          - src/sca-engine/impact.js
+          - src/sca-engine/health.js
+          - src/cli/knowledge.js
+          - tests/sca-engine/impact.test.js
+          - tests/sca-engine/health.test.js
+        commands_delivered:
+          - "*knowledge health"
+          - "*knowledge status"
+          - "*knowledge refresh"
+          - "*substrate impact {id}"
+        acceptance_criteria:
+          - "Health mostra totais, blocos stale, substratos órfãos"
+          - "Impact lista blocos e contextos afetados por substrato"
+          - "Impact mostrado automaticamente antes de confirmar edição"
+          - "Refresh regenera blocos stale em batch"
+
+      - id: "1.6"
+        title: "Substrate Importer"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, integration_review]
+        risk: LOW
+        depends_on: ["1.2"]
+        files_to_create:
+          - src/capture/index.js
+          - src/capture/importer.js
+          - src/capture/splitter.js
+          - src/capture/categorizer.js
+          - src/cli/capture.js
+          - tests/capture/splitter.test.js
+          - tests/capture/categorizer.test.js
+          - tests/capture/importer.test.js
+        commands_delivered:
+          - "*substrate import {file-path}"
+        acceptance_criteria:
+          - "Analisa documento e sugere split em substratos"
+          - "Preview com numeração e categorização proposta"
+          - "Usuário aprova todos, edita individualmente ou rejeita"
+          - "Suporta markdown, texto, JSON"
+          - "Cria com frontmatter e source para rastreabilidade"
+          - "Teste: importar Base Comercial e verificar equivalência"
+
+definition_of_done:
+  - "Todos os 6 stories com acceptance criteria atendidos"
+  - "npm run validate passa (lint + tests)"
+  - "Coverage 85%+ nos módulos novos"
+  - "Seed data funcional (innovatech, evidex, ipro)"
+  - "Fluxo completo: create project → create substrate → compose block → generate context"
+
+compatibility:
+  existing_apis: "N/A — greenfield"
+  database: "N/A — filesystem only"
+  squads: "READ ONLY — adapter não modifica squads/"
+
+risk:
+  primary: "Schema dos substratos precisa estar certo desde o início"
+  mitigation: "Story 1.1 + 1.2 estabelecem schemas Zod validados por testes"
+  rollback: "Git revert — tudo é arquivo"

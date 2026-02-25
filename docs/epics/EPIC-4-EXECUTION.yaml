@@ -1,0 +1,193 @@
+epic:
+  id: EPIC-4
+  title: "Multi-Project, Captura & Integrações"
+  goal: "Expandir para múltiplos projetos/empresas, ingestão contínua, privacidade e integrações — de 'ferramenta Innovatech' para 'plataforma para N negócios'"
+  status: planned
+  created_at: 2026-02-25
+  prd_ref: docs/prd/nexus-prd-v1.md
+  architecture_ref: docs/architecture/nexus-architecture-v1.md
+
+waves:
+  - id: wave-1
+    name: "Multi-Tenant"
+    mode: parallel
+    stories:
+      - id: "4.1"
+        title: "Multi-Project Workspace"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [pattern_validation, integration_review]
+        risk: MEDIUM
+        files_to_create:
+          - src/project/workspace.js
+          - src/project/cloner.js
+          - src/project/archiver.js
+          - tests/project/workspace.test.js
+          - tests/project/cloner.test.js
+          - tests/project/archiver.test.js
+        commands_delivered:
+          - "*project switch {slug}"
+          - "*project clone {source} {new}"
+          - "*project archive {slug}"
+        acceptance_criteria:
+          - "*project switch {slug} troca projeto ativo instantaneamente"
+          - "Prompt exibe projeto ativo: [evidex] *make copy..."
+          - "*project clone {source} {new} duplica estrutura como ponto de partida"
+          - "*project archive {slug} move para _archived/ — recuperável"
+          - "Cada projeto com manifest completo: market, tone, persona, design system"
+          - "Teste: criar clube-tartar, trocar contextos, verificar isolamento"
+
+      - id: "4.2"
+        title: "Visibility & Privacy Layers"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, security_review]
+        risk: MEDIUM
+        files_to_create:
+          - src/project/privacy.js
+          - src/shared/visibility.js
+          - tests/project/privacy.test.js
+          - tests/shared/visibility.test.js
+        commands_delivered:
+          - "*project set-visibility {slug} {level}"
+          - "*knowledge audit"
+        acceptance_criteria:
+          - "Projetos suportam visibility: public, private, personal"
+          - "*project set-visibility {slug} {level} altera visibilidade"
+          - "Context generator respeita visibilidade — personal nunca em squads comerciais"
+          - "shared_substrates no manifest para compartilhamento controlado"
+          - "*knowledge audit mostra relatório de visibilidade"
+          - "Substratos com conteúdo sensível recebem flag [SENSITIVE] automático"
+
+  - id: wave-2
+    name: "Captura & Ingestão"
+    mode: sequential
+    depends_on: [wave-1]
+    stories:
+      - id: "4.3"
+        title: "Continuous Capture Pipeline"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, code_review]
+        risk: LOW
+        files_to_create:
+          - src/capture/pipeline.js
+          - src/capture/processor.js
+          - src/cli/capture-pipeline.js
+          - tests/capture/pipeline.test.js
+          - tests/capture/processor.test.js
+        commands_delivered:
+          - "*capture process"
+          - "*capture status"
+          - "*capture import {dir}"
+        acceptance_criteria:
+          - "*capture process escaneia notas não processadas com sugestões"
+          - "Para cada nota: transformar em substrato, append, criar bloco, arquivar, pular"
+          - "Integração com messaging-capture-squad (Telegram → capture/)"
+          - "*capture status mostra pendentes e taxa de conversão"
+          - "Processadas movidas para processed/ com referência"
+          - "*capture import {dir} para bulk import"
+
+  - id: wave-3
+    name: "Escala & Exportação"
+    mode: parallel
+    depends_on: [wave-2]
+    stories:
+      - id: "4.4"
+        title: "External Integrations Hub"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, security_review]
+        risk: HIGH
+        files_to_create:
+          - src/integrations/index.js
+          - src/integrations/vercel.js
+          - src/integrations/github-publish.js
+          - src/integrations/health-check.js
+          - src/cli/integrations.js
+          - config/integrations/vercel.yaml
+          - config/integrations/github.yaml
+          - tests/integrations/health-check.test.js
+        commands_delivered:
+          - "*integrations list"
+          - "*integrations connect {service}"
+          - "*deploy {output-path}"
+          - "*campaign publish {id}"
+          - "*integrations check {service}"
+        acceptance_criteria:
+          - "*integrations list mostra serviços e status"
+          - "*integrations connect {service} setup guiado"
+          - "Vercel: *deploy {output-path} deploy com URL pública"
+          - "GitHub: *campaign publish {id} commit + push (delega @devops)"
+          - "Config em config/integrations/{service}.yaml referenciando .env"
+          - "*integrations check {service} health check"
+
+      - id: "4.5"
+        title: "Template Marketplace & Export"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, pattern_validation]
+        risk: LOW
+        files_to_create:
+          - src/export/index.js
+          - src/export/packager.js
+          - src/export/sanitizer.js
+          - src/cli/export.js
+          - tests/export/packager.test.js
+          - tests/export/sanitizer.test.js
+        commands_delivered:
+          - "*export template {type} {name}"
+          - "*export pipeline --clean"
+          - "*export squad --clean"
+          - "*export method"
+        acceptance_criteria:
+          - "*export template {type} {name} empacota como template distribuível"
+          - "Inclui: definições, README, exemplos dummy — NUNCA dados reais"
+          - "*export pipeline --clean sem referências a projetos específicos"
+          - "*export squad --clean com personas e tasks, sem knowledge"
+          - "*export method pacote completo do método NEXUS"
+          - "Cada export com LICENSE.md e SETUP.md"
+          - "Salvos em exports/{type}-{name}-{date}/"
+
+      - id: "4.6"
+        title: "NEXUS Dashboard & Analytics"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, test_validation]
+        risk: LOW
+        files_to_create:
+          - src/dashboard/index.js
+          - src/dashboard/metrics.js
+          - src/dashboard/report-weekly.js
+          - src/cli/dashboard.js
+          - tests/dashboard/metrics.test.js
+          - tests/dashboard/report-weekly.test.js
+        commands_delivered:
+          - "*dashboard"
+          - "*dashboard {project}"
+          - "*dashboard weekly"
+          - "*dashboard weekly --save"
+        acceptance_criteria:
+          - "*dashboard resumo: projetos, outputs por tipo/período, squads mais usados, campanhas"
+          - "*dashboard {project} detalhes: completude, outputs, última campanha, blocos stale"
+          - "Métricas de .aios/routing-log.yaml e metadados — sem banco externo"
+          - "*dashboard weekly relatório semanal com sugestões de ação"
+          - "Output em markdown formatado para terminal"
+          - "*dashboard weekly --save salva em docs/reports/"
+
+definition_of_done:
+  - "Todos os 6 stories com acceptance criteria atendidos"
+  - "npm run validate passa (lint + tests)"
+  - "Coverage 85%+ nos módulos novos"
+  - "Multi-project funcional com isolamento verificado"
+  - "Fluxo completo: N projetos → captura contínua → exportação → dashboard"
+
+compatibility:
+  existing_apis: "Depende dos EPICs 1, 2 e 3"
+  database: "N/A — filesystem only (Supabase é futuro pós-MVP)"
+  squads: "READ ONLY — sem modificação em squads/"
+
+risk:
+  primary: "Integrações externas (Vercel, GitHub API) dependem de credenciais e serviços de terceiros"
+  mitigation: "Story 4.4 usa config com .env e health checks; deploy é opcional"
+  rollback: "Git revert — exports e dashboards são read-only sobre dados existentes"

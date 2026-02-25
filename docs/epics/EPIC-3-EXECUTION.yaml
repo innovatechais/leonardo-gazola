@@ -1,0 +1,162 @@
+epic:
+  id: EPIC-3
+  title: "Campaign Orchestrator & Pipelines"
+  goal: "Encadear múltiplos squads em pipelines configuráveis — de 'peço um output' para 'peço uma campanha e sai tudo coordenado'"
+  status: planned
+  created_at: 2026-02-25
+  prd_ref: docs/prd/nexus-prd-v1.md
+  architecture_ref: docs/architecture/nexus-architecture-v1.md
+
+waves:
+  - id: wave-1
+    name: "Pipelines"
+    mode: sequential
+    stories:
+      - id: "3.1"
+        title: "Pipeline Definition & Templates"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [schema_validation, pattern_validation]
+        risk: LOW
+        files_to_create:
+          - src/campaign/index.js
+          - src/campaign/pipeline-loader.js
+          - src/campaign/pipeline-validator.js
+          - src/cli/pipeline.js
+          - config/pipelines/full-campaign.yaml
+          - config/pipelines/landing-page.yaml
+          - config/pipelines/social-media.yaml
+          - tests/campaign/pipeline-loader.test.js
+          - tests/campaign/pipeline-validator.test.js
+          - tests/fixtures/pipelines/valid-pipeline.yaml
+          - tests/fixtures/pipelines/invalid-pipeline.yaml
+        seed_data:
+          - config/pipelines/full-campaign.yaml
+          - config/pipelines/landing-page.yaml
+          - config/pipelines/social-media.yaml
+        commands_delivered:
+          - "*pipeline list"
+          - "*pipeline view {name}"
+          - "*pipeline create {name}"
+        acceptance_criteria:
+          - "Pipeline em YAML: config/pipelines/{name}.yaml com steps"
+          - "*pipeline list exibe pipelines disponíveis"
+          - "*pipeline view {name} mostra diagrama ASCII"
+          - "3 pipelines seed: full-campaign, landing-page, social-media"
+          - "Cada step define: squad, agent, input_from, output_to"
+          - "*pipeline create {name} para montar novo pipeline"
+
+  - id: wave-2
+    name: "Execução de Campanhas"
+    mode: sequential
+    depends_on: [wave-1]
+    stories:
+      - id: "3.2"
+        title: "Campaign Execution Engine"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, pattern_validation]
+        risk: HIGH
+        depends_on: ["3.1"]
+        files_to_create:
+          - src/campaign/executor.js
+          - src/campaign/step-runner.js
+          - src/campaign/progress.js
+          - src/campaign/report-generator.js
+          - src/cli/campaign.js
+          - tests/campaign/executor.test.js
+          - tests/campaign/step-runner.test.js
+          - tests/campaign/report-generator.test.js
+        commands_delivered:
+          - "*campaign run {pipeline}"
+        acceptance_criteria:
+          - "*campaign run {pipeline} executa pipeline completo"
+          - "Cada step recebe context + outputs acumulados"
+          - "Progresso visível entre steps"
+          - "Falha: opções Retry/Skip/Abort"
+          - "Relatório final em campaigns/{pipeline}-{timestamp}/REPORT.md"
+          - "Todos outputs na mesma pasta"
+
+      - id: "3.3"
+        title: "Campaign Brief & Customization"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, integration_review]
+        risk: LOW
+        depends_on: ["3.2"]
+        files_to_create:
+          - src/campaign/brief-builder.js
+          - tests/campaign/brief-builder.test.js
+        commands_delivered:
+          - "*campaign create"
+          - "*campaign list"
+          - "*campaign rerun {id}"
+        acceptance_criteria:
+          - "*campaign create inicia elicitação: nome, objetivo, público, tom, pipeline"
+          - "Briefing salvo como campaign-brief.yaml"
+          - "Briefing injetado como contexto adicional junto com substratos"
+          - "*campaign list exibe campanhas do projeto"
+          - "*campaign rerun {id} re-executa com mesmo briefing"
+          - "Sem briefing customizado: usa defaults do projeto"
+
+  - id: wave-3
+    name: "Qualidade"
+    mode: parallel
+    depends_on: [wave-2]
+    stories:
+      - id: "3.4"
+        title: "Checkpoint & Review Flow"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, test_validation]
+        risk: MEDIUM
+        depends_on: ["3.2"]
+        files_to_create:
+          - src/campaign/checkpoint.js
+          - tests/campaign/checkpoint.test.js
+        commands_delivered:
+          - "--no-checkpoint flag"
+        acceptance_criteria:
+          - "Pipelines suportam checkpoint: true por step"
+          - "Checkpoint pausa e mostra preview com opções: Aprovar/Editar/Refazer/Abortar"
+          - "Editar permite modificar output antes de seguir"
+          - "Refazer re-executa step com instruções adicionais"
+          - "3 pipelines seed com checkpoint após step 1"
+          - "--no-checkpoint para YOLO mode"
+
+      - id: "3.5"
+        title: "Output Consistency Validator"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [code_review, test_validation]
+        risk: MEDIUM
+        depends_on: ["3.2"]
+        files_to_create:
+          - src/campaign/consistency-validator.js
+          - tests/campaign/consistency-validator.test.js
+        commands_delivered:
+          - "*campaign validate {id}"
+        acceptance_criteria:
+          - "Validação automática ao finalizar campanha"
+          - "Valida: tom, headline, oferta/preço, CTA, nomes de produto"
+          - "Resultado no REPORT.md: OK / Warning / Inconsistência"
+          - "Inconsistência encontrada: sugere correção específica"
+          - "Substratos como fonte da verdade — contradições flagadas"
+          - "*campaign validate {id} para validação independente"
+
+definition_of_done:
+  - "Todos os 5 stories com acceptance criteria atendidos"
+  - "npm run validate passa (lint + tests)"
+  - "Coverage 85%+ nos módulos novos"
+  - "3 pipelines seed funcionais"
+  - "Fluxo completo: *campaign create → briefing → *campaign run → checkpoint → outputs → REPORT.md"
+
+compatibility:
+  existing_apis: "Depende do EPIC-1 (SCA Engine) e EPIC-2 (Squad Adapter, Router)"
+  database: "N/A — filesystem only"
+  squads: "READ ONLY — usa Squad Adapter do EPIC-2"
+
+risk:
+  primary: "Encadear squads com context passing entre steps é o fluxo mais complexo do sistema"
+  mitigation: "Story 3.1 valida formato de pipeline antes; Story 3.2 isola execution engine"
+  rollback: "Git revert — campanhas são pastas independentes"

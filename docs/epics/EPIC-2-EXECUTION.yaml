@@ -1,0 +1,168 @@
+epic:
+  id: EPIC-2
+  title: "Squad Integration & Routing"
+  goal: "Conectar os 15 squads ao Knowledge Hub — o sistema recebe um pedido e roteia para o squad correto com contexto injetado"
+  status: planned
+  created_at: 2026-02-25
+  prd_ref: docs/prd/nexus-prd-v1.md
+  architecture_ref: docs/architecture/nexus-architecture-v1.md
+
+waves:
+  - id: wave-1
+    name: "Descoberta"
+    mode: sequential
+    stories:
+      - id: "2.1"
+        title: "Squad Registry & Discovery"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [pattern_validation, schema_review]
+        risk: LOW
+        files_to_create:
+          - src/squad-adapter/index.js
+          - src/squad-adapter/registry.js
+          - src/squad-adapter/parser.js
+          - src/squad-adapter/capabilities.js
+          - src/cli/squads.js
+          - tests/squad-adapter/registry.test.js
+          - tests/squad-adapter/parser.test.js
+          - tests/fixtures/squads/direct-response-creator/capabilities.yaml
+          - tests/fixtures/squads/agencia-squad/capabilities.yaml
+          - tests/fixtures/squads/design-extractor-squad/capabilities.yaml
+          - tests/fixtures/squads/clickbank-ads-squad/capabilities.yaml
+        seed_data:
+          - squads/direct-response-creator/capabilities.yaml
+          - squads/agencia-squad/capabilities.yaml
+          - squads/design-extractor-squad/capabilities.yaml
+          - squads/clickbank-ads-squad/capabilities.yaml
+        commands_delivered:
+          - "*squads list"
+          - "*squads info {name}"
+        acceptance_criteria:
+          - "Comando *squads list exibe tabela: nome, agentes, categoria, outputs"
+          - "Comando *squads info {name} mostra detalhes completos"
+          - "Cada squad tem capabilities.yaml: produces, requires, market_profiles"
+          - "Squads sem capabilities: flag [UNREGISTERED]"
+          - "4 squads core com capabilities seed"
+          - "Registry gerado do filesystem (squads/*/capabilities.yaml)"
+
+      - id: "2.2"
+        title: "Request Router"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [pattern_validation, integration_review]
+        risk: MEDIUM
+        depends_on: ["2.1"]
+        files_to_create:
+          - src/request-router/index.js
+          - src/request-router/analyzer.js
+          - src/request-router/matcher.js
+          - src/request-router/logger.js
+          - src/cli/make.js
+          - config/routing-rules.yaml
+          - tests/request-router/analyzer.test.js
+          - tests/request-router/matcher.test.js
+          - tests/fixtures/configs/routing-rules.yaml
+        commands_delivered:
+          - "*make {descrição}"
+        acceptance_criteria:
+          - "Comando *make {descrição} analisa e identifica: tipo de output, squad, agente"
+          - "Apresenta recomendação com confirmação"
+          - "Routing via capabilities + config/routing-rules.yaml"
+          - "Pedido ambíguo: opções numeradas"
+          - "Nenhum squad atende: sugere criar novo"
+          - "Log em .aios/routing-log.yaml"
+
+  - id: wave-2
+    name: "Execução"
+    mode: parallel
+    depends_on: [wave-1]
+    stories:
+      - id: "2.3"
+        title: "Context Injection Pipeline"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, pattern_validation]
+        risk: MEDIUM
+        depends_on: ["2.2"]
+        files_to_create:
+          - src/squad-adapter/context-injector.js
+          - tests/squad-adapter/context-injector.test.js
+        commands_delivered: []
+        acceptance_criteria:
+          - "Após routing, executa *context generate automaticamente"
+          - "context.md copiado para squad antes da execução"
+          - "Se squad tem pipeline_order, context injetado no primeiro agente"
+          - "Confirmação visual ao usuário"
+          - "Alerta se blocos stale detectados"
+          - "Output gerado inclui footer com rastreabilidade"
+
+      - id: "2.5"
+        title: "Squad Execution Adapter"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, code_review]
+        risk: MEDIUM
+        depends_on: ["2.1"]
+        files_to_create:
+          - src/squad-adapter/executor.js
+          - src/squad-adapter/translator.js
+          - tests/squad-adapter/executor.test.js
+          - tests/squad-adapter/translator.test.js
+        commands_delivered: []
+        acceptance_criteria:
+          - "Adapter lê squad.yaml e extrai pipeline_order, agentes, tasks"
+          - "Squads com pipeline_order: executa agentes em sequência"
+          - "Squads sem pipeline_order: seleção manual de agente"
+          - "Traduz formato de squad em instruções executáveis"
+          - "Teste: pipeline completo do DR Creator com contexto Evidex"
+          - "Squads com ferramentas externas: nota de dependência"
+
+  - id: wave-3
+    name: "End-to-End"
+    mode: sequential
+    depends_on: [wave-2]
+    stories:
+      - id: "2.4"
+        title: "Single Output Execution"
+        executor: "@dev"
+        quality_gate: "@architect"
+        quality_gate_tools: [integration_review, test_validation]
+        risk: MEDIUM
+        depends_on: ["2.3", "2.5"]
+        files_to_create:
+          - src/cli/outputs.js
+          - src/squad-adapter/output-manager.js
+          - tests/squad-adapter/output-manager.test.js
+          - tests/integration/single-output.test.js
+        commands_delivered:
+          - "*make copy landing-page"
+          - "*make visual carousel"
+          - "*make brief imagem"
+          - "*outputs list"
+          - "*outputs view {id}"
+        acceptance_criteria:
+          - "*make copy landing-page executa fluxo completo end-to-end"
+          - "*make visual carousel executa via agencia-squad"
+          - "*make brief imagem executa via agencia-squad (Lens)"
+          - "Outputs salvos em docs/knowledge/{projeto}/outputs/"
+          - "*outputs list exibe histórico"
+          - "*outputs view {id} mostra output com rastreabilidade"
+          - "Market profile detectado do manifest ou perguntado"
+
+definition_of_done:
+  - "Todos os 5 stories com acceptance criteria atendidos"
+  - "npm run validate passa (lint + tests)"
+  - "Coverage 85%+ nos módulos novos"
+  - "4 squads core com capabilities.yaml funcionais"
+  - "Fluxo completo: *make {pedido} → routing → context injection → squad execution → output salvo"
+
+compatibility:
+  existing_apis: "Depende do EPIC-1 (SCA Engine, Context Generator)"
+  database: "N/A — filesystem only"
+  squads: "READ ONLY — adapter lê squads/ mas não modifica"
+
+risk:
+  primary: "Tradução de formatos variados de squad (373 arquivos) para instruções executáveis"
+  mitigation: "Story 2.5 foca em adapter pattern — isola a complexidade de parsing"
+  rollback: "Git revert — tudo é arquivo"
