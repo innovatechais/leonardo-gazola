@@ -1,0 +1,10 @@
+slug: personal-project
+name: Personal Project
+description: "A personal project with restricted visibility"
+visibility: personal
+market_profile: pt-br-massa
+tone: casual
+created_at: "2026-01-01T00:00:00Z"
+tags:
+  - personal
+shared_substrates: []

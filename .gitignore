@@ -40,6 +40,7 @@ coverage/
 # AIOS runtime (não versionar)
 .aios/handoffs/
 .aios/environment-report.yaml
+.aios/session.yaml
 .aios/logs/
 
 # Supabase

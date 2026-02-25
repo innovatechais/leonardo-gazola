@@ -1,0 +1,10 @@
+slug: test-project
+name: Test Project
+description: "A test project for unit tests"
+visibility: private
+market_profile: pt-br-massa
+tone: professional
+created_at: "2026-01-01T00:00:00Z"
+tags:
+  - test
+shared_substrates: []
