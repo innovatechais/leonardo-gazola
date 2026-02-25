@@ -2,6 +2,7 @@
 
 import { Command } from 'commander'
 import projectCmd from './project.js'
+import { substrateCommand } from './substrate.js'
 
 const program = new Command()
   .name('nexus')
@@ -9,5 +10,6 @@ const program = new Command()
   .version('0.1.0')
 
 program.addCommand(projectCmd)
+program.addCommand(substrateCommand)
 
 program.parse(process.argv)
