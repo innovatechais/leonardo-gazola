@@ -12,6 +12,7 @@ import { makeCommand } from './make.js'
 import { outputsCommand } from './outputs.js'
 import { pipelineCommand } from './pipeline.js'
 import { campaignCommand } from './campaign.js'
+import { explorerCommand } from './explorer.js'
 
 const program = new Command()
   .name('nexus')
@@ -30,5 +31,6 @@ program.addCommand(makeCommand)
 program.addCommand(outputsCommand)
 program.addCommand(pipelineCommand)
 program.addCommand(campaignCommand)
+program.addCommand(explorerCommand)
 
 program.parse(process.argv)
