@@ -6,6 +6,7 @@ import { substrateCommand } from './substrate.js'
 import { blockCommand } from './block.js'
 import { contextCommand } from './context.js'
 import { knowledgeCommand, addImpactToSubstrate } from './knowledge.js'
+import { captureCommand } from './capture.js'
 
 const program = new Command()
   .name('nexus')
@@ -18,5 +19,6 @@ program.addCommand(blockCommand)
 program.addCommand(contextCommand)
 program.addCommand(knowledgeCommand)
 addImpactToSubstrate(substrateCommand)
+program.addCommand(captureCommand)
 
 program.parse(process.argv)
