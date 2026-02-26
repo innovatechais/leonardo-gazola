@@ -7,6 +7,7 @@ import { blockCommand } from './block.js'
 import { contextCommand } from './context.js'
 import { knowledgeCommand, addImpactToSubstrate } from './knowledge.js'
 import { captureCommand } from './capture.js'
+import { squadsCommand } from './squads.js'
 
 const program = new Command()
   .name('nexus')
@@ -20,5 +21,6 @@ program.addCommand(contextCommand)
 program.addCommand(knowledgeCommand)
 addImpactToSubstrate(substrateCommand)
 program.addCommand(captureCommand)
+program.addCommand(squadsCommand)
 
 program.parse(process.argv)

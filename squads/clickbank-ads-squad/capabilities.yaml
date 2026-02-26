@@ -1,0 +1,8 @@
+name: clickbank-ads-squad
+category: advertising
+produces: [facebook-ads, google-ads, native-ads, ad-copy]
+requires: [product, pain, solution, offer, audience]
+funnel_stages: [awareness, consideration, decision]
+market_profiles: [en-us]
+agents_count: 3
+pipeline_order: []

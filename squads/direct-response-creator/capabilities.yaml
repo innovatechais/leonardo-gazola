@@ -1,0 +1,8 @@
+name: direct-response-creator
+category: copywriting
+produces: [landing-page, tsl, headlines, video-scripts, email-sequences, faqs]
+requires: [product, pain, solution, objection, differentiator, proof, offer, audience]
+funnel_stages: [awareness, consideration, decision]
+market_profiles: [pt-br-massa, pt-br-premium, en-us, es-latam]
+agents_count: 8
+pipeline_order: [rex, psyche, vera, quill, reel, spark, sage, judge]

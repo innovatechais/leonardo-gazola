@@ -1,0 +1,7 @@
+name: unregistered-squad
+version: 1.0.0
+description: Squad without capabilities.yaml for testing unregistered detection
+agents:
+  - id: agent1
+    name: Agent One
+    role: Worker

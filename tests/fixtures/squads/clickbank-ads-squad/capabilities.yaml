@@ -1,0 +1,8 @@
+name: clickbank-ads-squad
+category: advertising
+produces: [ad-copy, ad-creative-brief, landing-page-ads, retargeting-sequence]
+requires: [product, pain, offer, audience, proof]
+funnel_stages: [awareness, consideration, decision]
+market_profiles: [en-us]
+agents_count: 5
+pipeline_order: [researcher, strategist, copywriter, creative, optimizer]

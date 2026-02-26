@@ -1,0 +1,8 @@
+name: agencia-squad
+category: visual
+produces: [carousel, stories, reels, briefing-imagem, social-media]
+requires: [product, audience, differentiator, proof]
+funnel_stages: [awareness, consideration]
+market_profiles: [pt-br-massa, pt-br-premium]
+agents_count: 4
+pipeline_order: []

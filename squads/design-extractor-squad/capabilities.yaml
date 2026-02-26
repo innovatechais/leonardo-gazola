@@ -1,0 +1,8 @@
+name: design-extractor-squad
+category: design
+produces: [design-tokens, style-guide, component-specs]
+requires: [identity, product]
+funnel_stages: []
+market_profiles: [pt-br-massa, pt-br-premium, en-us]
+agents_count: 3
+pipeline_order: []

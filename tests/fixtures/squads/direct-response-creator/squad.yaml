@@ -1,0 +1,37 @@
+name: direct-response-creator
+version: 1.0.0
+description: Squad de copywriting para direct response marketing
+slashPrefix: dr
+agents:
+  - id: rex
+    name: Rex
+    role: Research & Intelligence
+    icon: "🔍"
+  - id: psyche
+    name: Psyche
+    role: Psychology & Persuasion
+    icon: "🧠"
+  - id: vera
+    name: Vera
+    role: Verification & Facts
+    icon: "✅"
+  - id: quill
+    name: Quill
+    role: Copy Writer
+    icon: "✍️"
+  - id: reel
+    name: Reel
+    role: Video Scripts
+    icon: "🎬"
+  - id: spark
+    name: Spark
+    role: Headlines & Hooks
+    icon: "⚡"
+  - id: sage
+    name: Sage
+    role: Email Sequences
+    icon: "📧"
+  - id: judge
+    name: Judge
+    role: Quality Gate
+    icon: "⚖️"

@@ -1,0 +1,8 @@
+name: design-extractor-squad
+category: design
+produces: [design-system, color-palette, typography-spec, component-library]
+requires: [identity, audience]
+funnel_stages: [awareness]
+market_profiles: [pt-br-massa, pt-br-premium, en-us]
+agents_count: 4
+pipeline_order: [scanner, analyzer, generator, validator]

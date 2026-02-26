@@ -1,0 +1,29 @@
+name: agencia-squad
+version: 2.0.0
+description: Squad de criação visual e conteúdo para redes sociais
+slashPrefix: agencia
+agents:
+  - id: maestro
+    name: Maestro
+    role: Orchestrator
+    icon: "🎯"
+  - id: lens
+    name: Lens
+    role: Visual Strategy
+    icon: "📸"
+  - id: canvas
+    name: Canvas
+    role: Design Creator
+    icon: "🎨"
+  - id: motion
+    name: Motion
+    role: Animation & Video
+    icon: "🎬"
+  - id: social
+    name: Social
+    role: Social Media Copy
+    icon: "📱"
+  - id: reviewer
+    name: Reviewer
+    role: Quality Review
+    icon: "✅"
