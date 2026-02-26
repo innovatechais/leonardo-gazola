@@ -1,0 +1,5 @@
+name: vercel
+type: deployment
+enabled: true
+required_env: [VERCEL_TOKEN, VERCEL_ORG_ID]
+description: Deploy landing pages and static content to Vercel

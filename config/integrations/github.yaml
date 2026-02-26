@@ -1,0 +1,5 @@
+name: github
+type: publishing
+enabled: true
+required_env: [GITHUB_TOKEN]
+description: Publish campaign outputs to GitHub repository
