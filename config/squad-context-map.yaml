@@ -1,0 +1,15 @@
+direct-response-creator:
+  categories: [product, pain, solution, objection, differentiator, proof, offer, audience]
+  funnel_stages: [awareness, consideration, decision]
+agencia-squad:
+  categories: [product, audience, differentiator, proof]
+  funnel_stages: [awareness, consideration]
+design-extractor-squad:
+  categories: [identity, product]
+  funnel_stages: []
+vendas-canhotos-squad:
+  categories: [product, pain, solution, objection, offer, proof]
+  funnel_stages: [consideration, decision]
+pitch-investimento-squad:
+  categories: [identity, product, differentiator, proof, context]
+  funnel_stages: [awareness, consideration, decision]

@@ -1,0 +1,6 @@
+test-squad:
+  categories: [product, pain]
+  funnel_stages: [awareness]
+empty-squad:
+  categories: [context]
+  funnel_stages: []

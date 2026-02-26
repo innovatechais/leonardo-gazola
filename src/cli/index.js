@@ -4,6 +4,7 @@ import { Command } from 'commander'
 import projectCmd from './project.js'
 import { substrateCommand } from './substrate.js'
 import { blockCommand } from './block.js'
+import { contextCommand } from './context.js'
 
 const program = new Command()
   .name('nexus')
@@ -13,5 +14,6 @@ const program = new Command()
 program.addCommand(projectCmd)
 program.addCommand(substrateCommand)
 program.addCommand(blockCommand)
+program.addCommand(contextCommand)
 
 program.parse(process.argv)
