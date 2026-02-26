@@ -10,6 +10,7 @@ import { captureCommand } from './capture.js'
 import { squadsCommand } from './squads.js'
 import { makeCommand } from './make.js'
 import { outputsCommand } from './outputs.js'
+import { pipelineCommand } from './pipeline.js'
 
 const program = new Command()
   .name('nexus')
@@ -26,5 +27,6 @@ program.addCommand(captureCommand)
 program.addCommand(squadsCommand)
 program.addCommand(makeCommand)
 program.addCommand(outputsCommand)
+program.addCommand(pipelineCommand)
 
 program.parse(process.argv)

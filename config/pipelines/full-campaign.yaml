@@ -1,0 +1,30 @@
+name: full-campaign
+description: Pipeline completo para campanhas de marketing — copy + visual + ads
+version: 1
+steps:
+  - id: step-1
+    name: Copy Base
+    squad: direct-response-creator
+    agent: null
+    output_type: landing-page
+    input_from: context
+    output_to: step-2
+    checkpoint: true
+
+  - id: step-2
+    name: Visual Assets
+    squad: agencia-squad
+    agent: null
+    output_type: carousel
+    input_from: step-1
+    output_to: step-3
+    checkpoint: false
+
+  - id: step-3
+    name: Ad Campaign
+    squad: clickbank-ads-squad
+    agent: null
+    output_type: ad-copy
+    input_from: [step-1, step-2]
+    output_to: final
+    checkpoint: true

@@ -1,0 +1,20 @@
+name: test-pipeline
+description: A valid test pipeline
+version: 1
+steps:
+  - id: step-1
+    name: First Step
+    squad: test-squad
+    agent: null
+    output_type: test-output
+    input_from: context
+    output_to: step-2
+    checkpoint: true
+  - id: step-2
+    name: Second Step
+    squad: test-squad-2
+    agent: specific-agent
+    output_type: final-output
+    input_from: step-1
+    output_to: final
+    checkpoint: false
