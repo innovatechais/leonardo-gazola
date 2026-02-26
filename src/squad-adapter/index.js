@@ -1,3 +1,6 @@
 export { listSquads, getSquad, getSquadDetails } from './registry.js'
 export { parseSquadConfig, parseCapabilities } from './parser.js'
 export { findSquadsByOutput, findSquadsByCategory, findSquadsByRequirements } from './capabilities.js'
+export { injectContext, buildTraceabilityFooter, hasExistingContext } from './context-injector.js'
+export { translateSquadToInstructions, buildExecutionPlan } from './translator.js'
+export { executeSquad, formatExecutionSummary } from './executor.js'
