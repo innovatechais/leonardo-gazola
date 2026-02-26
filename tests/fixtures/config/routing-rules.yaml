@@ -1,0 +1,23 @@
+rules:
+  - output_types: [landing-page, tsl, headlines, video-scripts, email-sequences, faqs]
+    squad: direct-response-creator
+    priority: 1
+  - output_types: [carousel, stories, reels-script, thumbnail, social-post, design-brief]
+    squad: agencia-squad
+    priority: 1
+  - output_types: [design-system, color-palette, typography-spec, component-library]
+    squad: design-extractor-squad
+    priority: 1
+  - output_types: [ad-copy, ad-creative-brief, landing-page-ads, retargeting-sequence]
+    squad: clickbank-ads-squad
+    priority: 1
+
+category_keywords:
+  copywriting: [copy, texto, landing, página, email, sequência, headline, título, tsl, vsl, carta, vendas, direct response]
+  visual: [carousel, carrossel, stories, reels, thumbnail, social, post, imagem, visual, design brief]
+  design: [design system, paleta, cor, tipografia, componente, branding, identidade visual]
+  advertising: [anúncio, ad, ads, campanha, retargeting, clickbank, tráfego, mídia paga]
+
+fallback:
+  action: suggest_creation
+  message: "Nenhum squad atende este tipo de output."
