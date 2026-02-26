@@ -1,0 +1,89 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "bg": {
+      "primary": { "$value": "#ffffff", "$type": "color" },
+      "dark": { "$value": "#01112a", "$type": "color" },
+      "darker": { "$value": "#010f29", "$type": "color" },
+      "surface-dark": { "$value": "#131415", "$type": "color" },
+      "near-black": { "$value": "#050505", "$type": "color" }
+    },
+    "text": {
+      "primary": { "$value": "#000000", "$type": "color" },
+      "on-dark": { "$value": "#ffffff", "$type": "color" },
+      "muted": { "$value": "#00000180", "$type": "color" }
+    },
+    "accent": {
+      "blue": { "$value": "#5289ff", "$type": "color" },
+      "yellow": { "$value": "#f7d61d", "$type": "color" },
+      "orange": { "$value": "#ff4400", "$type": "color" },
+      "amber": { "$value": "#ffb600", "$type": "color" },
+      "green-shopify": { "$value": "#95bf47", "$type": "color" },
+      "teal": { "$value": "#82e0c5", "$type": "color" },
+      "dark-teal": { "$value": "#023c3e", "$type": "color" },
+      "bright-green": { "$value": "#0acf83", "$type": "color" },
+      "cyan": { "$value": "#1ea7ff", "$type": "color" },
+      "bright-blue": { "$value": "#3d68ff", "$type": "color" },
+      "purple-blue": { "$value": "#6869ff", "$type": "color" },
+      "indigo": { "$value": "#5051f9", "$type": "color" },
+      "dark-green": { "$value": "#0c553a", "$type": "color" }
+    },
+    "neutral": {
+      "100": { "$value": "#eeeeee", "$type": "color" },
+      "200": { "$value": "#e3e3e3", "$type": "color" },
+      "300": { "$value": "#e1e1e1", "$type": "color" },
+      "400": { "$value": "#d8d8d8", "$type": "color" }
+    }
+  },
+  "font": {
+    "family": {
+      "primary": { "$value": "'DM Sans', sans-serif", "$type": "fontFamily" },
+      "secondary": { "$value": "'Instrument Sans', sans-serif", "$type": "fontFamily" },
+      "serif": { "$value": "'Instrument Serif', serif", "$type": "fontFamily" },
+      "display": { "$value": "'Cal Sans', sans-serif", "$type": "fontFamily" },
+      "body-alt": { "$value": "'Manrope', sans-serif", "$type": "fontFamily" },
+      "ui": { "$value": "'Inter', sans-serif", "$type": "fontFamily" },
+      "modern": { "$value": "'Satoshi', sans-serif", "$type": "fontFamily" }
+    },
+    "weight": {
+      "regular": { "$value": 400, "$type": "fontWeight" },
+      "medium": { "$value": 500, "$type": "fontWeight" },
+      "semibold": { "$value": 600, "$type": "fontWeight" },
+      "bold": { "$value": 700, "$type": "fontWeight" },
+      "extrabold": { "$value": 800, "$type": "fontWeight" },
+      "black": { "$value": 900, "$type": "fontWeight" }
+    }
+  },
+  "space": {
+    "1": { "$value": "4px", "$type": "dimension" },
+    "1-5": { "$value": "6px", "$type": "dimension" },
+    "2": { "$value": "8px", "$type": "dimension" },
+    "2-5": { "$value": "10px", "$type": "dimension" },
+    "3": { "$value": "12px", "$type": "dimension" },
+    "4": { "$value": "16px", "$type": "dimension" },
+    "5": { "$value": "20px", "$type": "dimension" },
+    "6": { "$value": "24px", "$type": "dimension" },
+    "8": { "$value": "32px", "$type": "dimension" },
+    "10": { "$value": "40px", "$type": "dimension" },
+    "12": { "$value": "48px", "$type": "dimension" },
+    "14": { "$value": "56px", "$type": "dimension" },
+    "16": { "$value": "64px", "$type": "dimension" },
+    "20": { "$value": "80px", "$type": "dimension" }
+  },
+  "radius": {
+    "sm": { "$value": "8px", "$type": "dimension" },
+    "md": { "$value": "12px", "$type": "dimension" },
+    "lg": { "$value": "20px", "$type": "dimension" },
+    "xl": { "$value": "24px", "$type": "dimension" },
+    "2xl": { "$value": "32px", "$type": "dimension" },
+    "3xl": { "$value": "56px", "$type": "dimension" },
+    "4xl": { "$value": "80px", "$type": "dimension" },
+    "pill": { "$value": "9999px", "$type": "dimension" }
+  },
+  "shadow": {
+    "soft": { "$value": "0 0 81.7px #0000001f", "$type": "shadow" },
+    "purple-glow": { "$value": "0 1.50313px 4.50938px #4f50f929", "$type": "shadow" },
+    "green-glow": { "$value": "0 1.53721px 4.61162px #0acf8329", "$type": "shadow" },
+    "blue-glow": { "$value": "0 1.45848px 4.37545px #1ea7ff1f", "$type": "shadow" }
+  }
+}

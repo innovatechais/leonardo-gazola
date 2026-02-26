@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "source": "https://trypeelkit.com/shopify",
+    "captured_at": "2026-02-25T00:00:00Z",
+    "analyzer": "Lens",
+    "name": "peelkit"
+  },
+  "colors": {
+    "backgrounds": {
+      "primary": "#ffffff",
+      "dark": "#01112a",
+      "darker": "#010f29",
+      "surface_dark": "#131415",
+      "near_black": "#050505"
+    },
+    "text": {
+      "primary": "#000000",
+      "on_dark": "#ffffff",
+      "muted": "#00000180"
+    },
+    "accent": {
+      "blue": "#5289ff",
+      "yellow": "#f7d61d",
+      "orange": "#ff4400",
+      "amber": "#ffb600",
+      "green_shopify": "#95bf47",
+      "teal": "#82e0c5",
+      "dark_teal": "#023c3e",
+      "bright_green": "#0acf83",
+      "cyan": "#1ea7ff",
+      "bright_blue": "#3d68ff",
+      "purple_blue_1": "#6869ff",
+      "purple_blue_2": "#5051f9",
+      "dark_green": "#0c553a"
+    },
+    "neutrals": {
+      "light_gray": "#eeeeee",
+      "medium_gray": "#d8d8d8",
+      "border_1": "#e1e1e1",
+      "border_2": "#e3e3e3"
+    },
+    "gradients": [
+      "linear-gradient(#010f2900 -6%, #01102a 81%)",
+      "linear-gradient(90deg, #fff0 0%, #fff 100%)",
+      "linear-gradient(#fff0 0%, #fff 100%)"
+    ]
+  },
+  "typography": {
+    "families": {
+      "primary": { "name": "DM Sans", "source": "Google Fonts", "weights": [400, 500, 600, 700, 900] },
+      "secondary": { "name": "Instrument Sans", "source": "Google Fonts", "weights": [400, 500, 600, 700] },
+      "serif": { "name": "Instrument Serif", "source": "Google Fonts", "weights": [400], "italic": true },
+      "display": { "name": "Cal Sans", "source": "Google Fonts", "weights": [400, 600] },
+      "body_alt": { "name": "Manrope", "source": "Google Fonts", "weights": [400, 500, 700, 800] },
+      "ui": { "name": "Inter", "source": "Google Fonts", "weights": [400, 500, 600, 700], "variable": true },
+      "modern": { "name": "Satoshi", "source": "Fontshare", "weights": [400, 500, 700] }
+    }
+  },
+  "spacing": {
+    "base": "4px",
+    "scale": [4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64, 80]
+  },
+  "borders": {
+    "radius": [8, 9, 10, 11, 12, 17, 20, 24, 26, 30, 32, 41, 53, 56, 60, 70, 74, 80],
+    "radius_pill": "100%"
+  },
+  "effects": {
+    "shadows": [
+      "0 0 81.7px #0000001f",
+      "0 1.50313px 4.50938px #4f50f929",
+      "0 1.53721px 4.61162px #0acf8329",
+      "0 1.45848px 4.37545px #1ea7ff1f"
+    ],
+    "blur": ["blur(2px)"],
+    "opacity": [0.3, 0.6, 0.9, 1]
+  },
+  "breakpoints": {
+    "mobile": "max-width: 809.98px",
+    "tablet": "min-width: 810px and max-width: 1199.98px",
+    "desktop": "min-width: 1200px"
+  },
+  "layout": {
+    "max_width": "1200px",
+    "content_max": "1440px"
+  },
+  "components": [
+    "hero-section",
+    "feature-cards",
+    "pricing-cards",
+    "testimonial-cards",
+    "navigation-bar",
+    "cta-buttons",
+    "badges-tags",
+    "integration-logos",
+    "accordion-faq",
+    "footer"
+  ]
+}

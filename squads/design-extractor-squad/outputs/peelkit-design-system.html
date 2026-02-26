@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeelKit Design System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,900;1,9..40,400&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<style>
+  /* === Reset === */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-dark: #01112a;
+    --color-bg-darker: #010f29;
+    --color-bg-surface-dark: #131415;
+    --color-bg-near-black: #050505;
+    --color-text-primary: #000000;
+    --color-text-on-dark: #ffffff;
+    --color-text-muted: #00000180;
+    --color-accent-blue: #5289ff;
+    --color-accent-yellow: #f7d61d;
+    --color-accent-orange: #ff4400;
+    --color-accent-amber: #ffb600;
+    --color-accent-green-shopify: #95bf47;
+    --color-accent-teal: #82e0c5;
+    --color-accent-dark-teal: #023c3e;
+    --color-accent-bright-green: #0acf83;
+    --color-accent-cyan: #1ea7ff;
+    --color-accent-bright-blue: #3d68ff;
+    --color-accent-purple-blue: #6869ff;
+    --color-accent-indigo: #5051f9;
+    --color-accent-dark-green: #0c553a;
+    --color-neutral-100: #eeeeee;
+    --color-neutral-200: #e3e3e3;
+    --color-neutral-300: #e1e1e1;
+    --color-neutral-400: #d8d8d8;
+    --font-family-primary: 'DM Sans', sans-serif;
+    --font-family-secondary: 'Instrument Sans', sans-serif;
+    --font-family-serif: 'Instrument Serif', serif;
+    --font-family-display: 'Cal Sans', sans-serif;
+    --font-family-body-alt: 'Manrope', sans-serif;
+    --font-family-ui: 'Inter', sans-serif;
+    --font-family-modern: 'Satoshi', sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-pill: 9999px;
+    --shadow-soft: 0 0 81.7px #0000001f;
+    --shadow-purple-glow: 0 1.50313px 4.50938px #4f50f929;
+    --shadow-green-glow: 0 1.53721px 4.61162px #0acf8329;
+    --shadow-blue-glow: 0 1.45848px 4.37545px #1ea7ff1f;
+  }
+
+  body {
+    font-family: var(--font-family-primary);
+    color: var(--color-text-primary);
+    background: #f8f9fa;
+    line-height: 1.6;
+  }
+
+  /* === Layout === */
+  .page { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 260px;
+    background: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
+    padding: 32px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .sidebar .subtitle { font-size: 12px; opacity: 0.6; margin-bottom: 32px; }
+  .sidebar nav a {
+    display: block;
+    color: #ffffffaa;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .sidebar nav a:hover, .sidebar nav a.active {
+    background: #ffffff15;
+    color: #fff;
+  }
+
+  .main {
+    margin-left: 260px;
+    padding: 48px;
+    flex: 1;
+    max-width: 1200px;
+  }
+
+  /* === Sections === */
+  section { margin-bottom: 64px; }
+  section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--color-bg-dark);
+  }
+  section .section-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 32px;
+  }
+
+  /* === Color Swatches === */
+  .color-group { margin-bottom: 32px; }
+  .color-group h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; color: #333; }
+  .swatches { display: flex; flex-wrap: wrap; gap: 16px; }
+  .swatch {
+    width: 120px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px #0001;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .swatch:hover { transform: translateY(-2px); }
+  .swatch-color {
+    height: 72px;
+    border-bottom: 1px solid #eee;
+  }
+  .swatch-info { padding: 10px; }
+  .swatch-name { font-size: 11px; font-weight: 600; color: #333; }
+  .swatch-value { font-size: 11px; color: #888; font-family: 'SF Mono', monospace; }
+
+  /* === Typography === */
+  .font-card {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 4px #0001;
+  }
+  .font-card .font-name { font-size: 13px; font-weight: 600; color: var(--color-accent-blue); margin-bottom: 4px; }
+  .font-card .font-sample { font-size: 36px; line-height: 1.2; margin-bottom: 12px; }
+  .font-card .font-weights { display: flex; gap: 16px; flex-wrap: wrap; }
+  .font-card .weight-tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    background: #f0f0f0;
+    border-radius: var(--radius-pill);
+    color: #555;
+  }
+
+  /* === Spacing === */
+  .spacing-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+  .spacing-label {
+    font-size: 13px;
+    font-weight: 500;
+    width: 80px;
+    color: #555;
+    font-family: 'SF Mono', monospace;
+  }
+  .spacing-bar {
+    height: 24px;
+    background: var(--color-accent-blue);
+    border-radius: 4px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .spacing-bar:hover { opacity: 1; }
+  .spacing-px { font-size: 12px; color: #888; width: 50px; }
+
+  /* === Radius === */
+  .radius-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+  .radius-item {
+    width: 100px;
+    height: 100px;
+    background: var(--color-bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    transition: transform 0.2s;
+  }
+  .radius-item:hover { transform: scale(1.05); }
+
+  /* === Shadows === */
+  .shadow-grid { display: flex; flex-wrap: wrap; gap: 32px; }
+  .shadow-card {
+    width: 200px;
+    height: 120px;
+    background: #fff;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .shadow-card .shadow-name { font-size: 12px; font-weight: 600; color: #555; }
+  .shadow-card .shadow-val { font-size: 10px; color: #999; font-family: monospace; max-width: 170px; text-align: center; }
+
+  /* === Components === */
+  .component-showcase {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px #0001;
+  }
+  .component-showcase h3 { font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+
+  /* Buttons */
+  .btn-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 16px; }
+  .btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-family-primary);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--color-accent-blue); color: #fff; }
+  .btn-yellow { background: var(--color-accent-yellow); color: #000; }
+  .btn-dark { background: var(--color-bg-dark); color: #fff; }
+  .btn-outline { background: transparent; border: 2px solid var(--color-neutral-300); color: #333; }
+  .btn-green { background: var(--color-accent-bright-green); color: #fff; }
+  .btn-orange { background: var(--color-accent-orange); color: #fff; }
+  .btn-sm { padding: 8px 20px; font-size: 13px; }
+  .btn-lg { padding: 16px 36px; font-size: 16px; }
+
+  /* Cards */
+  .cards-row { display: flex; gap: 20px; flex-wrap: wrap; }
+  .card {
+    flex: 1;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: all 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-soft); transform: translateY(-2px); }
+  .card-dark {
+    background: var(--color-bg-dark);
+    color: #fff;
+    border: none;
+  }
+  .card h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 14px; opacity: 0.7; line-height: 1.5; }
+
+  /* Badges */
+  .badge-row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-blue { background: #5289ff20; color: var(--color-accent-blue); }
+  .badge-green { background: #0acf8320; color: var(--color-accent-bright-green); }
+  .badge-yellow { background: #f7d61d30; color: #9a8400; }
+  .badge-orange { background: #ff440020; color: var(--color-accent-orange); }
+  .badge-purple { background: #6869ff20; color: var(--color-accent-purple-blue); }
+
+  /* Dark Section */
+  .dark-section {
+    background: var(--color-bg-dark);
+    border-radius: var(--radius-2xl);
+    padding: 48px;
+    color: var(--color-text-on-dark);
+  }
+  .dark-section h3 { margin-bottom: 20px; }
+
+  /* === Tokens Table === */
+  .tokens-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .tokens-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: #f5f5f5;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+  }
+  .tokens-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #eee;
+    font-family: 'SF Mono', monospace;
+    font-size: 12px;
+  }
+  .tokens-table tr:hover td { background: #fafafa; }
+
+  /* === Animations Demo === */
+  .anim-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+  .anim-box {
+    width: 120px;
+    height: 120px;
+    background: var(--color-accent-blue);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+  }
+  .anim-hover-lift { transition: transform 0.2s ease; }
+  .anim-hover-lift:hover { transform: translateY(-8px); }
+  .anim-hover-scale { transition: transform 0.2s ease; }
+  .anim-hover-scale:hover { transform: scale(1.08); }
+  .anim-hover-glow { transition: box-shadow 0.3s ease; }
+  .anim-hover-glow:hover { box-shadow: 0 0 30px #5289ff60; }
+  .anim-fade-pulse { animation: fadePulse 2s ease-in-out infinite; }
+  @keyframes fadePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  /* Copy toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--color-bg-dark);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+<div class="page">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h1>PeelKit</h1>
+    <div class="subtitle">Design System &mdash; Extracted 2026-02-25</div>
+    <nav>
+      <a href="#overview" class="active">Overview</a>
+      <a href="#colors">Colors</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#radius">Border Radius</a>
+      <a href="#shadows">Shadows</a>
+      <a href="#animations">Animations</a>
+      <a href="#components">Components</a>
+      <a href="#dark">Dark Theme</a>
+      <a href="#tokens">All Tokens</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- Overview -->
+    <section id="overview">
+      <h2>PeelKit Design System</h2>
+      <p class="section-desc">Extracted from <a href="https://trypeelkit.com/shopify" target="_blank">trypeelkit.com/shopify</a> &mdash; Shopify analytics & optimization tool</p>
+      <div class="cards-row" style="margin-top: 16px;">
+        <div class="card"><h4>18+</h4><p>Color tokens</p></div>
+        <div class="card"><h4>7</h4><p>Font families</p></div>
+        <div class="card"><h4>14</h4><p>Spacing values</p></div>
+        <div class="card"><h4>8</h4><p>Radius values</p></div>
+        <div class="card"><h4>4</h4><p>Shadow effects</p></div>
+        <div class="card"><h4>10+</h4><p>Components</p></div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section id="colors">
+      <h2>Colors</h2>
+      <p class="section-desc">Click any swatch to copy its hex value</p>
+
+      <div class="color-group">
+        <h3>Backgrounds</h3>
+        <div class="swatches">
+          <div class="swatch" onclick="copyColor('#ffffff')"><div class="swatch-color" style="background:#ffffff;border:1px solid #eee"></div><div class="swatch-info"><div class="swatch-name">Primary</div><div class="swatch-value">#ffffff</div></div></div>
+          <div class="swatch" onclick="copyColor('#01112a')"><div class="swatch-color" style="background:#01112a"></div><div class="swatch-info"><div class="swatch-name">Dark</div><div class="swatch-value">#01112a</div></div></div>
+          <div class="swatch" onclick="copyColor('#010f29')"><div class="swatch-color" style="background:#010f29"></div><div class="swatch-info"><div class="swatch-name">Darker</div><div class="swatch-value">#010f29</div></div></div>
+          <div class="swatch" onclick="copyColor('#131415')"><div class="swatch-color" style="background:#131415"></div><div class="swatch-info"><div class="swatch-name">Surface Dark</div><div class="swatch-value">#131415</div></div></div>
+          <div class="swatch" onclick="copyColor('#050505')"><div class="swatch-color" style="background:#050505"></div><div class="swatch-info"><div class="swatch-name">Near Black</div><div class="swatch-value">#050505</div></div></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <h3>Accent</h3>
+        <div class="swatches">
+          <div class="swatch" onclick="copyColor('#5289ff')"><div class="swatch-color" style="background:#5289ff"></div><div class="swatch-info"><div class="swatch-name">Blue</div><div class="swatch-value">#5289ff</div></div></div>
+          <div class="swatch" onclick="copyColor('#f7d61d')"><div class="swatch-color" style="background:#f7d61d"></div><div class="swatch-info"><div class="swatch-name">Yellow</div><div class="swatch-value">#f7d61d</div></div></div>
+          <div class="swatch" onclick="copyColor('#ff4400')"><div class="swatch-color" style="background:#ff4400"></div><div class="swatch-info"><div class="swatch-name">Orange</div><div class="swatch-value">#ff4400</div></div></div>
+          <div class="swatch" onclick="copyColor('#ffb600')"><div class="swatch-color" style="background:#ffb600"></div><div class="swatch-info"><div class="swatch-name">Amber</div><div class="swatch-value">#ffb600</div></div></div>
+          <div class="swatch" onclick="copyColor('#95bf47')"><div class="swatch-color" style="background:#95bf47"></div><div class="swatch-info"><div class="swatch-name">Shopify Green</div><div class="swatch-value">#95bf47</div></div></div>
+          <div class="swatch" onclick="copyColor('#82e0c5')"><div class="swatch-color" style="background:#82e0c5"></div><div class="swatch-info"><div class="swatch-name">Teal</div><div class="swatch-value">#82e0c5</div></div></div>
+          <div class="swatch" onclick="copyColor('#0acf83')"><div class="swatch-color" style="background:#0acf83"></div><div class="swatch-info"><div class="swatch-name">Bright Green</div><div class="swatch-value">#0acf83</div></div></div>
+          <div class="swatch" onclick="copyColor('#1ea7ff')"><div class="swatch-color" style="background:#1ea7ff"></div><div class="swatch-info"><div class="swatch-name">Cyan</div><div class="swatch-value">#1ea7ff</div></div></div>
+          <div class="swatch" onclick="copyColor('#3d68ff')"><div class="swatch-color" style="background:#3d68ff"></div><div class="swatch-info"><div class="swatch-name">Bright Blue</div><div class="swatch-value">#3d68ff</div></div></div>
+          <div class="swatch" onclick="copyColor('#6869ff')"><div class="swatch-color" style="background:#6869ff"></div><div class="swatch-info"><div class="swatch-name">Purple Blue</div><div class="swatch-value">#6869ff</div></div></div>
+          <div class="swatch" onclick="copyColor('#5051f9')"><div class="swatch-color" style="background:#5051f9"></div><div class="swatch-info"><div class="swatch-name">Indigo</div><div class="swatch-value">#5051f9</div></div></div>
+          <div class="swatch" onclick="copyColor('#0c553a')"><div class="swatch-color" style="background:#0c553a"></div><div class="swatch-info"><div class="swatch-name">Dark Green</div><div class="swatch-value">#0c553a</div></div></div>
+          <div class="swatch" onclick="copyColor('#023c3e')"><div class="swatch-color" style="background:#023c3e"></div><div class="swatch-info"><div class="swatch-name">Dark Teal</div><div class="swatch-value">#023c3e</div></div></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <h3>Neutrals</h3>
+        <div class="swatches">
+          <div class="swatch" onclick="copyColor('#eeeeee')"><div class="swatch-color" style="background:#eeeeee"></div><div class="swatch-info"><div class="swatch-name">100</div><div class="swatch-value">#eeeeee</div></div></div>
+          <div class="swatch" onclick="copyColor('#e3e3e3')"><div class="swatch-color" style="background:#e3e3e3"></div><div class="swatch-info"><div class="swatch-name">200</div><div class="swatch-value">#e3e3e3</div></div></div>
+          <div class="swatch" onclick="copyColor('#e1e1e1')"><div class="swatch-color" style="background:#e1e1e1"></div><div class="swatch-info"><div class="swatch-name">300</div><div class="swatch-value">#e1e1e1</div></div></div>
+          <div class="swatch" onclick="copyColor('#d8d8d8')"><div class="swatch-color" style="background:#d8d8d8"></div><div class="swatch-info"><div class="swatch-name">400</div><div class="swatch-value">#d8d8d8</div></div></div>
+        </div>
+      </div>
+
+      <div class="color-group">
+        <h3>Gradients</h3>
+        <div class="swatches">
+          <div class="swatch" style="width:200px" onclick="copyColor('linear-gradient(#010f2900 -6%, #01102a 81%)')"><div class="swatch-color" style="background:linear-gradient(#010f29 -6%, #01102a 81%)"></div><div class="swatch-info"><div class="swatch-name">Dark Fade</div><div class="swatch-value">dark → darker</div></div></div>
+          <div class="swatch" style="width:200px" onclick="copyColor('linear-gradient(90deg, transparent, #fff)')"><div class="swatch-color" style="background:linear-gradient(90deg, transparent, #fff);border:1px solid #eee"></div><div class="swatch-info"><div class="swatch-name">White Fade H</div><div class="swatch-value">transparent → white</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section id="typography">
+      <h2>Typography</h2>
+      <p class="section-desc">7 font families used across the PeelKit interface</p>
+
+      <div class="font-card">
+        <div class="font-name">DM Sans (Primary)</div>
+        <div class="font-sample" style="font-family:'DM Sans',sans-serif;font-weight:700">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag" style="font-family:'DM Sans';font-weight:400">400 Regular</span>
+          <span class="weight-tag" style="font-family:'DM Sans';font-weight:500">500 Medium</span>
+          <span class="weight-tag" style="font-family:'DM Sans';font-weight:600">600 Semibold</span>
+          <span class="weight-tag" style="font-family:'DM Sans';font-weight:700">700 Bold</span>
+          <span class="weight-tag" style="font-family:'DM Sans';font-weight:900">900 Black</span>
+        </div>
+      </div>
+
+      <div class="font-card">
+        <div class="font-name">Instrument Sans (Secondary)</div>
+        <div class="font-sample" style="font-family:'Instrument Sans',sans-serif;font-weight:600">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag" style="font-family:'Instrument Sans';font-weight:400">400 Regular</span>
+          <span class="weight-tag" style="font-family:'Instrument Sans';font-weight:500">500 Medium</span>
+          <span class="weight-tag" style="font-family:'Instrument Sans';font-weight:600">600 Semibold</span>
+          <span class="weight-tag" style="font-family:'Instrument Sans';font-weight:700">700 Bold</span>
+        </div>
+      </div>
+
+      <div class="font-card">
+        <div class="font-name">Instrument Serif (Serif / Accent)</div>
+        <div class="font-sample" style="font-family:'Instrument Serif',serif;font-style:italic">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag">400 Regular</span>
+          <span class="weight-tag">400 Italic</span>
+        </div>
+      </div>
+
+      <div class="font-card">
+        <div class="font-name">Manrope (Body Alternative)</div>
+        <div class="font-sample" style="font-family:'Manrope',sans-serif;font-weight:700;font-size:32px">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag" style="font-family:'Manrope';font-weight:400">400 Regular</span>
+          <span class="weight-tag" style="font-family:'Manrope';font-weight:500">500 Medium</span>
+          <span class="weight-tag" style="font-family:'Manrope';font-weight:700">700 Bold</span>
+          <span class="weight-tag" style="font-family:'Manrope';font-weight:800">800 Extra Bold</span>
+        </div>
+      </div>
+
+      <div class="font-card">
+        <div class="font-name">Inter (UI)</div>
+        <div class="font-sample" style="font-family:'Inter',sans-serif;font-weight:500;font-size:28px">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag" style="font-family:'Inter';font-weight:400">400 Regular</span>
+          <span class="weight-tag" style="font-family:'Inter';font-weight:500">500 Medium</span>
+          <span class="weight-tag" style="font-family:'Inter';font-weight:600">600 Semibold</span>
+          <span class="weight-tag" style="font-family:'Inter';font-weight:700">700 Bold</span>
+        </div>
+      </div>
+
+      <div class="font-card">
+        <div class="font-name">Satoshi (Modern)</div>
+        <div class="font-sample" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:32px">The quick brown fox jumps over the lazy dog</div>
+        <div class="font-weights">
+          <span class="weight-tag">400 Regular</span>
+          <span class="weight-tag">500 Medium</span>
+          <span class="weight-tag">700 Bold</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section id="spacing">
+      <h2>Spacing</h2>
+      <p class="section-desc">4px base grid with 14 scale values</p>
+      <div>
+        <div class="spacing-row"><span class="spacing-label">--space-1</span><div class="spacing-bar" style="width:4px"></div><span class="spacing-px">4px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-1-5</span><div class="spacing-bar" style="width:6px"></div><span class="spacing-px">6px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-2</span><div class="spacing-bar" style="width:8px"></div><span class="spacing-px">8px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-2-5</span><div class="spacing-bar" style="width:10px"></div><span class="spacing-px">10px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-3</span><div class="spacing-bar" style="width:12px"></div><span class="spacing-px">12px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-4</span><div class="spacing-bar" style="width:16px"></div><span class="spacing-px">16px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-5</span><div class="spacing-bar" style="width:20px"></div><span class="spacing-px">20px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-6</span><div class="spacing-bar" style="width:24px"></div><span class="spacing-px">24px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-8</span><div class="spacing-bar" style="width:32px"></div><span class="spacing-px">32px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-10</span><div class="spacing-bar" style="width:40px"></div><span class="spacing-px">40px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-12</span><div class="spacing-bar" style="width:48px"></div><span class="spacing-px">48px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-14</span><div class="spacing-bar" style="width:56px"></div><span class="spacing-px">56px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-16</span><div class="spacing-bar" style="width:64px"></div><span class="spacing-px">64px</span></div>
+        <div class="spacing-row"><span class="spacing-label">--space-20</span><div class="spacing-bar" style="width:80px"></div><span class="spacing-px">80px</span></div>
+      </div>
+    </section>
+
+    <!-- Radius -->
+    <section id="radius">
+      <h2>Border Radius</h2>
+      <p class="section-desc">From subtle to pill-shaped, heavily rounded design language</p>
+      <div class="radius-grid">
+        <div class="radius-item" style="border-radius:8px">8px</div>
+        <div class="radius-item" style="border-radius:12px">12px</div>
+        <div class="radius-item" style="border-radius:20px">20px</div>
+        <div class="radius-item" style="border-radius:24px">24px</div>
+        <div class="radius-item" style="border-radius:32px">32px</div>
+        <div class="radius-item" style="border-radius:56px">56px</div>
+        <div class="radius-item" style="border-radius:80px">80px</div>
+        <div class="radius-item" style="border-radius:9999px">pill</div>
+      </div>
+    </section>
+
+    <!-- Shadows -->
+    <section id="shadows">
+      <h2>Shadows</h2>
+      <p class="section-desc">Subtle glowing shadows with colored tints</p>
+      <div class="shadow-grid">
+        <div class="shadow-card" style="box-shadow:0 0 81.7px #0000001f"><div class="shadow-name">Soft</div><div class="shadow-val">0 0 81.7px #0000001f</div></div>
+        <div class="shadow-card" style="box-shadow:0 1.5px 4.5px #4f50f929"><div class="shadow-name">Purple Glow</div><div class="shadow-val">0 1.5px 4.5px #4f50f929</div></div>
+        <div class="shadow-card" style="box-shadow:0 1.5px 4.6px #0acf8329"><div class="shadow-name">Green Glow</div><div class="shadow-val">0 1.5px 4.6px #0acf8329</div></div>
+        <div class="shadow-card" style="box-shadow:0 1.5px 4.4px #1ea7ff1f"><div class="shadow-name">Blue Glow</div><div class="shadow-val">0 1.5px 4.4px #1ea7ff1f</div></div>
+      </div>
+    </section>
+
+    <!-- Animations -->
+    <section id="animations">
+      <h2>Animations & Effects</h2>
+      <p class="section-desc">Hover effects and transitions found in the design. Hover over the boxes to preview.</p>
+      <div class="anim-grid">
+        <div class="anim-box anim-hover-lift">Hover<br>Lift</div>
+        <div class="anim-box anim-hover-scale" style="background:var(--color-accent-bright-green)">Hover<br>Scale</div>
+        <div class="anim-box anim-hover-glow" style="background:var(--color-accent-indigo)">Hover<br>Glow</div>
+        <div class="anim-box anim-fade-pulse" style="background:var(--color-accent-yellow);color:#000">Fade<br>Pulse</div>
+      </div>
+      <div style="margin-top:24px;background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:0 1px 4px #0001">
+        <h3 style="font-size:14px;margin-bottom:12px">Transition Values</h3>
+        <table class="tokens-table">
+          <tr><th>Effect</th><th>CSS</th></tr>
+          <tr><td>Hover lift</td><td>transition: transform 0.2s ease; transform: translateY(-8px)</td></tr>
+          <tr><td>Hover scale</td><td>transition: transform 0.2s ease; transform: scale(1.08)</td></tr>
+          <tr><td>Shadow glow</td><td>transition: box-shadow 0.3s ease</td></tr>
+          <tr><td>Backdrop blur</td><td>backdrop-filter: blur(2px)</td></tr>
+          <tr><td>Performance</td><td>will-change: transform</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Components -->
+    <section id="components">
+      <h2>Components</h2>
+      <p class="section-desc">UI patterns identified in the PeelKit interface</p>
+
+      <div class="component-showcase">
+        <h3>Buttons</h3>
+        <div class="btn-row">
+          <button class="btn btn-primary">Primary Blue</button>
+          <button class="btn btn-yellow">Yellow CTA</button>
+          <button class="btn btn-dark">Dark</button>
+          <button class="btn btn-green">Green</button>
+          <button class="btn btn-orange">Orange</button>
+          <button class="btn btn-outline">Outline</button>
+        </div>
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+        </div>
+      </div>
+
+      <div class="component-showcase">
+        <h3>Cards</h3>
+        <div class="cards-row">
+          <div class="card">
+            <h4>Feature Card</h4>
+            <p>Clean card with subtle border and hover elevation effect</p>
+          </div>
+          <div class="card card-dark">
+            <h4>Dark Card</h4>
+            <p>Navy background variant for contrast sections</p>
+          </div>
+          <div class="card" style="border-left:3px solid var(--color-accent-blue)">
+            <h4>Accent Card</h4>
+            <p>Left border accent for emphasis</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-showcase">
+        <h3>Badges</h3>
+        <div class="badge-row">
+          <span class="badge badge-blue">Analytics</span>
+          <span class="badge badge-green">Active</span>
+          <span class="badge badge-yellow">Shopify</span>
+          <span class="badge badge-orange">Hot</span>
+          <span class="badge badge-purple">New</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dark Theme -->
+    <section id="dark">
+      <h2>Dark Theme</h2>
+      <p class="section-desc">PeelKit uses a dark navy theme prominently</p>
+      <div class="dark-section">
+        <h3>Dark Section Example</h3>
+        <p style="opacity:0.7;margin-bottom:24px">Components rendered on the dark navy background (#01112a)</p>
+        <div class="btn-row">
+          <button class="btn btn-yellow">Get Started</button>
+          <button class="btn" style="background:#ffffff20;color:#fff;border:1px solid #ffffff30">Learn More</button>
+        </div>
+        <div class="badge-row" style="margin-top:20px">
+          <span class="badge" style="background:#5289ff30;color:#5289ff">Shopify App</span>
+          <span class="badge" style="background:#0acf8330;color:#0acf83">Live</span>
+          <span class="badge" style="background:#ffffff15;color:#ffffffaa">Beta</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Tokens -->
+    <section id="tokens">
+      <h2>All Tokens (CSS)</h2>
+      <p class="section-desc">Copy the full token set for your project</p>
+      <div style="background:#1a1a2e;border-radius:var(--radius-lg);padding:32px;color:#e0e0e0;font-family:'SF Mono',monospace;font-size:12px;line-height:2;overflow-x:auto;position:relative">
+        <button onclick="copyAllTokens()" style="position:absolute;top:12px;right:12px;background:#ffffff20;border:none;color:#fff;padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px">Copy All</button>
+<pre id="tokenBlock">:root {
+  /* Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-dark: #01112a;
+  --color-bg-darker: #010f29;
+  --color-bg-surface-dark: #131415;
+  --color-accent-blue: #5289ff;
+  --color-accent-yellow: #f7d61d;
+  --color-accent-orange: #ff4400;
+  --color-accent-amber: #ffb600;
+  --color-accent-green-shopify: #95bf47;
+  --color-accent-teal: #82e0c5;
+  --color-accent-bright-green: #0acf83;
+  --color-accent-cyan: #1ea7ff;
+  --color-accent-bright-blue: #3d68ff;
+  --color-accent-purple-blue: #6869ff;
+  --color-accent-indigo: #5051f9;
+
+  /* Typography */
+  --font-family-primary: 'DM Sans', sans-serif;
+  --font-family-secondary: 'Instrument Sans', sans-serif;
+  --font-family-serif: 'Instrument Serif', serif;
+  --font-family-display: 'Cal Sans', sans-serif;
+  --font-family-body-alt: 'Manrope', sans-serif;
+  --font-family-ui: 'Inter', sans-serif;
+  --font-family-modern: 'Satoshi', sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --space-8: 32px; --space-10: 40px; --space-12: 48px;
+  --space-16: 64px; --space-20: 80px;
+
+  /* Radius */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+  --radius-xl: 24px; --radius-2xl: 32px; --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-soft: 0 0 81.7px #0000001f;
+  --shadow-purple-glow: 0 1.5px 4.5px #4f50f929;
+  --shadow-green-glow: 0 1.5px 4.6px #0acf8329;
+  --shadow-blue-glow: 0 1.5px 4.4px #1ea7ff1f;
+}</pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+function copyColor(val) {
+  navigator.clipboard.writeText(val);
+  showToast('Copied: ' + val);
+}
+function copyAllTokens() {
+  const text = document.getElementById('tokenBlock').textContent;
+  navigator.clipboard.writeText(text);
+  showToast('All tokens copied!');
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Active nav
+document.querySelectorAll('.sidebar nav a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar nav a').forEach(x => x.classList.remove('active'));
+    a.classList.add('active');
+  });
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.sidebar nav a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
