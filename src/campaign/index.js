@@ -1,2 +1,6 @@
 export { listPipelines, loadPipeline, renderPipelineAscii } from './pipeline-loader.js'
 export { validatePipeline } from './pipeline-validator.js'
+export { runStep } from './step-runner.js'
+export { createProgressTracker } from './progress.js'
+export { executeCampaign } from './executor.js'
+export { generateReport } from './report-generator.js'

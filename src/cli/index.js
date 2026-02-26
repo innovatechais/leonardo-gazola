@@ -11,6 +11,7 @@ import { squadsCommand } from './squads.js'
 import { makeCommand } from './make.js'
 import { outputsCommand } from './outputs.js'
 import { pipelineCommand } from './pipeline.js'
+import { campaignCommand } from './campaign.js'
 
 const program = new Command()
   .name('nexus')
@@ -28,5 +29,6 @@ program.addCommand(squadsCommand)
 program.addCommand(makeCommand)
 program.addCommand(outputsCommand)
 program.addCommand(pipelineCommand)
+program.addCommand(campaignCommand)
 
 program.parse(process.argv)
