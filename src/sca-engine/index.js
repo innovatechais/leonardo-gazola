@@ -3,3 +3,5 @@ export { validateSubstrate, validateSubstrateSchema, validateWordCount, checkDup
 export { writeSubstrate } from './writer.js'
 export { composeBlock, checkStaleness, writeBlock, markStale } from './composer.js'
 export { generateContext, saveContext, loadSquadNeeds, loadSubstratesByCategory, loadBlocksByStage, compileContextDocument } from './context-generator.js'
+export { impactAnalysis } from './impact.js'
+export { healthCheck } from './health.js'
