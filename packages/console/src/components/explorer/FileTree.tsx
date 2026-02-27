@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { api } from '@/lib/api-client';
 import { useAppStore } from '@/stores/app-store';
 import { getFileIcon, getFileType } from '@/lib/file-icons';
-import { ChevronRight, ChevronDown, RefreshCw, Search } from 'lucide-react';
+import { ChevronRight, ChevronDown, RefreshCw, Search, FilePlus, FolderPlus } from 'lucide-react';
 
 interface TreeNode {
   name: string;
@@ -290,6 +290,7 @@ export function FileTree() {
   const [confirmDelete, setConfirmDelete] = useState<TreeNode | null>(null);
   const [renamingPath, setRenamingPath] = useState<string | null>(null);
   const [inlineInput, setInlineInput] = useState<InlineInput | null>(null);
+  const { openTab } = useAppStore();
 
   const loadTree = useCallback(() => {
     setLoading(true);
@@ -348,14 +349,24 @@ export function FileTree() {
       if (inlineInput.kind === 'folder') {
         await api.createFolder(fullPath);
       } else {
-        await api.createFile(fullPath, '');
+        const isMd = name.endsWith('.md');
+        const initialContent = isMd
+          ? `---\n---\n\n# ${name.replace(/\.md$/, '')}\n\n`
+          : '';
+        await api.createFile(fullPath, initialContent);
+        // Auto-open the file in editor
+        openTab({
+          path: fullPath,
+          name,
+          type: getFileType(name),
+        });
       }
       loadTree();
     } catch (err) {
       console.error('Failed to create:', err);
     }
     setInlineInput(null);
-  }, [inlineInput, loadTree]);
+  }, [inlineInput, loadTree, openTab]);
 
   const handleRename = useCallback(() => {
     if (!contextMenu) return;
@@ -409,7 +420,21 @@ export function FileTree() {
       {/* Header */}
       <div className="px-3 py-2 border-b border-[var(--color-border-default)] flex items-center gap-2">
         <h3 className="text-xs font-medium uppercase tracking-wide text-[var(--color-text-tertiary)] flex-1">Explorer</h3>
-        <button onClick={loadTree} className="p-1 rounded hover:bg-[var(--color-border-subtle)] text-[var(--color-text-tertiary)]">
+        <button
+          onClick={() => setInlineInput({ parentPath: '', kind: 'file' })}
+          className="p-1 rounded hover:bg-[var(--color-border-subtle)] text-[var(--color-text-tertiary)]"
+          title="New File"
+        >
+          <FilePlus size={12} />
+        </button>
+        <button
+          onClick={() => setInlineInput({ parentPath: '', kind: 'folder' })}
+          className="p-1 rounded hover:bg-[var(--color-border-subtle)] text-[var(--color-text-tertiary)]"
+          title="New Folder"
+        >
+          <FolderPlus size={12} />
+        </button>
+        <button onClick={loadTree} className="p-1 rounded hover:bg-[var(--color-border-subtle)] text-[var(--color-text-tertiary)]" title="Refresh">
           <RefreshCw size={12} />
         </button>
       </div>

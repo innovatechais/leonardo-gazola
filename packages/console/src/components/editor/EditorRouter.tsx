@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppStore } from '@/stores/app-store';
-import { MarkdownViewer } from './MarkdownViewer';
+import { MarkdownEditor } from './MarkdownEditor';
 import { CodeEditor } from './CodeEditor';
 import { HtmlPreview } from './HtmlPreview';
 import { PdfViewer } from './PdfViewer';
@@ -23,7 +23,7 @@ export function EditorRouter() {
 
   switch (activeTab.type) {
     case 'markdown':
-      return <MarkdownViewer path={activeTab.path} />;
+      return <MarkdownEditor path={activeTab.path} tabId={activeTab.id} />;
     case 'html':
       return <HtmlPreview path={activeTab.path} />;
     case 'pdf':
