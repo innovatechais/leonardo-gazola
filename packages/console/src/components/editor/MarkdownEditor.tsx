@@ -70,6 +70,7 @@ export function MarkdownEditor({ path, tabId }: MarkdownEditorProps) {
       DragHandle,
       SlashCommands,
     ],
+    immediatelyRender: false,
     editorProps: {
       attributes: {
         class: 'tiptap-editor',
@@ -88,27 +89,22 @@ export function MarkdownEditor({ path, tabId }: MarkdownEditorProps) {
       .then((content) => {
         setRawMarkdown(content);
         setSourceContent(content);
-        if (editor) {
-          const html = markdownToHtml(content);
-          editor.commands.setContent(html);
-        }
       })
       .catch(() => {
         const fallback = '# Error loading file';
         setRawMarkdown(fallback);
         setSourceContent(fallback);
-        if (editor) editor.commands.setContent('<h1>Error loading file</h1>');
       })
       .finally(() => setLoading(false));
-  }, [path]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [path]);
 
-  // Set content when editor becomes available after load
+  // Set content when editor AND content are both ready
   useEffect(() => {
     if (editor && rawMarkdown && !loading) {
       const html = markdownToHtml(rawMarkdown);
       editor.commands.setContent(html);
     }
-  }, [editor]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [editor, rawMarkdown, loading]);
 
   const saveContent = useCallback(async (md: string) => {
     setSaving(true);
